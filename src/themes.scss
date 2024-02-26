@@ -1,0 +1,102 @@
+// import Nebular Theme System and the default theme
+@forward '@nebular/theme/styles/theming';
+@use '@nebular/theme/styles/theming' as *;
+@use '@nebular/theme/styles/themes/corporate';
+
+$nb-enable-css-custom-properties: true;
+
+
+$nb-themes: nb-register-theme(
+  ( // we setting color-basic-800 instead of color-basic-1000
+    //Fondo Seekop
+
+    layout-background-color: #ffffff,
+
+    //Estilos Seekop Card
+    card-border-color: #ffffff,
+    card-background-color: #ffffff 0% 0% no-repeat padding-box,
+    card-shadow: 0px 3px 6px #c5c5c580,
+    card-border-radius: 20px,
+
+
+    menu-group-text-color: #ffffff,
+    menu-text-color: #8095bf,
+    menu-item-icon-color: #8095bf,
+    menu-item-divider-color: #002b84,
+    menu-item-icon-active-color: #ffffff,
+    menu-item-active-text-color: #ffffff,
+    sidebar-background-color: #002b84,
+    sidebar-menu-item-highlight-color: #ffffff,
+    sidebar-height: auto,
+
+    //Color Iconos Seekop
+    actions-icon-color: #002a7f,
+
+    //Paelta de colres Seekop
+    color-primary-100: #f7fbd7,
+    color-primary-200: #eef8b1,
+    color-primary-300: #dbeb86,
+    color-primary-400: #c3d764,
+    color-primary-500: #a3bd36,
+    color-primary-600: #88a227,
+    color-primary-700: #6e881b,
+    color-primary-800: #566d11,
+    color-primary-900: #445a0a,
+    color-success-100: #c6def8,
+    color-success-200: #91bbf2,
+    color-success-300: #568ad8,
+    color-success-400: #2c5db2,
+    color-success-500: #002a7f,
+    color-success-600: #00206d,
+    color-success-700: #00185b,
+    color-success-800: #001049,
+    color-success-900: #000b3c,
+    color-info-100: #ebf3fb,
+    color-info-200: #d8e6f8,
+    color-info-300: #bdd0ec,
+    color-info-400: #a3b7d9,
+    color-info-500: #8196c0,
+    color-info-600: #5e73a5,
+    color-info-700: #41548a,
+    color-info-800: #29396f,
+    color-info-900: #18265c,
+    color-warning-100: #fefad6,
+    color-warning-200: #fef4ae,
+    color-warning-300: #feec85,
+    color-warning-400: #fde467,
+    color-warning-500: #fdd835,
+    color-warning-600: #d9b526,
+    color-warning-700: #b6931a,
+    color-warning-800: #927310,
+    color-warning-900: #795c0a,
+    color-danger-100: #fcebeb,
+    color-danger-200: #f8d7d7,
+    color-danger-300: #f3b3b3,
+    color-danger-400: #f44336,
+    color-danger-500: #f44336,
+    color-danger-600: #f44336,
+    color-danger-700: #f44336,
+    color-danger-800: #aa2e2e,
+    color-danger-900: #811919,
+
+    layout-padding-top: 2.25rem,
+
+    menu-item-icon-margin: 0 0.5rem 0 0,
+
+    card-height-tiny: 13.5rem,
+    card-height-small: 21.1875rem,
+    card-height-medium: 28.875rem,
+    card-height-large: 36.5625rem,
+    card-height-giant: 44.25rem,
+    card-margin-bottom: 1.875rem,
+    card-header-with-select-padding-top: 0.5rem,
+    card-header-with-select-padding-bottom: 0.5rem,
+
+    select-min-width: 6rem,
+
+    slide-out-background: linear-gradient(270deg, #f7eded 0%, #e4e9f2 100%),
+    slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+    slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+      ),
+    seekop,
+    corporate);

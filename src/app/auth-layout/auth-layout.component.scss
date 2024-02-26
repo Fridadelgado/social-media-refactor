@@ -1,0 +1,27 @@
+/* Ajustes generales para el sidebar */
+.nb-sidebar {
+  position: relative; /* Para el posicionamiento absoluto de los hijos */
+  /* Otros estilos para el sidebar */
+}
+
+/* Estilos comunes para la imagen del logo */
+.logo-image {
+  display: block; /* Asegura que la imagen no tenga margen blanco alrededor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  transition: width 0.5s; /* Transición suave para los cambios de ancho */
+  position: fixed; /* Necesario para que z-index funcione */
+}
+
+/* Estilos específicos cuando el sidebar está expandido */
+.logo-image-expanded {
+  width: 243px;
+    margin-left: -270px;
+    margin-top: 1%;
+}
+
+/* Estilos específicos cuando el sidebar está compactado */
+.logo-image-collapsed {
+  width: 60px; /* Ajusta este valor al ancho del sidebar compactado */
+  margin-left: -80px;
+  margin-top: 0%;
+}

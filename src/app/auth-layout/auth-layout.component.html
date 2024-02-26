@@ -1,0 +1,34 @@
+<nb-layout>
+  <nb-layout-header subheader>
+    <img [src]="isCollapsed ? logoUrl2 : logoUrl" [class.logo-image-expanded]="!isCollapsed"
+      [class.logo-image-collapsed]="isCollapsed" class="logo-image" />
+    <button nbButton (click)="toggleSidebar()">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </button>
+    <div class="container-fluid">
+      <div class="row justify-content-end ">
+
+        <div class="col-md-6"></div>
+
+        <div class="col-md-4 d-flex justify-content-end mt-3">
+          <app-actions></app-actions>
+        </div>
+        <div class="col-md-2">
+          <app-user-avatar></app-user-avatar>
+        </div>
+      </div>
+    </div>
+  </nb-layout-header>
+
+
+  <nb-sidebar [state]="isCollapsed ? 'compacted' : 'expanded'" style="margin-top: -30px;">
+
+    <app-menu></app-menu>
+
+  </nb-sidebar>
+
+  <nb-layout-column>
+
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

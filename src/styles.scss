@@ -1,0 +1,17 @@
+// this is our just created themes.scss file, make sure the path to the file is correct
+@use 'themes' as *;
+
+// framework component styles
+@use '@nebular/theme/styles/globals' as *;
+
+// install the framework styles
+@include nb-install() {
+  @include nb-theme-global();
+
+}
+nb-menu nb-icon {
+  width: 1.5rem; // O el tamaño que prefieras
+  height: 1.5rem;
+}
+// Importa solo el sistema de cuadrícula de Bootstrap
+@import 'node_modules/bootstrap/scss/bootstrap-grid.scss';
