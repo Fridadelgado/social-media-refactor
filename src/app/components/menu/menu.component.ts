@@ -17,6 +17,11 @@ export class MenuComponent {
       link: '/users',
       icon: 'people-outline',
     },
+    {
+      title: 'calendariopublicaciones',
+      link: '/calendariopublicaciones',
+      icon: 'home-outline',
+    },
     // Añade más elementos de menú según sea necesario
   ];
 }

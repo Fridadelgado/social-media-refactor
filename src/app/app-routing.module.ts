@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component'; // Importa el componente de login
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component'; // Importa el componente de login
+import { CalendariopublicacionesComponent } from './pages/calendariopublicaciones/calendariopublicaciones.component';
 import {
   NbAuthComponent,
   NbLoginComponent,
@@ -51,6 +52,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'users', component: UsersComponent },
+      { path: 'calendariopublicaciones', component: CalendariopublicacionesComponent },
       // ... más rutas autenticadas ...
     ]
   },
