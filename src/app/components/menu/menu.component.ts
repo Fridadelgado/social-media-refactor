@@ -22,6 +22,12 @@ export class MenuComponent {
       link: '/calendariopublicaciones',
       icon: 'home-outline',
     },
+    {
+      title: 'pulicacioes',
+      link: '/publicaciones',
+      icon: 'home-outline',
+    },
+    
     // Añade más elementos de menú según sea necesario
   ];
 }

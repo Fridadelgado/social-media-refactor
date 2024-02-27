@@ -6,6 +6,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component'; // Importa el componente de login
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component'; // Importa el componente de login
 import { CalendariopublicacionesComponent } from './pages/calendariopublicaciones/calendariopublicaciones.component';
+import { PublicacionesComponent } from './pages/publicaciones/publicaciones.component';
 import {
   NbAuthComponent,
   NbLoginComponent,
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'users', component: UsersComponent },
       { path: 'calendariopublicaciones', component: CalendariopublicacionesComponent },
+      { path: 'publicaciones', component: PublicacionesComponent},
       // ... más rutas autenticadas ...
     ]
   },
