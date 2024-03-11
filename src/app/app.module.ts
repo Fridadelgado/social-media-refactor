@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 // Nebular
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule,NbInputModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule,NbInputModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -20,6 +20,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { PublicacionesComponent} from './pages/publicaciones/publicaciones.component';
+
+
 
 @NgModule({
   declarations: [
@@ -31,9 +34,12 @@ import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
     UsersComponent,
     LoginComponent,
     AuthLayoutComponent,
+    PublicacionesComponent,
   ],
   imports: [
     BrowserModule,
+    NbSelectModule,
+    NbOptionModule,
     AppRoutingModule,
     FormsModule,
     NbLayoutModule,
