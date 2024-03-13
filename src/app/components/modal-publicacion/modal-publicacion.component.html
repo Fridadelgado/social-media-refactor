@@ -1,0 +1,35 @@
+<nb-card style="background-color: #fff;">
+  <nb-card-header>
+    Crear Publicación
+  </nb-card-header>
+  <nb-card-body class="row">
+    <!-- Columna izquierda para formulario -->
+    <div class="col-md-8">
+      <nb-select placeholder="Publicar en" [(ngModel)]="publicacion.redSocial" multiple>
+        <nb-option *ngFor="let redSocial of redesSocialesDisponibles" [value]="redSocial.value">
+          {{ redSocial.label }}
+        </nb-option>
+      </nb-select>
+      <input nbInput placeholder="Título" [(ngModel)]="publicacion.titulo">
+      <textarea nbInput placeholder="Descripción" [(ngModel)]="publicacion.descripcion"></textarea>
+      <input type="file" (change)="onFileSelected($event)">
+      <!-- Agregar más campos según sea necesario -->
+    </div>
+    <!-- Columna derecha para previsualización -->
+    <div class="col-md-4">
+      <p><strong>Previsualización:</strong></p>
+      <p>Título: {{publicacion.titulo}}</p>
+      <p>Descripción: {{publicacion.descripcion}}</p>
+      <!-- En modal-publicacion.component.html -->
+      <img *ngIf="imagenPrevisualizacion" [src]="imagenPrevisualizacion" class="img-fluid img-previsualizacion"
+        alt="Previsualización">
+
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="info" (click)="definirAudiencia()">Definir Audiencia Objetivo</button>
+    <button nbButton status="primary" (click)="agregarPublicacion()">Publicar</button>
+    <button nbButton status="success" (click)="calendarizar()">Calendarizar</button>
+    <button nbButton status="warning" (click)="cancelar()">Cancelar</button>
+  </nb-card-footer>
+</nb-card>

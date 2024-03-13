@@ -1,35 +1,22 @@
-<nb-card>
-  <nb-card-header>Publicar en:</nb-card-header>
-  <nb-card-body>
-    <nb-select placeholder="Selecciona redes sociales" [(ngModel)]="selectedSocialMedia" multiple>
-      <nb-option *ngFor="let socialMedia of socialMedias" [value]="socialMedia.value">
-        <img [src]="socialMedia.icon" alt="{{socialMedia.label}}"> {{ socialMedia.label }}
-      </nb-option>
-    </nb-select>
-  </nb-card-body>
-</nb-card>
-<nb-card>
-  <nb-card-header>Contenidos:</nb-card-header>
-  <nb-card-body>
-    <textarea nbInput fullWidth placeholder="Texto y enlaces"></textarea>
-    <input type="file" id="image" name="image" accept="image/*">
-  </nb-card-body>
-</nb-card>
+<button nbButton hero status="primary" (click)="openModal()">Crear Publicación</button>
 <div class="row">
-  <div class="col-md-8">
-    <!-- Elementos del formulario aquí -->
-  </div>
-  <div class="col-md-4">
+  <div class="col-md-4" *ngFor="let publicacion of publicaciones">
     <nb-card>
-      <nb-card-header>Previsualización:</nb-card-header>
+      <nb-card-header>
+        <div class="header-content">
+          <h3>Publicado en:</h3>
+          <img *ngFor="let red of publicacion.redSocial" [src]="getSocialMediaIcon(red)" [alt]="red" class="social-media-icon">
+        </div>
+      </nb-card-header>
       <nb-card-body>
-        <!-- Componente de previsualización aquí -->
+        <h5>{{ publicacion.titulo }}</h5>
+        <p>{{ publicacion.descripcion }}</p>
+        <!-- Mostrar imagen si está disponible, ahora con la clase para controlar el tamaño -->
+        <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" alt="Publicación">
       </nb-card-body>
+      <nb-card-footer>
+        <a [href]="publicacion.link" target="_blank">Más información</a>
+      </nb-card-footer>
     </nb-card>
   </div>
 </div>
-<nb-card-footer>
-  <button nbButton status="primary">Audiencia objetivo</button>
-  <button nbButton status="success">Publicar</button>
-  <button nbButton status="info">Calendarizar</button>
-</nb-card-footer>

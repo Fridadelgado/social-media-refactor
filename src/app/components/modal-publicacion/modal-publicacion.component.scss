@@ -4,11 +4,3 @@
   max-height: 200px; /* Establece un alto máximo para no alterar el diseño */
   object-fit: cover; /* Ajusta la imagen para cubrir el espacio disponible, puede cambiar según necesidad */
 }
-
-
-/* En el CSS del componente modal-publicacion.component.scss */
-.social-media-icon {
-  max-width: 50%; /* Asegura que la imagen no sea más ancha que su contenedor */
-  max-height: 50px; /* Establece un alto máximo para no alterar el diseño */
-  object-fit: cover; /* Ajusta la imagen para cubrir el espacio disponible, puede cambiar según necesidad */
-}

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from '../app/core-module/core-module.module';
 
 // Nebular
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule,NbInputModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule,NbInputModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -15,6 +15,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MenuListComponent } from './components/menu-list/menu-list.component';
 import { ActionsComponent } from './components/actions/actions.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
+import { ModalPublicacionComponent } from './components/modal-publicacion/modal-publicacion.component';
 
 // Pages
 import { HomeComponent } from './pages/home/home.component';
@@ -29,6 +30,7 @@ import { PublicacionesComponent} from './pages/publicaciones/publicaciones.compo
   declarations: [
     AppComponent,
     MenuListComponent,
+    ModalPublicacionComponent,
     ActionsComponent,
     UserAvatarComponent,
     HomeComponent,
@@ -55,6 +57,7 @@ import { PublicacionesComponent} from './pages/publicaciones/publicaciones.compo
     NbCardModule,
     NbUserModule,
     NbInputModule,
+    NbDialogModule.forRoot(),
     NbAlertModule,
     NbAuthModule.forRoot({
       strategies: [
