@@ -1,7 +1,35 @@
-
-    <nb-select multiple placeholder="Multiple Select">
-      <nb-option value="1">Option 1</nb-option>
-      <nb-option value="2">Option 2</nb-option>
-      <nb-option value="3">Option 3</nb-option>
-      <nb-option value="4">Option 4</nb-option>
+<nb-card>
+  <nb-card-header>Publicar en:</nb-card-header>
+  <nb-card-body>
+    <nb-select placeholder="Selecciona redes sociales" [(ngModel)]="selectedSocialMedia" multiple>
+      <nb-option *ngFor="let socialMedia of socialMedias" [value]="socialMedia.value">
+        <img [src]="socialMedia.icon" alt="{{socialMedia.label}}"> {{ socialMedia.label }}
+      </nb-option>
     </nb-select>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+  <nb-card-header>Contenidos:</nb-card-header>
+  <nb-card-body>
+    <textarea nbInput fullWidth placeholder="Texto y enlaces"></textarea>
+    <input type="file" id="image" name="image" accept="image/*">
+  </nb-card-body>
+</nb-card>
+<div class="row">
+  <div class="col-md-8">
+    <!-- Elementos del formulario aquí -->
+  </div>
+  <div class="col-md-4">
+    <nb-card>
+      <nb-card-header>Previsualización:</nb-card-header>
+      <nb-card-body>
+        <!-- Componente de previsualización aquí -->
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<nb-card-footer>
+  <button nbButton status="primary">Audiencia objetivo</button>
+  <button nbButton status="success">Publicar</button>
+  <button nbButton status="info">Calendarizar</button>
+</nb-card-footer>

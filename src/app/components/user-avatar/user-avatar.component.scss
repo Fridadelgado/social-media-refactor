@@ -1,0 +1,51 @@
+.custom-nb-user {
+  display: flex;
+  align-items: center;
+  font-family: sans-serif; /* Ajusta según la tipografía de tu aplicación */
+}
+
+.size-large .user-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-container {
+  margin-right: 10px; /* Ajusta el espacio entre la info y la imagen */
+}
+
+.user-name {
+  font-size: 1.2rem; /* Ajusta según el tamaño deseado */
+  font-weight: bold;
+}
+
+.user-title {
+  font-size: 0.9rem; /* Ajusta según el tamaño deseado */
+}
+
+.user-picture {
+  width: 48px; /* Tamaño de la imagen */
+  height: 48px; /* Tamaño de la imagen */
+  border-radius: 50%; /* Para hacerla circular */
+  background-size: cover;
+  position: relative;
+}
+
+.nb-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: blue; /* Ajusta el color según el estado */
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 0.75rem; /* Ajusta el tamaño del texto dentro del badge */
+}
+
+.status-primary {
+  color: #a3bd36 !important;
+  background-color: #a3bd36 !important;
+  border-radius: 50% !important;
+  width: 7px !important;
+  height: 13px !important;
+  border-color: #fff !important;
+}

@@ -2,9 +2,9 @@
   <nb-layout-header subheader>
     <img [src]="isCollapsed ? logoUrl2 : logoUrl" [class.logo-image-expanded]="!isCollapsed"
       [class.logo-image-collapsed]="isCollapsed" class="logo-image" />
-    <button nbButton (click)="toggleSidebar()">
+    <!-- <button nbButton (click)="toggleSidebar()">
       <nb-icon icon="menu-2-outline"></nb-icon>
-    </button>
+    </button> -->
     <div class="container-fluid">
       <div class="row justify-content-end ">
 
@@ -21,9 +21,9 @@
   </nb-layout-header>
 
 
-  <nb-sidebar [state]="isCollapsed ? 'compacted' : 'expanded'" style="margin-top: -30px;">
+  <nb-sidebar [state]="isCollapsed ? 'compacted' : 'expanded'" style="margin-top: -60px; width: 80px;">
 
-    <app-menu></app-menu>
+    <app-menu-list></app-menu-list>
 
   </nb-sidebar>
 

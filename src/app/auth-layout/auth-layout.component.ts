@@ -9,16 +9,16 @@ import { SidebarService } from '../../app/services/sidebar.service';
 export class AuthLayoutComponent {
   title = 'BI-ADMIN-INTERFACES-PADRE';
   public logoUrl = '../assets/images/logo-blanco.png';
-  public logoUrl2 = '../assets/images/cropped-op1-192x192.png';
+  public logoUrl2 = '../assets/images/seekop-imagotipo.png';
 
-  public isCollapsed = false;
+  public isCollapsed = true;
 
   constructor(
     private sidebarService: SidebarService,
     // Otros servicios...
   ) {
     this.sidebarService.isCollapsed$.subscribe(value => {
-      this.isCollapsed = value;
+      this.isCollapsed = true;
     });
   }
 

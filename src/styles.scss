@@ -9,9 +9,53 @@
   @include nb-theme-global();
 
 }
-nb-menu nb-icon {
-  width: 1.5rem; // O el tamaño que prefieras
-  height: 1.5rem;
+
+nb-menu nb-icon svg {
+
+  width: 39px;
+  height: 40px;
+  padding: 2px;
 }
+
+nb-menu nb-icon:hover svg path,
+nb-menu nb-icon:focus svg path {
+  fill: #FFF !important;
+  /* Asegúrate de reemplazar #b70909 con el color deseado */
+}
+
+
+nb-menu .menu-item .menu-icon {
+  margin-bottom: 20px;
+  margin-left: 8px;
+  padding: 1px;
+}
+
+nb-sidebar.compacted nb-menu .menu-item a.active::before {
+  top: -2px;
+  height: 94%;
+  width: 3px;
+  left: 2px !important;
+}
+
+
+.layout-container nb-sidebar.fixed, nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
+  top: 156px;
+}
+
+
+
+nb-badge.status-danger {
+  border-radius: 50% !important;
+  width: 7px !important;
+  height: 13px !important;
+  border-color: #fff !important;
+  left: 24px !important;
+  font-size: 10px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  display: flex !important;
+}
+
+
 // Importa solo el sistema de cuadrícula de Bootstrap
 @import 'node_modules/bootstrap/scss/bootstrap-grid.scss';
