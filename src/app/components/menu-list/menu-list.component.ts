@@ -26,7 +26,22 @@ export class MenuListComponent {
     {
       title: 'pulicacioes',
       link: '/publicaciones',
+      icon: 'mdi-cloud-upload-outline',
+    },
+    {
+      title: 'Conversaciones',
+      link: '/conversaciones',
+      icon: 'comment-send',
+    },
+    {
+      title: 'Redes Sociales',
+      link: '/redes-sociales',
       icon: 'text-box-plus-outline-success',
+    },
+    {
+      title: 'Distribuidres Asignados',
+      link: '/distribuidores-asignados',
+      icon: 'mdi-account-group-primary',
     },
 
     // Añade más elementos de menú según sea necesario

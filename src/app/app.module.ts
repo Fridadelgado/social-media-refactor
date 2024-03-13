@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from '../app/core-module/core-module.module';
 
 // Nebular
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule,NbInputModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbInputModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -22,8 +22,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
-import { PublicacionesComponent} from './pages/publicaciones/publicaciones.component';
-import { CalendariopublicacionesComponent} from './pages/calendariopublicaciones/calendariopublicaciones.component';
+import { PublicacionesComponent } from './pages/publicaciones/publicaciones.component';
+import { CalendariopublicacionesComponent } from './pages/calendariopublicaciones/calendariopublicaciones.component';
+import { ConversacionesComponent } from './pages/conversaciones/conversaciones.component';
+import { DistribuidoresAsignadosComponent } from './pages/distribuidores-asignados/distribuidores-asignados.component';
+import { RedesSocialesComponent } from './pages/redes-sociales/redes-sociales.component';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 
@@ -33,19 +36,22 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   declarations: [
     AppComponent,
     MenuListComponent,
+    DistribuidoresAsignadosComponent,
+    RedesSocialesComponent,
     CalendariopublicacionesComponent,
     ModalPublicacionComponent,
     ActionsComponent,
     UserAvatarComponent,
     HomeComponent,
     UsersComponent,
+    ConversacionesComponent,
     LoginComponent,
     AuthLayoutComponent,
     PublicacionesComponent,
   ],
   imports: [
     CoreModule,
-    FullCalendarModule ,
+    FullCalendarModule,
     BrowserModule,
     NbSelectModule,
     NbOptionModule,

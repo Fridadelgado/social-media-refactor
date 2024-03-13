@@ -7,6 +7,9 @@ import { LoginComponent } from './pages/login/login.component'; // Importa el co
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component'; // Importa el componente de login
 import { CalendariopublicacionesComponent } from './pages/calendariopublicaciones/calendariopublicaciones.component';
 import { PublicacionesComponent } from './pages/publicaciones/publicaciones.component';
+import { ConversacionesComponent } from './pages/conversaciones/conversaciones.component';
+import { DistribuidoresAsignadosComponent } from './pages/distribuidores-asignados/distribuidores-asignados.component';
+import { RedesSocialesComponent } from './pages/redes-sociales/redes-sociales.component';
 import {
   NbAuthComponent,
   NbLoginComponent,
@@ -55,6 +58,9 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'calendariopublicaciones', component: CalendariopublicacionesComponent },
       { path: 'publicaciones', component: PublicacionesComponent},
+      { path: 'conversaciones', component: ConversacionesComponent},
+      { path: 'redes-sociales', component: RedesSocialesComponent},
+      { path: 'distribuidores-asignados', component: DistribuidoresAsignadosComponent},
       // ... más rutas autenticadas ...
     ]
   },
