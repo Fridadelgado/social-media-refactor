@@ -23,6 +23,9 @@ import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 import { PublicacionesComponent} from './pages/publicaciones/publicaciones.component';
+import { CalendariopublicacionesComponent} from './pages/calendariopublicaciones/calendariopublicaciones.component';
+
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -30,6 +33,7 @@ import { PublicacionesComponent} from './pages/publicaciones/publicaciones.compo
   declarations: [
     AppComponent,
     MenuListComponent,
+    CalendariopublicacionesComponent,
     ModalPublicacionComponent,
     ActionsComponent,
     UserAvatarComponent,
@@ -41,6 +45,7 @@ import { PublicacionesComponent} from './pages/publicaciones/publicaciones.compo
   ],
   imports: [
     CoreModule,
+    FullCalendarModule ,
     BrowserModule,
     NbSelectModule,
     NbOptionModule,
