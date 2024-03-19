@@ -8,7 +8,17 @@
     <div class="container-fluid">
       <div class="row justify-content-end ">
 
-        <div class="col-md-6"></div>
+
+        <!-- Utilizando nb-select de Nebular para el selector de idiomas -->
+        <div class="col-md-6">
+          <nb-select placeholder="Select Language" [(ngModel)]="selectedLanguage" (selectedChange)="changeLanguage()">
+            <nb-option *ngFor="let lang of ['es', 'en']" [value]="lang">
+              {{ languageNames[lang] }}
+            </nb-option>
+          </nb-select>
+        </div>
+
+
 
         <div class="col-md-4 d-flex justify-content-end mt-3">
           <app-actions></app-actions>

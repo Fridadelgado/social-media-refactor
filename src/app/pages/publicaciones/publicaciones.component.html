@@ -1,10 +1,10 @@
-<button nbButton hero status="primary" (click)="openModal()">Crear Publicación</button>
+<button nbButton hero status="primary" (click)="openModal()">{{ 'pages.publicaciones.botonCrearPublicacion' | translate }}</button>
 <div class="row">
   <div class="col-md-4" *ngFor="let publicacion of publicaciones">
     <nb-card>
       <nb-card-header>
         <div class="header-content">
-          <h3>Publicado en:</h3>
+          <h3>{{ 'pages.publicaciones.labelPublicadoEn' | translate }}</h3>
           <img *ngFor="let red of publicacion.redSocial" [src]="getSocialMediaIcon(red)" [alt]="red" class="social-media-icon">
         </div>
       </nb-card-header>
@@ -15,7 +15,7 @@
         <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" alt="Publicación">
       </nb-card-body>
       <nb-card-footer>
-        <a [href]="publicacion.link" target="_blank">Más información</a>
+        <a [href]="publicacion.link" target="_blank">{{ 'pages.publicaciones.labelMasInfo' | translate }}</a>
       </nb-card-footer>
     </nb-card>
   </div>

@@ -1,0 +1,22 @@
+{
+  "pages": {
+    "calendariopublicaciones": {},
+    "conversaciones": {},
+    "distribuidores-asignados": {},
+    "home": {},
+    "login": {},
+    "publicaciones": {
+      "botonCrearPublicacion": "Crear Publicación",
+      "labelPublicadoEn": "Publicado en:",
+      "labelMasInfo": "Más información"
+    }
+  },
+  "components": {
+    "calendariopublicaciones": {},
+    "conversaciones": {},
+    "distribuidores-asignados": {},
+    "home": {},
+    "login": {},
+    "publicaciones": {}
+  }
+}
