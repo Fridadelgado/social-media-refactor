@@ -4,3 +4,15 @@
   max-height: 200px; /* Establece un alto máximo para no alterar el diseño */
   object-fit: cover; /* Ajusta la imagen para cubrir el espacio disponible, puede cambiar según necesidad */
 }
+
+.img-red-social {
+  width: 50px; /* Tamaño fijo de ancho */
+  height: 50px; /* Tamaño fijo de alto */
+  object-fit: cover;
+}
+.modal-publicacion {
+  width: 1000px; // O el ancho que desees
+  height: 500px; // Esto permite que el contenido dicte la altura, pero puedes fijarla también si lo prefieres
+  max-height: 90%; // Esto es opcional para asegurarse de que el modal no sea demasiado alto
+  overflow-y: auto; // Esto permite desplazarse por el modal si el contenido es demasiado largo
+}
