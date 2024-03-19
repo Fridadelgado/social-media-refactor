@@ -12,7 +12,7 @@
         <h5>{{ publicacion.titulo }}</h5>
         <p>{{ publicacion.descripcion }}</p>
         <!-- Mostrar imagen si está disponible, ahora con la clase para controlar el tamaño -->
-        <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" alt="Publicación">
+        <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
       </nb-card-body>
       <nb-card-footer>
         <a [href]="publicacion.link" target="_blank">{{ 'pages.publicaciones.labelMasInfo' | translate }}</a>

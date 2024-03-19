@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { PublicacionesService, Publicacion } from '../../services/publicaciones.service';
-
-import {  NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { TranslateService } from '@ngx-translate/core';
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -10,7 +10,7 @@ import {  NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from
   styleUrls: ['./modal-publicacion.component.scss']
 })
 export class ModalPublicacionComponent {
-  publicacion: Publicacion = {redSocial: [], titulo: '', descripcion: '', imagen: '', link: ''};
+  publicacion: Publicacion = { redSocial: [], titulo: '', descripcion: '', imagen: '', link: '' };
   imagenPrevisualizacion: string | ArrayBuffer | null = ''; // Agregamos una propiedad para almacenar la previsualización
 
   redesSocialesDisponibles = [
@@ -25,16 +25,19 @@ export class ModalPublicacionComponent {
   ];
 
   submitted = false;
-
-  dropZoneMessage: string = 'Arrastra tu imagen aquí o haz clic para seleccionar';
+  dropZoneMessage: string = "";
   isValidFile: boolean = false;
 
   constructor(
     protected ref: NbDialogRef<ModalPublicacionComponent>,
-    private publicacionesService: PublicacionesService
-  ) {}
+    private publicacionesService: PublicacionesService,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
+    this.translate.get('components.modal-publicacion.dropZoneDefault').subscribe((res: string) => {
+      this.dropZoneMessage = res;
+    });
   }
   onFileDrop(files: NgxFileDropEntry[]) {
     this.submitted = true;
@@ -49,7 +52,16 @@ export class ModalPublicacionComponent {
       }
     }
     this.isValidFile = this.validateFile(files[0].fileEntry.name);
-    this.dropZoneMessage = this.isValidFile ? 'Archivo subido exitosamente' : 'Archivo no válido. Considera PNG, JPG, etc.';
+    // Actualiza el mensaje de zona de arrastre basado en si el archivo es válido o no
+    if (this.isValidFile) {
+      this.translate.get('components.modal-publicacion.dropZoneSuccess').subscribe((res: string) => {
+        this.dropZoneMessage = res;
+      });
+    } else {
+      this.translate.get('components.modal-publicacion.dropZoneValidacion').subscribe((res: string) => {
+        this.dropZoneMessage = res;
+      });
+    }
   }
 
   onFileSelect(event: any) {
@@ -57,12 +69,18 @@ export class ModalPublicacionComponent {
     const file = event.target.files[0];
     if (file) {
       this.isValidFile = this.validateFile(file.name);
-      this.dropZoneMessage = this.isValidFile ? 'Archivo subido exitosamente' : 'Archivo no válido. Considera PNG, JPG, etc.';
+      // Decide qué mensaje mostrar basado en si el archivo es válido
+      const translationKey = this.isValidFile ? 'components.modal-publicacion.dropZoneSuccess' : 'components.modal-publicacion.dropZoneValidacion';
+      this.translate.get(translationKey).subscribe((res: string) => {
+        this.dropZoneMessage = res;
+      });
+
       if (this.isValidFile) {
         this.processFile(file);
       }
     }
   }
+
 
   validateFile(fileName: string): boolean {
     const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
