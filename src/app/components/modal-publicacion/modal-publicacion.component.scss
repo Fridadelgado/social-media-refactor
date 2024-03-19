@@ -1,30 +1,35 @@
-/* En el CSS del componente modal-publicacion.component.scss */
+/* Estilos para imágenes de previsualización en el modal. Se asegura de que las imágenes se ajusten adecuadamente sin sobrepasar su contenedor. */
 .img-previsualizacion {
-  max-width: 100%; /* Asegura que la imagen no sea más ancha que su contenedor */
-  max-height: 200px; /* Establece un alto máximo para no alterar el diseño */
-  object-fit: cover; /* Ajusta la imagen para cubrir el espacio disponible, puede cambiar según necesidad */
+  max-width: 100%; /* Hace que la imagen se ajuste al ancho de su contenedor, evitando que se desborde. */
+  max-height: 200px; /* Limita la altura de la imagen para mantener la consistencia del diseño del modal. */
+  object-fit: cover; /* Asegura que la imagen cubra completamente el espacio designado, posiblemente recortándola para que encaje. */
 }
 
+/* Estilos para las imágenes de iconos de redes sociales dentro del modal. Se establece un tamaño fijo para mantener la uniformidad. */
 .img-red-social {
-  width: 50px; /* Tamaño fijo de ancho */
-  height: 50px; /* Tamaño fijo de alto */
-  object-fit: cover;
+  width: 50px; /* Ancho fijo para los iconos de las redes sociales. */
+  height: 50px; /* Altura fija para los iconos de las redes sociales, creando un aspecto cuadrado. */
+  object-fit: cover; /* Ajusta el contenido de la imagen dentro del espacio asignado sin distorsionar su proporción. */
 }
+
+/* Estilos generales para el modal de publicación, incluyendo dimensiones y comportamiento de desbordamiento. */
 .modal-publicacion {
-  width: 1000px; // O el ancho que desees
-  height: 700px; // Esto permite que el contenido dicte la altura, pero puedes fijarla también si lo prefieres
-  max-height: 90%; // Esto es opcional para asegurarse de que el modal no sea demasiado alto
-  overflow-y: auto; // Esto permite desplazarse por el modal si el contenido es demasiado largo
+  width: 1000px; /* Ancho fijo para el modal, que puede ajustarse según las necesidades de diseño. */
+  height: 700px; /* Altura inicial para el modal, que puede ajustarse o dejarse para que el contenido dicte la altura. */
+  max-height: 90%; /* Limita la altura máxima del modal para asegurar que no ocupe toda la pantalla en dispositivos con altas resoluciones. */
+  overflow-y: auto; /* Permite el desplazamiento vertical dentro del modal si el contenido excede la altura del mismo. */
 }
+
+/* Estilos para el contenido personalizado dentro del modal, permitiendo ajustes visuales basados en el estado de la operación (éxito, error). */
 .custom-content {
-  color: #000; // Cambiar según el estado, ejemplo inicial
-  // Otros estilos aquí
+  color: #000; /* Color de texto predeterminado para el contenido personalizado. */
+  /* Aquí pueden añadirse más estilos según sea necesario. */
 }
 
 .custom-content.success {
-  color: #A3BD36; // Color para carga exitosa
+  color: #A3BD36; /* Color de texto para indicar una operación o carga exitosa. */
 }
 
 .custom-content.error {
-  color: #CF3341; // Color para archivo no válido
+  color: #CF3341; /* Color de texto para indicar un error o un archivo no válido. */
 }

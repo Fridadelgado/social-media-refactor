@@ -1,20 +1,33 @@
+<!-- Botón para abrir un modal de creación de publicación. Utiliza Nebular para el estilo y ngx-translate para la internacionalización del texto. -->
 <button nbButton hero status="primary" (click)="openModal()">{{ 'pages.publicaciones.botonCrearPublicacion' | translate }}</button>
+
+<!-- Contenedor para las publicaciones. Utiliza Bootstrap para el diseño responsivo. -->
 <div class="row">
-  <div class="col-md-4" *ngFor="let publicacion of publicaciones">
+  <div class="col-md-4" *ngFor="let publicacion of publicaciones"> <!-- Crea una tarjeta para cada publicación utilizando un bucle *ngFor. -->
+
+    <!-- Tarjeta Nebular para una publicación individual. -->
     <nb-card>
+
+      <!-- Cabecera de la tarjeta, muestra los íconos de las redes sociales asociadas a la publicación. -->
       <nb-card-header>
         <div class="header-content">
-          <h3>{{ 'pages.publicaciones.labelPublicadoEn' | translate }}</h3>
+          <h3>{{ 'pages.publicaciones.labelPublicadoEn' | translate }}</h3> <!-- Texto internacionalizado para "Publicado en". -->
+          <!-- Muestra un ícono para cada red social de la publicación. Los íconos son obtenidos dinámicamente según la red social. -->
           <img *ngFor="let red of publicacion.redSocial" [src]="getSocialMediaIcon(red)" [alt]="red" class="social-media-icon">
         </div>
       </nb-card-header>
+
+      <!-- Cuerpo de la tarjeta, muestra el título y la descripción de la publicación. -->
       <nb-card-body>
         <h5>{{ publicacion.titulo }}</h5>
         <p>{{ publicacion.descripcion }}</p>
-        <!-- Mostrar imagen si está disponible, ahora con la clase para controlar el tamaño -->
+        <!-- Si la publicación tiene una imagen asociada, muestra la imagen con un tamaño controlado. -->
         <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
       </nb-card-body>
+
+      <!-- Pie de página de la tarjeta, contiene un enlace para más información sobre la publicación. -->
       <nb-card-footer>
+        <!-- El enlace abre en una nueva pestaña gracias a target="_blank". -->
         <a [href]="publicacion.link" target="_blank">{{ 'pages.publicaciones.labelMasInfo' | translate }}</a>
       </nb-card-footer>
     </nb-card>

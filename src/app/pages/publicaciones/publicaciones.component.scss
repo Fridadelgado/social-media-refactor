@@ -1,14 +1,15 @@
 /* En el CSS del componente modal-publicacion.component.scss */
+
+/* Estilos para la clase .img-previsualizacion, destinada a imágenes de previsualización en el modal. */
 .img-previsualizacion {
-  max-width: 100%; /* Asegura que la imagen no sea más ancha que su contenedor */
-  max-height: 200px; /* Establece un alto máximo para no alterar el diseño */
-  object-fit: cover; /* Ajusta la imagen para cubrir el espacio disponible, puede cambiar según necesidad */
+  max-width: 100%; /* Asegura que la imagen se ajuste al ancho de su contenedor sin excederlo, preservando la proporción y evitando que la imagen se desborde. */
+  max-height: 200px; /* Establece un alto máximo de 200px para la imagen, ayudando a mantener la uniformidad en el tamaño de las imágenes y a no alterar el diseño del modal. */
+  object-fit: cover; /* Ajusta la imagen para cubrir completamente el área designada sin distorsionar sus proporciones. Si la imagen no encaja perfectamente en el contenedor, se recortará para cubrir el espacio. */
 }
 
-
-/* En el CSS del componente modal-publicacion.component.scss */
+/* Estilos para la clase .social-media-icon, destinada a íconos de redes sociales en el modal. */
 .social-media-icon {
-  max-width: 50%; /* Asegura que la imagen no sea más ancha que su contenedor */
-  max-height: 50px; /* Establece un alto máximo para no alterar el diseño */
-  object-fit: cover; /* Ajusta la imagen para cubrir el espacio disponible, puede cambiar según necesidad */
+  max-width: 50%; /* Asegura que el ícono de la red social no exceda el 50% del ancho de su contenedor, manteniendo el diseño balanceado y evitando que el ícono domine visualmente el espacio. */
+  max-height: 50px; /* Establece un alto máximo de 50px para el ícono, asegurando que no sea demasiado grande y mantenga una apariencia estética y proporcionada dentro del modal. */
+  object-fit: cover; /* Al igual que con las imágenes de previsualización, ajusta el ícono para cubrir el espacio asignado de manera adecuada. Dependiendo del aspecto y tamaño original del ícono, puede recortarse para encajar. */
 }

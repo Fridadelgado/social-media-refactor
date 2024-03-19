@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
-import { PublicacionesService, Publicacion } from '../../services/publicaciones.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { NbDialogRef } from '@nebular/theme'; // Para manejar el cierre del modal.
+import { PublicacionesService, Publicacion } from '../../services/publicaciones.service'; // Servicio para manejar las publicaciones.
+import { TranslateService } from '@ngx-translate/core'; // Para la internacionalización.
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; // Para la carga de archivos.
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -11,8 +11,7 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 })
 export class ModalPublicacionComponent {
   publicacion: Publicacion = { redSocial: [], titulo: '', descripcion: '', imagen: '', link: '' };
-  imagenPrevisualizacion: string | ArrayBuffer | null = ''; // Agregamos una propiedad para almacenar la previsualización
-
+  imagenPrevisualizacion: string | ArrayBuffer | null = '';
   redesSocialesDisponibles = [
     { value: 'facebook', label: 'Facebook' },
     { value: 'twitter', label: 'Twitter' },
@@ -24,9 +23,10 @@ export class ModalPublicacionComponent {
     // y así sucesivamente para otras redes sociales...
   ];
 
-  submitted = false;
-  dropZoneMessage: string = "";
-  isValidFile: boolean = false;
+  submitted = false; // Controla la validación del formulario.
+  dropZoneMessage: string = ""; // Mensaje de la zona de arrastre de archivos.
+  isValidFile: boolean = false; // Controla si el archivo cargado es válido.
+
 
   constructor(
     protected ref: NbDialogRef<ModalPublicacionComponent>,
@@ -35,11 +35,13 @@ export class ModalPublicacionComponent {
   ) { }
 
   ngOnInit(): void {
+    // Obtiene el mensaje predeterminado para la zona de arrastre.
     this.translate.get('components.modal-publicacion.dropZoneDefault').subscribe((res: string) => {
       this.dropZoneMessage = res;
     });
   }
   onFileDrop(files: NgxFileDropEntry[]) {
+    // Lógica para manejar la carga de archivos mediante arrastrar y soltar.
     this.submitted = true;
     for (const droppedFile of files) {
       // Solo procesaremos el primer archivo en caso de múltiples archivos
@@ -65,6 +67,7 @@ export class ModalPublicacionComponent {
   }
 
   onFileSelect(event: any) {
+    // Lógica para manejar la selección de archivos mediante el input de archivo.
     this.submitted = true;
     const file = event.target.files[0];
     if (file) {
@@ -83,11 +86,13 @@ export class ModalPublicacionComponent {
 
 
   validateFile(fileName: string): boolean {
+    // Valida la extensión del archivo cargado.
     const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
     return allowedExtensions.exec(fileName) ? true : false;
   }
 
   processFile(file: File) {
+    // Procesa el archivo cargado para su previsualización.
     const reader = new FileReader();
     reader.onload = (e) => {
       this.imagenPrevisualizacion = reader.result;
@@ -97,10 +102,11 @@ export class ModalPublicacionComponent {
   }
 
   definirAudiencia() {
-    // Implementar lógica para definir la audiencia
+    // Lógica para definir la audiencia de la publicación.
   }
 
   agregarPublicacion() {
+    // Lógica para agregar la publicación utilizando PublicacionesService.
     this.submitted = true; // Activa la validación
 
     if (this.publicacion.redSocial.length === 0 || !this.publicacion.titulo || !this.publicacion.descripcion) {
@@ -113,14 +119,15 @@ export class ModalPublicacionComponent {
   }
 
   calendarizar() {
-    // Implementar lógica para calendarizar la publicación
+    // Lógica para calendarizar la publicación.
   }
 
   cancelar() {
-    this.ref.close();
+    this.ref.close(); // Cierra el modal.
   }
 
   getSocialMediaIcon(red: string): string {
+    // Obtiene el icono correspondiente a la red social.
     const iconsMap: { [key: string]: string } = {
       facebook: 'https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-0.png', // Asegúrate de poner la ruta correcta a tus imágenes
       twitter: 'https://img.freepik.com/vector-gratis/nuevo-diseno-icono-x-logotipo-twitter-2023_1017-45418.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1710288000&semt=ais',
