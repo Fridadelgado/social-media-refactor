@@ -8,8 +8,8 @@
         <div class="row">
 
           <div class="col-md-12">
-            <nb-select  fullWidth class="mb-5" placeholder="Selecciona una red social" [(ngModel)]="publicacion.redSocial"
-              multiple>
+            <nb-select fullWidth class="mb-4" placeholder="Selecciona una red social"
+              [(ngModel)]="publicacion.redSocial" multiple>
               <nb-option *ngFor="let redSocial of redesSocialesDisponibles" [value]="redSocial.value">
                 {{ redSocial.label }}
               </nb-option>
@@ -20,8 +20,8 @@
           </div>
 
           <div class="col-md-12">
-            <input  fullWidth  nbInput placeholder="Título de la publicación" [(ngModel)]="publicacion.titulo" required
-              class="form-control mb-5">
+            <input fullWidth nbInput placeholder="Título de la publicación" [(ngModel)]="publicacion.titulo" required
+              class="form-control mb-4">
             <div *ngIf="submitted && !publicacion.titulo" class="error-message mb-3">
               El título de la publicación es obligatorio.
             </div>
@@ -29,8 +29,8 @@
 
 
           <div class="col-md-12">
-            <textarea fieldSize="large" fullWidth nbInput placeholder="Escribe una descripción" [(ngModel)]="publicacion.descripcion" required
-              class="form-control mb-5"></textarea>
+            <textarea fieldSize="large" fullWidth nbInput placeholder="Escribe una descripción"
+              [(ngModel)]="publicacion.descripcion" required class="form-control mb-4"></textarea>
             <div *ngIf="submitted && !publicacion.descripcion" class="error-message mb-3">
               La descripción de la publicación es obligatoria.
             </div>
@@ -38,13 +38,19 @@
 
 
           <div class="col-md-12">
+            <ngx-file-drop (onFileDrop)="onFileDrop($event)" (click)="fileInput.click()">
+              <ng-template ngx-file-drop-content-tmp>
+                <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
+                  {{ dropZoneMessage }}
+                </div>
+              </ng-template>
+            </ngx-file-drop>
+            <input type="file" #fileInput style="display: none;" (change)="onFileSelect($event)">
 
 
-
-
-            <input type="file" (change)="onFileSelected($event)" class="form-control mb-3">
 
           </div>
+
 
         </div>
 
@@ -53,7 +59,7 @@
 
       <div class="col-md-6">
         <p><strong>Previsualización:</strong></p>
-        <div class="previsualizacion-container mb-3">
+        <div class="previsualizacion-container mb-4">
           <img *ngIf="imagenPrevisualizacion" [src]="imagenPrevisualizacion" class="img-fluid img-previsualizacion"
             alt="Previsualización">
           <div class="previsualizacion-info">

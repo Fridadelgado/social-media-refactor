@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { PublicacionesService, Publicacion } from '../../services/publicaciones.service';
 
+import {  NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+
 @Component({
   selector: 'app-modal-publicacion',
   templateUrl: './modal-publicacion.component.html',
@@ -24,6 +26,9 @@ export class ModalPublicacionComponent {
 
   submitted = false;
 
+  dropZoneMessage: string = 'Arrastra tu imagen aquí o haz clic para seleccionar';
+  isValidFile: boolean = false;
+
   constructor(
     protected ref: NbDialogRef<ModalPublicacionComponent>,
     private publicacionesService: PublicacionesService
@@ -31,16 +36,46 @@ export class ModalPublicacionComponent {
 
   ngOnInit(): void {
   }
-  onFileSelected(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.imagenPrevisualizacion = reader.result;
-        this.publicacion.imagen = reader.result as string; // Asegúrate de que también actualizas la propiedad imagen de la publicación
-      };
-      reader.readAsDataURL(file);
+  onFileDrop(files: NgxFileDropEntry[]) {
+    this.submitted = true;
+    for (const droppedFile of files) {
+      // Solo procesaremos el primer archivo en caso de múltiples archivos
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          this.processFile(file);
+        });
+        break; // Salimos después de procesar el primer archivo
+      }
     }
+    this.isValidFile = this.validateFile(files[0].fileEntry.name);
+    this.dropZoneMessage = this.isValidFile ? 'Archivo subido exitosamente' : 'Archivo no válido. Considera PNG, JPG, etc.';
+  }
+
+  onFileSelect(event: any) {
+    this.submitted = true;
+    const file = event.target.files[0];
+    if (file) {
+      this.isValidFile = this.validateFile(file.name);
+      this.dropZoneMessage = this.isValidFile ? 'Archivo subido exitosamente' : 'Archivo no válido. Considera PNG, JPG, etc.';
+      if (this.isValidFile) {
+        this.processFile(file);
+      }
+    }
+  }
+
+  validateFile(fileName: string): boolean {
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    return allowedExtensions.exec(fileName) ? true : false;
+  }
+
+  processFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.imagenPrevisualizacion = reader.result;
+      this.publicacion.imagen = reader.result as string; // Actualiza la propiedad de la imagen de la publicación
+    };
+    reader.readAsDataURL(file);
   }
 
   definirAudiencia() {

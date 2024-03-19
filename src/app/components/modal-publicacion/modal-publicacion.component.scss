@@ -12,7 +12,19 @@
 }
 .modal-publicacion {
   width: 1000px; // O el ancho que desees
-  height: 500px; // Esto permite que el contenido dicte la altura, pero puedes fijarla también si lo prefieres
+  height: 700px; // Esto permite que el contenido dicte la altura, pero puedes fijarla también si lo prefieres
   max-height: 90%; // Esto es opcional para asegurarse de que el modal no sea demasiado alto
   overflow-y: auto; // Esto permite desplazarse por el modal si el contenido es demasiado largo
+}
+.custom-content {
+  color: #000; // Cambiar según el estado, ejemplo inicial
+  // Otros estilos aquí
+}
+
+.custom-content.success {
+  color: #A3BD36; // Color para carga exitosa
+}
+
+.custom-content.error {
+  color: #CF3341; // Color para archivo no válido
 }

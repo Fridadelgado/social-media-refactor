@@ -4,12 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+
+
+//Iconos Personalizados
 import { CoreModule } from '../app/core-module/core-module.module';
 
 // Nebular
 import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbInputModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+
+//Drop Box Librería
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 // Components
 import { MenuListComponent } from './components/menu-list/menu-list.component';
@@ -52,6 +58,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   imports: [
     CoreModule,
     FullCalendarModule,
+    NgxFileDropModule,
     BrowserModule,
     NbSelectModule,
     NbOptionModule,
