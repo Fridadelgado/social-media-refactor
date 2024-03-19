@@ -38,8 +38,6 @@
               {{ 'components.modal-publicacion.validacionDescripcionPublicacion' | translate }}
             </div>
           </div>
-
-
           <div class="col-md-12">
             <ngx-file-drop (onFileDrop)="onFileDrop($event)" (click)="fileInput.click()">
               <ng-template ngx-file-drop-content-tmp>
@@ -49,17 +47,9 @@
               </ng-template>
             </ngx-file-drop>
             <input type="file" #fileInput style="display: none;" (change)="onFileSelect($event)">
-
-
-
           </div>
-
-
         </div>
-
-
       </div>
-
       <div class="col-md-6">
         <p><strong>{{ 'components.modal-publicacion.labelPrevisualizacion' | translate }}</strong></p>
         <div class="previsualizacion-container mb-4">
@@ -77,10 +67,14 @@
       </div>
     </nb-card-body>
     <nb-card-footer>
-      <button nbButton status="info" (click)="definirAudiencia()" class="btn btn-info">{{ 'components.modal-publicacion.botonDefinirAudienciaObjetivo' | translate }}</button>
-      <button nbButton status="primary" (click)="agregarPublicacion()" class="btn btn-primary">{{ 'components.modal-publicacion.botonPublicar' | translate }}</button>
-      <button nbButton status="success" (click)="calendarizar()" class="btn btn-success">{{ 'components.modal-publicacion.botonCalendarizar' | translate }}</button>
-      <button nbButton status="warning" (click)="cancelar()" class="btn btn-warning">{{ 'components.modal-publicacion.botonCancelar' | translate }}</button>
+      <button nbButton status="info" (click)="definirAudiencia()" class="btn btn-info">{{
+        'components.modal-publicacion.botonDefinirAudienciaObjetivo' | translate }}</button>
+      <button nbButton status="primary" (click)="agregarPublicacion()" class="btn btn-primary">{{
+        'components.modal-publicacion.botonPublicar' | translate }}</button>
+      <button nbButton status="success" (click)="calendarizar()" class="btn btn-success">{{
+        'components.modal-publicacion.botonCalendarizar' | translate }}</button>
+      <button nbButton status="warning" (click)="cancelar()" class="btn btn-warning">{{
+        'components.modal-publicacion.botonCancelar' | translate }}</button>
     </nb-card-footer>
   </nb-card>
 </div>

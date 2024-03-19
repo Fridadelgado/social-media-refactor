@@ -1,27 +1,29 @@
+// Importaciones esenciales de Angular para el módulo raíz.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module'; // Gestión de rutas de la aplicación.
+import { RouterModule } from '@angular/router'; // Sistema de enrutamiento de Angular.
+import { HttpClientModule } from '@angular/common/http'; // Módulo para realizar peticiones HTTP.
+import { AppComponent } from './app.component'; // Componente raíz de la aplicación.
 
 
-//Iconos Personalizados
+// Importación del módulo CoreModule que contiene servicios e iconos personalizados.
 import { CoreModule } from '../app/core-module/core-module.module';
 
-// Nebular
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbInputModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-// Importaciones para ngx-translate
+// Importaciones de Nebular, un conjunto de bibliotecas de UI para Angular, para usar sus componentes.
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbInputModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
+import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth'; // Módulos de autenticación de Nebular.
+import { NbEvaIconsModule } from '@nebular/eva-icons'; // Módulo de íconos de Eva.
+
+
+// Importaciones para ngx-translate, una biblioteca para internacionalización.
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 
-
-//Drop Box Librería
+// Librería para manejo de drag and drop de archivos.
 import { NgxFileDropModule } from 'ngx-file-drop';
 
 // Components
@@ -41,9 +43,10 @@ import { ConversacionesComponent } from './pages/conversaciones/conversaciones.c
 import { DistribuidoresAsignadosComponent } from './pages/distribuidores-asignados/distribuidores-asignados.component';
 import { RedesSocialesComponent } from './pages/redes-sociales/redes-sociales.component';
 
+// Módulo para implementar un calendario interactivo.
 import { FullCalendarModule } from '@fullcalendar/angular';
 
-// Función para cargar archivos de traducciones
+// Función para configurar el cargador de traducciones, que indica cómo cargar los archivos de traducción.
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -51,6 +54,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
+    // Componentes que pertenecen a este módulo.
+    // Aquí se listan todos los componentes, directivas y pipes que se crearán y pertenecerán a este módulo.
     AppComponent,
     MenuListComponent,
     DistribuidoresAsignadosComponent,
@@ -67,6 +72,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PublicacionesComponent,
   ],
   imports: [
+    // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
+    // Nebular, ngx-translate, y otras librerías de terceros son configuradas aquí.
     CoreModule,
     FullCalendarModule,
     NgxFileDropModule,
@@ -106,7 +113,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+      // Servicios que serán creados por el inyector raíz de Angular. Aquí se pueden añadir servicios globales de la aplicación.
+  ],
+  bootstrap: [AppComponent] // Componente raíz que Angular crea e inserta en el index.html host. Define la vista raíz de la aplicación.
 })
 export class AppModule { }

@@ -1,61 +1,61 @@
-// this is our just created themes.scss file, make sure the path to the file is correct
+// Importación del archivo de temas personalizados. Asegúrate de que la ruta al archivo 'themes.scss' sea correcta.
 @use 'themes' as *;
 
-// framework component styles
+// Importación de los estilos globales del framework Nebular.
 @use '@nebular/theme/styles/globals' as *;
 
-// install the framework styles
+// Instalación de los estilos del framework Nebular.
 @include nb-install() {
+  // Inclusión de los estilos globales del tema actual.
   @include nb-theme-global();
-
 }
 
+// Personalización de iconos dentro de nb-menu para tener dimensiones específicas y padding.
 nb-menu nb-icon svg {
-
-  width: 39px;
-  height: 40px;
-  padding: 2px;
+  width: 39px; // Ancho del icono.
+  height: 40px; // Altura del icono.
+  padding: 2px; // Espacio interior alrededor del icono.
 }
 
+// Estilos para iconos dentro de nb-menu al pasar el mouse (hover) o al estar enfocado (focus).
 nb-menu nb-icon:hover svg path,
 nb-menu nb-icon:focus svg path {
-  fill: #FFF !important;
-  /* Asegúrate de reemplazar #b70909 con el color deseado */
+  fill: #FFF !important; // Cambia el color de relleno a blanco. Reemplazar #FFF si se desea otro color.
 }
 
-
+// Personalización del margen y padding para los iconos de menú.
 nb-menu .menu-item .menu-icon {
-  margin-bottom: 20px;
-  margin-left: 8px;
-  padding: 1px;
+  margin-bottom: 20px; // Margen inferior.
+  margin-left: 8px; // Margen izquierdo.
+  padding: 1px; // Espacio interior alrededor del icono.
 }
 
+// Estilos específicos para el sidebar en su estado compactado.
 nb-sidebar.compacted nb-menu .menu-item a.active::before {
   top: -2px;
-  height: 94%;
-  width: 3px;
-  left: 2px !important;
+  height: 94%; // Altura del indicador de elemento activo.
+  width: 3px; // Ancho del indicador de elemento activo.
+  left: 2px !important; // Posicionamiento a la izquierda del indicador.
 }
 
-
-.layout-container nb-sidebar.fixed, nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
-  top: 156px;
+// Ajustes de posición para nb-sidebar fijo dentro de un contenedor de layout.
+.layout-container nb-sidebar.fixed,
+nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
+  top: 156px; // Posiciona el sidebar fijo a 156px desde la parte superior del viewport.
 }
 
-
-
+// Personalización de badges (etiquetas) para indicar estados, en este caso, 'peligro'.
 nb-badge.status-danger {
-  border-radius: 50% !important;
-  width: 7px !important;
-  height: 13px !important;
-  border-color: #fff !important;
-  left: 24px !important;
-  font-size: 10px !important;
-  align-items: center !important;
-  justify-content: center !important;
-  display: flex !important;
+  border-radius: 50% !important; // Hace que el badge sea completamente circular.
+  width: 7px !important; // Ancho del badge.
+  height: 13px !important; // Altura del badge.
+  border-color: #fff !important; // Color del borde del badge.
+  left: 24px !important; // Posición desde la izquierda.
+  font-size: 10px !important; // Tamaño de la fuente dentro del badge.
+  align-items: center !important; // Centra el contenido verticalmente dentro del badge.
+  justify-content: center !important; // Centra el contenido horizontalmente dentro del badge.
+  display: flex !important; // Utiliza flexbox para el layout interno del badge.
 }
 
-
-// Importa solo el sistema de cuadrícula de Bootstrap
+// Importa solo el sistema de cuadrícula de Bootstrap para su uso en el layout.
 @import 'node_modules/bootstrap/scss/bootstrap-grid.scss';

@@ -1,24 +1,24 @@
-// import Nebular Theme System and the default theme
+// Importación del sistema de temas de Nebular y el tema por defecto.
 @forward '@nebular/theme/styles/theming';
 @use '@nebular/theme/styles/theming' as *;
 @use '@nebular/theme/styles/themes/corporate';
 
+// Habilita las propiedades CSS personalizadas para permitir una mayor flexibilidad en la tematización.
 $nb-enable-css-custom-properties: true;
 
-
+// Registro de un tema personalizado para Seekop utilizando nb-register-theme.
 $nb-themes: nb-register-theme(
-  ( // we setting color-basic-800 instead of color-basic-1000
-    //Fondo Seekop
-
+  (
+    // Configuración del color de fondo por defecto para el layout principal.
     layout-background-color: #ffffff,
 
-    //Estilos Seekop Card
+    // Estilos personalizados para tarjetas (Card) en Seekop.
     card-border-color: #ffffff,
     card-background-color: #ffffff 0% 0% no-repeat padding-box,
     card-shadow: 0px 3px 6px #c5c5c580,
     card-border-radius: 20px,
 
-
+    // Estilos para el menú y sidebar, incluyendo colores de texto e iconos, y el color de fondo del sidebar.
     menu-group-text-color: #ffffff,
     menu-text-color: #8095bf,
     menu-item-icon-color: #8095bf,
@@ -29,20 +29,21 @@ $nb-themes: nb-register-theme(
     sidebar-menu-item-highlight-color: #ffffff,
     sidebar-height: auto,
 
-    //Color Iconos Seekop
+    // Color para iconos de acciones dentro de la aplicación.
     actions-icon-color: #002a7f,
 
-    //Paelta de colres Seekop
-    color-primary-100: #f7fbd7,
+    // Paleta de colores definida para Seekop, incluyendo primario, éxito, información, advertencia y peligro.
+    color-primary-100: #f7fbd7, // Más claro
     color-primary-200: #eef8b1,
     color-primary-300: #dbeb86,
     color-primary-400: #c3d764,
-    color-primary-500: #a3bd36,
+    color-primary-500: #a3bd36, // Color primario estándar
     color-primary-600: #88a227,
     color-primary-700: #6e881b,
     color-primary-800: #566d11,
-    color-primary-900: #445a0a,
-    color-success-100: #c6def8,
+    color-primary-900: #445a0a, // Más oscuro
+    color-success-100: #c6def8, // y así sucesivamente para los otros colores...
+    // Continúa con color-info, color-warning, color-danger
     color-success-200: #91bbf2,
     color-success-300: #568ad8,
     color-success-400: #2c5db2,
@@ -79,10 +80,13 @@ $nb-themes: nb-register-theme(
     color-danger-800: #aa2e2e,
     color-danger-900: #811919,
 
+    // Espaciado superior del layout.
     layout-padding-top: 2.25rem,
 
+    // Margen para iconos dentro de elementos de menú.
     menu-item-icon-margin: 0 0.5rem 0 0,
 
+    // Alturas predefinidas para tarjetas (Card) de diferentes tamaños y margen inferior.
     card-height-tiny: 13.5rem,
     card-height-small: 21.1875rem,
     card-height-medium: 28.875rem,
@@ -92,11 +96,14 @@ $nb-themes: nb-register-theme(
     card-header-with-select-padding-top: 0.5rem,
     card-header-with-select-padding-bottom: 0.5rem,
 
+    // Ancho mínimo para elementos select.
     select-min-width: 6rem,
 
+    // Estilo de fondo y sombra para el componente slide-out.
     slide-out-background: linear-gradient(270deg, #f7eded 0%, #e4e9f2 100%),
     slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
     slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
-      ),
-    seekop,
-    corporate);
+  ),
+  'seekop', // Nombre del tema.
+  'corporate' // Tema base sobre el cual se aplican las personalizaciones.
+);
