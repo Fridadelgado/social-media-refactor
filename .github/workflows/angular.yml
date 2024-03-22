@@ -43,10 +43,10 @@ jobs:
         IS_BUCKET_EMPTY=$(aws s3 ls s3://qa.admin.interfaces.sicopweb.net/ --recursive | wc -l)
         echo "IS_BUCKET_EMPTY=$IS_BUCKET_EMPTY" >> $GITHUB_ENV
 
-    - name: Subiendo contenido de dist/ a Amazon S3
+    - name: Subiendo contenido de dist/bi-admin-interfaces-padre/ a Amazon S3
       run: |
         if [ "${{ env.IS_BUCKET_EMPTY }}" -eq "0" ]; then
-          until aws s3 sync dist/ s3://qa.admin.interfaces.sicopweb.net/ --exclude "WEB-INF/*"
+          until aws s3 sync dist/bi-admin-interfaces-padre/ s3://qa.admin.interfaces.sicopweb.net/ --exclude "WEB-INF/*"
           do
             echo "La sincronización falló, reintentando..."
             sleep 1
