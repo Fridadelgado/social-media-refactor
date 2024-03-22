@@ -26,7 +26,7 @@ jobs:
       run: npm install
 
     - name: Construyendo proyecto Angular
-      run: npm run build -- --prod
+      run: npm run build
 
     - name: Configurando AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
