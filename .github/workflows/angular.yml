@@ -19,7 +19,7 @@ jobs:
     - name: Instalando Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18' # Actualizado a la versión 18
+        node-version: '18.13' # Actualizado a la versión 18
 
     # Se elimina la instalación de Yarn y se usa npm para instalar dependencias
     - name: Instalando todo lo necesario del proyecto Angular
