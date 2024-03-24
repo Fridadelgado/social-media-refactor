@@ -1,11 +1,9 @@
-<div style="display: block;">
-  <ngx-charts-pie-chart
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="single"
-    [gradient]="false"
-    [legend]="showLegend"
-    [doughnut]="isDoughnut"
-    (select)="onSelect($event)">
-  </ngx-charts-pie-chart>
+<!-- redessociales-kpis.component.html -->
+<div class="container-fluid mt-3">
+  <div class="row">
+    <!-- Usa el componente kpi-card para cada KPI -->
+    <div class="col-md-4" *ngFor="let kpi of kpisData">
+      <app-kpi-card [socialMedia]="kpi"></app-kpi-card>
+    </div>
+  </div>
 </div>

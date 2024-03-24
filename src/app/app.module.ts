@@ -35,6 +35,7 @@ import { MenuListComponent } from './components/menu-list/menu-list.component';
 import { ActionsComponent } from './components/actions/actions.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
 import { ModalPublicacionComponent } from './components/modal-publicacion/modal-publicacion.component';
+import { KpiCardComponent } from './components/kpi-card/kpi-card.component';
 
 // Pages
 import { RedesSocialesKpisComponent } from './pages/redessociales-kpis/redessociales-kpis.component';
@@ -61,6 +62,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Componentes que pertenecen a este módulo.
     // Aquí se listan todos los componentes, directivas y pipes que se crearán y pertenecerán a este módulo.
     AppComponent,
+    KpiCardComponent,
     MenuListComponent,
     DistribuidoresAsignadosComponent,
     RedesSocialesComponent,

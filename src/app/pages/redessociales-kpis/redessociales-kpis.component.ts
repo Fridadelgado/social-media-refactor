@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Color, LegendPosition, ScaleType } from '@swimlane/ngx-charts';
-
-
 
 @Component({
   selector: 'app-redessociales-kpis',
@@ -9,54 +6,19 @@ import { Color, LegendPosition, ScaleType } from '@swimlane/ngx-charts';
   styleUrls: ['./redessociales-kpis.component.scss']
 })
 export class RedesSocialesKpisComponent implements OnInit {
-  // Define the KPIs data structure here
-  single?: any[];
-  view: [number,number] = [700, 400]; // Set the dimensions for the chart
+  // La propiedad ahora llamada 'kpisData' contendrá los datos de los KPI
+  kpisData?: any[];
 
-  // options for the chart
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = true;
-  legendPosition: LegendPosition = LegendPosition.Below;
-
-  colorScheme: Color = {
-    name: 'custom',
-    selectable: true,
-    group: ScaleType.Ordinal,
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
-  };
-
-
-
-
-  constructor() {
-    // Object.assign(this, { single }) // if you have predefined data
-  }
-
-  onSelect(event:any) {
-    console.log(event);
-  }
+  constructor() {}
 
   ngOnInit() {
-    // Here you'd get your KPIs data
-    // For now, let's just use some dummy data
-    this.single = [
-      {
-        "name": "Facebook",
-        "value": 8940000
-      },
-      {
-        "name": "Instagram",
-        "value": 5000000
-      },
-      {
-        "name": "Twitter",
-        "value": 7200000
-      },
-      {
-        "name": "LinkedIn",
-        "value": 5200000
-      }
+    // Aquí obtendrías los datos de KPIs de tu API o servicio
+    this.kpisData = [
+      { "name": "Facebook", "value": 8940000, "total": 10000000 },
+      { "name": "Instagram", "value": 5000000, "total": 10000000 },
+      { "name": "Twitter", "value": 7200000, "total": 10000000 },
+      { "name": "LinkedIn", "value": 5200000, "total": 10000000 }
+      // Asegúrate de incluir la propiedad 'total' si va a ser utilizada para calcular el porcentaje
     ];
   }
 }

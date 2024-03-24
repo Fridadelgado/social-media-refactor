@@ -1,0 +1,34 @@
+/* styles.scss o redessociales-kpis.component.scss */
+.kpi-card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  margin: 10px;
+  background-color: #ffffff;
+  .card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .kpi-details {
+    margin-top: -20px; /* Ajusta este valor según sea necesario */
+    text-align: center;
+    .kpi-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .kpi-percentage {
+      color: #34A853; /* Color verde, ajústalo a tu diseño */
+      font-size: 24px; /* Ajusta el tamaño de fuente según sea necesario */
+      margin-bottom: 4px;
+    }
+    .kpi-value {
+      font-size: 16px; /* Ajusta el tamaño de fuente según sea necesario */
+    }
+  }
+}
