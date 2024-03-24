@@ -26,6 +26,10 @@ import { HttpClient } from '@angular/common/http';
 // Librería para manejo de drag and drop de archivos.
 import { NgxFileDropModule } from 'ngx-file-drop';
 
+// Charts
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 // Components
 import { MenuListComponent } from './components/menu-list/menu-list.component';
 import { ActionsComponent } from './components/actions/actions.component';
@@ -33,7 +37,7 @@ import { UserAvatarComponent } from './components/user-avatar/user-avatar.compon
 import { ModalPublicacionComponent } from './components/modal-publicacion/modal-publicacion.component';
 
 // Pages
-import { HomeComponent } from './pages/home/home.component';
+import { RedesSocialesKpisComponent } from './pages/redessociales-kpis/redessociales-kpis.component';
 import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
@@ -64,7 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalPublicacionComponent,
     ActionsComponent,
     UserAvatarComponent,
-    HomeComponent,
+    RedesSocialesKpisComponent,
     UsersComponent,
     ConversacionesComponent,
     LoginComponent,
@@ -75,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
     // Nebular, ngx-translate, y otras librerías de terceros son configuradas aquí.
     CoreModule,
+    NgxChartsModule,
     FullCalendarModule,
     NgxFileDropModule,
     BrowserModule,

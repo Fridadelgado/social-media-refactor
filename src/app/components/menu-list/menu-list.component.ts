@@ -21,9 +21,9 @@ export class MenuListComponent {
       icon: 'mdi-megamenu', // Nombre del icono personalizado registrado en Nebular.
     },
     {
-      title: 'Home',  // Nombre visible en el menú.
-      link: '/home', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
-      icon: 'mdi-home-outline',  // Nombre del icono personalizado registrado en Nebular.
+      title: 'KPIs',  // Nombre visible en el menú.
+      link: '/redessociales-kpis', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
+      icon: 'finance-primary',  // Nombre del icono personalizado registrado en Nebular.
     },
     {
       title: 'calendariopublicaciones',  // Nombre visible en el menú.

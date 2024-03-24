@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Importaciones de componentes específicos que se utilizarán en las rutas.
 // Cada uno de estos componentes representa una vista o página distinta en la aplicación.
-import { HomeComponent } from './pages/home/home.component';
+import { RedesSocialesKpisComponent } from './pages/redessociales-kpis/redessociales-kpis.component';
 import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
@@ -45,7 +45,7 @@ const routes: Routes = [
     children: [
       // Rutas hijas para cada página principal de la aplicación.
       // Cada ruta carga un componente diferente como vista.
-      { path: 'home', component: HomeComponent },
+      { path: 'redessociales-kpis', component: RedesSocialesKpisComponent },
       { path: 'users', component: UsersComponent },
       { path: 'calendariopublicaciones', component: CalendariopublicacionesComponent },
       { path: 'publicaciones', component: PublicacionesComponent },
@@ -55,8 +55,8 @@ const routes: Routes = [
       // ... más rutas autenticadas ...
     ]
   },
-  // Ruta de redirección por defecto. Si la ruta está vacía, redirige a '/home'.
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  // Ruta de redirección por defecto. Si la ruta está vacía, redirige a '/redessociales-kpis'.
+  { path: '', redirectTo: '/redessociales-kpis', pathMatch: 'full' }
 ];
 
 // Decorador @NgModule que registra el arreglo de rutas en el RouterModule,
