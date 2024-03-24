@@ -11,20 +11,16 @@ export class RedesSocialesKpisComponent implements OnInit {
   kpisData: any[] = [];
   filteredKpisData: any[] = [];
   selectedSocialMedias: Set<string> = new Set();
-  availableSocialMedias: string[] = ['facebook', 'twitter', 'instagram', 'youtube'];
+  availableSocialMedias: any[] = [
+    { name: 'facebook', selected: false },
+    { name: 'twitter', selected: false },
+    { name: 'instagram', selected: false },
+    { name: 'youtube', selected: false },
+    { name: 'tiktok', selected: false },
+    { name: 'linkedin', selected: false },
+    { name: 'pinterest', selected: false }
+  ];
   timeFilter: 'month' | 'quarter' | 'day' = 'month';
-
-  socialMediaImages: { [key: string]: string } = {
-    facebook: 'https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-0.png',
-    twitter: 'https://img.freepik.com/vector-gratis/nuevo-diseno-icono-x-logotipo-twitter-2023_1017-45418.jpg?size=338&ext=jpg',
-    instagram: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png',
-    linkedin: 'https://cdn-icons-png.flaticon.com/256/174/174857.png',
-    tiktok: 'https://cdn.pixabay.com/photo/2021/01/30/06/42/tiktok-5962992_640.png',
-    pinterest: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png',
-    youtube: 'https://w7.pngwing.com/pngs/982/799/png-transparent-youtube-logo-youtube-logo-internet-marketing-subscribe-television-label-text.png'
-  };
-
-
 
   ngOnInit() {
     this.kpisData = [
@@ -38,12 +34,16 @@ export class RedesSocialesKpisComponent implements OnInit {
     this.applyFilters();
   }
 
-  toggleSocialMedia(socialMedia: string) {
-    if (this.selectedSocialMedias.has(socialMedia)) {
-      this.selectedSocialMedias.delete(socialMedia);
+  toggleSocialMedia(socialMedia: any) {
+    socialMedia.selected = !socialMedia.selected; // Cambia el estado de selección
+
+    // Actualiza el conjunto de medios sociales seleccionados
+    if (socialMedia.selected) {
+      this.selectedSocialMedias.add(socialMedia.name);
     } else {
-      this.selectedSocialMedias.add(socialMedia);
+      this.selectedSocialMedias.delete(socialMedia.name);
     }
+
     this.applyFilters();
   }
 

@@ -57,5 +57,37 @@ nb-badge.status-danger {
   display: flex !important; // Utiliza flexbox para el layout interno del badge.
 }
 
+
+/* styles.scss o styles.css */
+/* styles.scss o styles.css */
+.time-icons nb-icon svg path,
+.time-icons nb-icon svg text {
+  fill: #002a7f !important; /* Color por defecto */
+  transition: fill 0.3s ease !important; /* Transición suave para el cambio de color */
+}
+
+.time-icons nb-icon:hover svg path,
+.time-icons nb-icon:hover svg text {
+  fill: #A3BD36 !important; /* Color al hacer hover */
+}
+
+.time-icons nb-icon.icon-active svg path,
+.time-icons nb-icon.icon-active svg text {
+  fill: #A3BD36 !important; /* Color cuando el ícono está activo */
+}
+
+
+.filter-icons {
+  fill: #002a7f !important; /* Color por defecto */
+  transition: fill 0.3s ease !important; /* Transición suave para el cambio de color */
+}
+
+.filter-icons:hover,
+.filter-icons.icon-active {
+  fill: #A3BD36 !important; /* Color al hacer hover o estar activo */
+}
+
+
+
 // Importa solo el sistema de cuadrícula de Bootstrap para su uso en el layout.
 @import 'node_modules/bootstrap/scss/bootstrap-grid.scss';
