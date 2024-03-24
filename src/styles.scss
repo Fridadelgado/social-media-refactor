@@ -10,6 +10,14 @@
   @include nb-theme-global();
 }
 
+body{
+  text-align: left;
+  font: normal normal bold 24px/17px Montserrat;
+  letter-spacing: 0px;
+  color: #1E1E1E;
+  opacity: 1;
+}
+
 // Personalización de iconos dentro de nb-menu para tener dimensiones específicas y padding.
 nb-menu nb-icon svg {
   width: 39px; // Ancho del icono.
@@ -86,6 +94,8 @@ nb-badge.status-danger {
 .filter-icons.icon-active {
   fill: #A3BD36 !important; /* Color al hacer hover o estar activo */
 }
+
+
 
 
 

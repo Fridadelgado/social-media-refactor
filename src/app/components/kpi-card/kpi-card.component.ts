@@ -23,13 +23,13 @@ export class KpiCardComponent implements AfterViewInit {
     if (ctx) {
       // Define la configuración del gráfico
       const data: ChartData<'doughnut'> = {
-        labels: ['Value', 'Remaining'],
+        labels: ['Anterior', 'Más'],
         datasets: [{
           label: this.socialMedia.name,
-          data: [this.socialMedia.value, this.socialMedia.total - this.socialMedia.value],
-          backgroundColor: ['#D2F16E', '#E2E2E2'],
-          hoverBackgroundColor: ['#D2F16E', '#E2E2E2'],
-          borderWidth: 1,
+          data: [this.socialMedia.anterior, this.socialMedia.actual - this.socialMedia.anterior],
+          backgroundColor: [ '#E2E2E2', '#D2F16E'],
+          hoverBackgroundColor: ['#E2E2E2', '#D2F16E'],
+          borderWidth: 3,
           borderColor: '#ffffff',
           hoverBorderColor: '#ffffff',
           hoverBorderWidth: 1,
@@ -39,26 +39,38 @@ export class KpiCardComponent implements AfterViewInit {
             color: '#1E1E1E',
             font: {
               family: 'Montserrat',
-              size: 18
+              size: 30,
+
             },
-            offset: 60,
+
+            offset: 65,
             anchor: 'end',
             align: 'start',
             formatter: function (value, context) {
-              if (context.dataIndex === 0) {
-                return value.toFixed(1) + '%';
-              }
-              else {
-                return null;
+              if (context.dataIndex === 0) { // Cambiamos a índice 1 para aplicar al valor "Más" o incremento
+
+                let valorActual:any = Number(context.chart.data.datasets[0].data[1])  + Number(value.toFixed(0))
+                let valorAnterior = Number(value.toFixed(0))
+                let porcentajeCambio = ((valorActual - valorAnterior) / valorAnterior)* 100;
+
+                // Retorna el porcentaje de cambio formateado como un número decimal con 2 dígitos y añade el símbolo '%'
+                return porcentajeCambio.toFixed(1) + '%';
+              } else {
+                // Para el primer dato (valor anterior), solo muestra su valor sin calcular el porcentaje
+                return value.toFixed(0); // Ajusta aquí si quieres mostrar decimales o no
+
               }
             }
+
           }
         }]
       };
 
       // Opciones del gráfico
       const options: ChartOptions<'doughnut'> = {
-        cutout: '73%',
+        cutout: '75%',
+        maintainAspectRatio: false,
+        aspectRatio: 2,
         animations: {
           tension: {
             duration: 1000,
@@ -70,7 +82,7 @@ export class KpiCardComponent implements AfterViewInit {
         },
         responsive: true,
         layout: {
-          padding: 1
+          padding: 8
         },
         plugins: {
           legend: {
@@ -84,7 +96,7 @@ export class KpiCardComponent implements AfterViewInit {
                   label += ': ';
                 }
                 if (context.parsed !== null) {
-                  label = Number(context.raw).toFixed(1) + '%';
+                  label = Number(context.raw).toFixed(0) + '';
                 }
                 return label;
               }
@@ -101,9 +113,19 @@ export class KpiCardComponent implements AfterViewInit {
         options,
       });
     }
+
+   // this.chartCanvas.nativeElement.style.height = '10px';
   }
 
-  calculatePercentage(value: number, total: number): number {
-    return (value / total) * 100;
+  calculatePercentage(anterior: number, actual: number): number {
+    if (anterior === 0) {
+      // Para evitar la división por cero si el valor anterior es 0
+      return 0;
+    } else {
+      // Calcula el porcentaje de cambio
+      return ((actual - anterior) / anterior) * 100;
+    }
   }
+
+
 }

@@ -6,33 +6,48 @@
       <div class="d-flex flex-wrap">
         <!-- Añadida clase flex-wrap para permitir que los íconos se ajusten según el ancho disponible -->
         <!-- Añadida clase me-2 para agregar margen a la derecha de cada ícono -->
-        <div *ngFor="let social of availableSocialMedias" class=" row me-3">
+        <div *ngFor="let social of availableSocialMedias" class=" row me-1">
           <div class="col-md-12">
             <nb-icon [icon]="social.name+'-icon'" pack="seekop" (click)="toggleSocialMedia(social)"
-              class="filter-icons icon-hover" [class.icon-active]="social.selected">
+              class="filter-icons icon-hover" [class.icon-active]="social.selected" style="font-size: xx-large; cursor: pointer;" >
             </nb-icon>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="d-flex align-items-center time-icons">
+    <div class="d-flex align-items-center ">
       <div class="row">
-        <div class="col">
-          <nb-icon icon="calendar-month" pack="seekop" (click)="setTimeFilter('month')" class="icon-hover"
-            [class.icon-active]="timeFilter === 'month'"></nb-icon>
-        </div>
-        <div class="col">
-          <nb-icon icon="calendar-week" pack="seekop" (click)="setTimeFilter('quarter')" class="icon-hover"
-            [class.icon-active]="timeFilter === 'quarter'"></nb-icon>
-        </div>
-        <div class="col">
-          <nb-icon icon="calendar-day" pack="seekop" (click)="setTimeFilter('day')" class="icon-hover"
-            [class.icon-active]="timeFilter === 'day'"></nb-icon>
+        <!-- Título de los KPIs que cambia con el filtro seleccionado -->
+        <div class="col-12 text-center"> <!-- Añade la clase text-center para centrar el título -->
+          <h2 class="my-3">{{ currentTitle }}</h2> <!-- Añade margen vertical con my-3 -->
         </div>
       </div>
     </div>
+
+
+    <div class="d-flex align-items-center time-icons mb-5">
+      <div class="row">
+        <div class="col">
+          <nb-icon icon="calendar-month" pack="seekop" (click)="setTimeFilter('month')" class="icon-hover"
+            [class.icon-active]="timeFilter === 'month'" style="width: 40px; height: 40px; font-size: xx-large; cursor: pointer;" nbTooltip="Filtrar por mes" nbTooltipPlacement="bottom"></nb-icon>
+        </div>
+        <div class="col">
+          <nb-icon icon="calendar-week" pack="seekop" (click)="setTimeFilter('week')" class="icon-hover"
+            [class.icon-active]="timeFilter === 'week' " style="width: 40px; height: 40px; font-size: xx-large; cursor: pointer;" nbTooltip="Filtrar por semana" nbTooltipPlacement="bottom"></nb-icon>
+        </div>
+        <div class="col">
+          <nb-icon icon="calendar-day" pack="seekop" (click)="setTimeFilter('day')" class="icon-hover"
+            [class.icon-active]="timeFilter === 'day'" style="width: 40px; height: 40px; font-size: xx-large; cursor: pointer;" nbTooltip="Filtrar por día" nbTooltipPlacement="bottom"></nb-icon>
+        </div>
+      </div>
+    </div>
+
+
+
+
   </div>
+
 
   <div class="row">
     <!-- Usa NbCard para cada KPI -->

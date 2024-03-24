@@ -1,18 +1,19 @@
+<!-- kpi-card.component.html -->
 <div class="card kpi-card shadow-sm">
-  <div class="row">
+  <div class="row g-0">
     <div class="col-6">
       <canvas #chartCanvas></canvas>
     </div>
     <div class="col-6 text-left">
-      <div class="row">
-        <div class="col-12 text-left mb-4">
-          <h3 class="kpi-title">
-            {{ socialMedia.name }} <!-- Este es el nombre del KPI -->
-          </h3>
+      <div class="row g-0">
+        <div class="col-12 mb-2">
+          <h5 class="kpi-title">
+            {{ socialMedia.name }}
+          </h5>
         </div>
-        <div class="col-12 text-left mt-5 mb-1">
-          <h3 class="kpi-value">
-            {{ socialMedia.value }}/{{ socialMedia.total }}
+        <div class="col-12">
+          <h3 class="kpi-value" style="font-size: xx-large; cursor: pointer;" nbTooltip="Periodo Anterior vs Periodo Actual" nbTooltipPlacement="bottom">
+            {{ socialMedia.anterior }}/{{ socialMedia.actual }}
           </h3>
         </div>
       </div>
