@@ -13,7 +13,7 @@ import { CoreModule } from '../app/core-module/core-module.module';
 
 
 // Importaciones de Nebular, un conjunto de bibliotecas de UI para Angular, para usar sus componentes.
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbInputModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbInputModule,NbCheckboxModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth'; // Módulos de autenticación de Nebular.
 import { NbEvaIconsModule } from '@nebular/eva-icons'; // Módulo de íconos de Eva.
 
@@ -27,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgxFileDropModule } from 'ngx-file-drop';
 
 // Charts
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 
 // Components
@@ -81,9 +81,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
     // Nebular, ngx-translate, y otras librerías de terceros son configuradas aquí.
     CoreModule,
-    NgxChartsModule,
     FullCalendarModule,
     NgxFileDropModule,
+    NbCheckboxModule,
     BrowserModule,
     NbSelectModule,
     NbOptionModule,

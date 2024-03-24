@@ -1,25 +1,21 @@
-<!-- kpi-card.component.html -->
-<div class="card kpi-card">
-  <div class="card-body">
-    <!-- Gráfico de Anillo para la red social -->
-    <ngx-charts-pie-chart
-      class="chart-container"
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="[{
-        'name': socialMedia.name,
-        'value': socialMedia.value
-      }]"
-      [gradient]="false"
-      [legend]="false"
-      [doughnut]="true"
-      [labels]="false">
-    </ngx-charts-pie-chart>
-    <!-- Detalles de KPI -->
-    <div class="kpi-details text-center">
-      <div class="kpi-title">{{ socialMedia.name }}</div>
-      <div class="kpi-percentage">{{ calculatePercentage(socialMedia.value, socialMedia.total) }}%</div>
-      <div class="kpi-value">{{ socialMedia.value }}/{{ socialMedia.total }}</div>
+<div class="card kpi-card shadow-sm">
+  <div class="row">
+    <div class="col-6">
+      <canvas #chartCanvas></canvas>
+    </div>
+    <div class="col-6 text-left">
+      <div class="row">
+        <div class="col-12 text-left mb-4">
+          <h3 class="kpi-title">
+            {{ socialMedia.name }} <!-- Este es el nombre del KPI -->
+          </h3>
+        </div>
+        <div class="col-12 text-left mt-5 mb-1">
+          <h3 class="kpi-value">
+            {{ socialMedia.value }}/{{ socialMedia.total }}
+          </h3>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,34 +1,34 @@
-/* styles.scss o redessociales-kpis.component.scss */
 .kpi-card {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-radius: 16px;
-  margin: 10px;
-  background-color: #ffffff;
-  .card-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background: #FFFFFF no-repeat padding-box; // Fondo blanco sin imagen de fondo
+  box-shadow: 0px 3px 6px #272D3B33; // Sombra suave con opacidad
+  border-radius: 20px; // Bordes redondeados
+  opacity: 1; // Opacidad completa
+  padding: 20px; // Ajusta el relleno según sea necesario
+  margin: 10px; // Ajusta el margen según sea necesario
+
+  canvas {
+    max-width: 100%;
+    height: auto; // Asegura que el canvas no se deforme
   }
-  .chart-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+
   .kpi-details {
-    margin-top: -20px; /* Ajusta este valor según sea necesario */
-    text-align: center;
+    margin-top: 10px;
+
     .kpi-title {
-      font-weight: bold;
-      margin-bottom: 4px;
+      font-size: 1.2rem; // Tamaño de fuente para el título
+      color: #333; // Color de fuente para el título
+      margin-bottom: 5px;
     }
+
     .kpi-percentage {
-      color: #34A853; /* Color verde, ajústalo a tu diseño */
-      font-size: 24px; /* Ajusta el tamaño de fuente según sea necesario */
-      margin-bottom: 4px;
+      font-size: 2rem; // Tamaño de fuente para el porcentaje
+      color: #333; // Color de fuente para el porcentaje
+      font-weight: bold; // Negrita para el porcentaje
     }
+
     .kpi-value {
-      font-size: 16px; /* Ajusta el tamaño de fuente según sea necesario */
+      font-size: 1rem; // Tamaño de fuente para el valor
+      color: #666; // Color de fuente para el valor
     }
   }
 }

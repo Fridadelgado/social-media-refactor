@@ -1,9 +1,30 @@
 <!-- redessociales-kpis.component.html -->
-<div class="container-fluid mt-3">
-  <div class="row">
-    <!-- Usa el componente kpi-card para cada KPI -->
-    <div class="col-md-4" *ngFor="let kpi of kpisData">
-      <app-kpi-card [socialMedia]="kpi"></app-kpi-card>
+<div class="container-fluid mt-1">
+  <div class="filters row mb-3">
+    <!-- Checkbox para cada red social con NbCheckbox -->
+    <div class="col-auto" *ngFor="let social of availableSocialMedias">
+      <nb-checkbox id="{{social}}" [checked]="selectedSocialMedias.has(social)"
+        (checkedChange)="toggleSocialMedia(social)">
+        <label for="{{social}}">
+          <img src="{{socialMediaImages[social]}}" alt="{{social}}" width="24" height="24">
+        </label>
+      </nb-checkbox>
     </div>
+  </div>
+
+  <!-- Botones de filtrado por tiempo con Nebular -->
+  <div class="col">
+    <button nbButton status="primary" (click)="setTimeFilter('month')">Por Mes</button>
+    <button nbButton status="info" (click)="setTimeFilter('quarter')">Por Trimestre</button>
+    <button nbButton status="success" (click)="setTimeFilter('day')">Por Día</button>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Usa NbCard para cada KPI -->
+  <div class="col-md-4" *ngFor="let kpi of filteredKpisData">
+
+    <app-kpi-card [socialMedia]="kpi"></app-kpi-card>
+
   </div>
 </div>
