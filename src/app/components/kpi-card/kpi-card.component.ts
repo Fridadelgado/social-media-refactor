@@ -39,11 +39,11 @@ export class KpiCardComponent implements AfterViewInit {
             color: '#1E1E1E',
             font: {
               family: 'Montserrat',
-              size: 30,
+              size: 43,
 
             },
 
-            offset: 65,
+            offset: 63,
             anchor: 'end',
             align: 'start',
             formatter: function (value, context) {

@@ -26,11 +26,11 @@ export class RedesSocialesKpisComponent implements OnInit {
   ngOnInit() {
     this.kpisData = [
       // Datos por mes
-      { socialMedia: 'facebook', period: 'month', name: "Impresiones", anterior: 1200000, actual: 1300000 },
-      { socialMedia: 'facebook', period: 'month', name: "Alcance Orgánico", anterior: 800000, actual: 850000 },
-      { socialMedia: 'facebook', period: 'month', name: "Alcance Pagado", anterior: 400000, actual: 450000 },
-      { socialMedia: 'facebook', period: 'month', name: "Clics en Enlaces", anterior: 25000, actual: 27000 },
-      { socialMedia: 'facebook', period: 'month', name: "Clics en Publicidad", anterior: 10000, actual: 11000 },
+      { socialMedia: 'facebook', period: 'month', name: "Impresiones", anterior: 12000, actual: 13000 },
+      { socialMedia: 'facebook', period: 'month', name: "Alcance Orgánico", anterior: 8000, actual: 8500 },
+      { socialMedia: 'facebook', period: 'month', name: "Alcance Pagado", anterior: 4000, actual: 4500 },
+      { socialMedia: 'facebook', period: 'month', name: "Clics en Enlaces", anterior: 2500, actual: 2700 },
+      { socialMedia: 'facebook', period: 'month', name: "Clics en Publicidad", anterior: 100, actual: 110 },
 
       { socialMedia: 'twitter', period: 'month', name: "Favoritos", anterior: 650, actual: 700 },
       { socialMedia: 'twitter', period: 'month', name: "Respuestas", anterior: 300, actual: 320 },
@@ -38,14 +38,14 @@ export class RedesSocialesKpisComponent implements OnInit {
       { socialMedia: 'twitter', period: 'month', name: "Retuits con Comentario", anterior: 120, actual: 130 },
 
       { socialMedia: 'instagram', period: 'month', name: "Interacciones", anterior: 1800, actual: 2000 },
-      { socialMedia: 'instagram', period: 'month', name: "Impresiones de Perfil", anterior: 700000, actual: 750000 },
+      { socialMedia: 'instagram', period: 'month', name: "Impresiones de Perfil", anterior: 7000, actual: 7500 },
       { socialMedia: 'instagram', period: 'month', name: "Clics en Enlaces", anterior: 4000, actual: 4500 },
       { socialMedia: 'instagram', period: 'month', name: "Visitas al Perfil", anterior: 25000, actual: 28000 },
 
       { socialMedia: 'youtube', period: 'month', name: "Suscriptores", anterior: 7500, actual: 8000 },
       { socialMedia: 'youtube', period: 'month', name: "Visualizaciones de Playlist", anterior: 35000, actual: 38000 },
       { socialMedia: 'youtube', period: 'month', name: "Clics en Anuncios", anterior: 5000, actual: 5500 },
-      { socialMedia: 'youtube', period: 'month', name: "Minutos Vistos", anterior: 1200000, actual: 1300000 },
+      { socialMedia: 'youtube', period: 'month', name: "Minutos Vistos", anterior: 12000, actual: 13000 },
 
       { socialMedia: 'tiktok', period: 'month', name: "Seguidores", anterior: 2500, actual: 2800 },
       { socialMedia: 'tiktok', period: 'month', name: "Visualizaciones de Perfil", anterior: 30000, actual: 32000 },
@@ -53,7 +53,7 @@ export class RedesSocialesKpisComponent implements OnInit {
       { socialMedia: 'tiktok', period: 'month', name: "Comentarios en Videos", anterior: 150, actual: 170 },
 
       { socialMedia: 'linkedin', period: 'month', name: "Publicaciones", anterior: 25, actual: 30 },
-      { socialMedia: 'linkedin', period: 'month', name: "Alcance Publicaciones", anterior: 100000, actual: 110000 },
+      { socialMedia: 'linkedin', period: 'month', name: "Alcance de Publicaciones", anterior: 100000, actual: 110000 },
       { socialMedia: 'linkedin', period: 'month', name: "Clics en Contenido", anterior: 1500, actual: 1700 },
       { socialMedia: 'linkedin', period: 'month', name: "Comentarios en Publicaciones", anterior: 50, actual: 60 },
 
@@ -62,9 +62,9 @@ export class RedesSocialesKpisComponent implements OnInit {
       { socialMedia: 'pinterest', period: 'month', name: "Clics en Pines", anterior: 500, actual: 550 },
       { socialMedia: 'pinterest', period: 'month', name: "Seguidores Nuevos", anterior: 100, actual: 120 },
       // Datos por semana
-      { socialMedia: 'facebook', period: 'week', name: "Impresiones", anterior: 300000, actual: 320000 },
-      { socialMedia: 'facebook', period: 'week', name: "Alcance Orgánico", anterior: 200000, actual: 220000 },
-      { socialMedia: 'facebook', period: 'week', name: "Alcance Pagado", anterior: 100000, actual: 120000 },
+      { socialMedia: 'facebook', period: 'week', name: "Impresiones", anterior: 3000, actual: 3200 },
+      { socialMedia: 'facebook', period: 'week', name: "Alcance Orgánico", anterior: 20000, actual: 22000 },
+      { socialMedia: 'facebook', period: 'week', name: "Alcance Pagado", anterior: 1000, actual: 12000 },
       { socialMedia: 'facebook', period: 'week', name: "Clics en Enlaces", anterior: 8000, actual: 8500 },
       { socialMedia: 'facebook', period: 'week', name: "Clics en Publicidad", anterior: 3000, actual: 3200 },
 
@@ -125,7 +125,7 @@ export class RedesSocialesKpisComponent implements OnInit {
       { socialMedia: 'tiktok', period: 'day', name: "Comentarios en Videos", anterior: 2, actual: 3 },
 
       { socialMedia: 'linkedin', period: 'day', name: "Publicaciones", anterior: 1, actual: 2 },
-      { socialMedia: 'linkedin', period: 'day', name: "Alcance Publicaciones", anterior: 500, actual: 550 },
+      { socialMedia: 'linkedin', period: 'day', name: "Alcance de Publicaciones", anterior: 500, actual: 550 },
       { socialMedia: 'linkedin', period: 'day', name: "Clics en Contenido", anterior: 5, actual: 6 },
       { socialMedia: 'linkedin', period: 'day', name: "Comentarios en Publicaciones", anterior: 1, actual: 2 },
 
