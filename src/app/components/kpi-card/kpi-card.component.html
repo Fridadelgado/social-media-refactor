@@ -1,18 +1,21 @@
 <!-- kpi-card.component.html -->
 <div class="card kpi-card shadow-sm">
-  <div class="row g-0">
-    <div class="col-6">
-      <canvas #chartCanvas></canvas>
+  <div class="row align-items-center" style="height: 100%; margin-top:-20px;">
+    <div class="col-6 d-flex justify-content-center align-items-center mb-5">
+      <canvas class="mb-5" #chartCanvas></canvas>
     </div>
-    <div class="col-6 text-left">
-      <div class="row g-0">
-        <div class="col-12 mb-2">
-          <h6 class="kpi-title">
+    <div class="col-6">
+      <div class="row " style="margin-bottom: -10px;" >
+        <div class="col-12">
+          <h6 class="kpi-title" style="margin-top: -85px;">
             {{ socialMedia.name }}
           </h6>
         </div>
-        <div class="col-12">
-          <h5 class="kpi-value" style="font-size: xx-large; cursor: pointer;" nbTooltip="Periodo Anterior vs Periodo Actual" nbTooltipPlacement="bottom">
+      </div>
+      <div class="row mb-5" >
+        <div class="col-12 mb-5">
+          <h5 class="kpi-value" style="font-size: xx-large; margin-bottom: -88px; margin-left: -30px;" nbTooltip="Periodo Anterior vs Periodo Actual"
+            nbTooltipPlacement="bottom">
             {{ socialMedia.values.anterior }}/{{ socialMedia.values.actual }}
           </h5>
         </div>

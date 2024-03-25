@@ -39,11 +39,11 @@ export class KpiCardComponent implements AfterViewInit {
             color: '#1E1E1E',
             font: {
               family: 'Montserrat',
-              size: 43,
-
+              size: 25,
+              weight: 'bold'
             },
 
-            offset: 63,
+            offset: 55,
             anchor: 'end',
             align: 'start',
             formatter: function (value, context) {
@@ -68,7 +68,7 @@ export class KpiCardComponent implements AfterViewInit {
 
       // Opciones del gráfico
       const options: ChartOptions<'doughnut'> = {
-        cutout: '75%',
+        cutout: '70%',
         maintainAspectRatio: false,
         aspectRatio: 2,
         animations: {
@@ -114,7 +114,7 @@ export class KpiCardComponent implements AfterViewInit {
       });
     }
 
-   // this.chartCanvas.nativeElement.style.height = '10px';
+    this.chartCanvas.nativeElement.style.height = '220px';
   }
 
   calculatePercentage(anterior: number, actual: number): number {

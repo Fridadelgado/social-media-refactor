@@ -1,14 +1,23 @@
+.kpi-card .row {
+  width: 100%; /* Asegura que la fila ocupe todo el ancho del card */
+}
+
 .kpi-card {
   background: #FFFFFF no-repeat padding-box; // Fondo blanco sin imagen de fondo
   box-shadow: 0px 3px 6px #272D3B33; // Sombra suave con opacidad
   border-radius: 20px; // Bordes redondeados
   opacity: 1; // Opacidad completa
-  padding: 10px; // Reducir el padding general del card
+  padding: 1px; // Reducir el padding general del card
   margin: 5px; // Ajusta el margen según sea necesario
 
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Añade suavidad a la transición de estilos */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más sutil por defecto */
 
+  width: 420px;
+  height: 213px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     transform: scale(1.05); /* Aumenta ligeramente el tamaño para dar efecto de elevación */
@@ -25,6 +34,7 @@
     margin-top: 10px;
 
     .kpi-title {
+      max-width: 100%;
       font-size: 1.2rem; // Tamaño de fuente para el título
       color: #333; // Color de fuente para el título
       margin-bottom: 5px;
@@ -36,6 +46,9 @@
       font-size: 2rem; // Tamaño de fuente para el porcentaje
       color: #333; // Color de fuente para el porcentaje
       font-weight: bold; // Negrita para el porcentaje
+      overflow: hidden; /* Previene el desbordamiento del texto */
+      white-space: nowrap; /* Mantiene el texto en una sola línea */
+      text-overflow: ellipsis; /* Añade '...' si el texto es demasiado largo */
     }
 
     .kpi-value {
@@ -43,6 +56,9 @@
       color: #666; // Color de fuente para el valor
       margin-bottom: 0; // Eliminar margen inferior para hacerlo más compacto
       font-size: 1rem; // Reducir el tamaño de fuente si es necesario
+      overflow: hidden; /* Previene el desbordamiento del texto */
+      white-space: nowrap; /* Mantiene el texto en una sola línea */
+      text-overflow: ellipsis; /* Añade '...' si el texto es demasiado largo */
     }
   }
 }
