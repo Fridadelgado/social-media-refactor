@@ -1,7 +1,7 @@
 <!-- redessociales-kpis.component.html -->
 <div class="row">
   <div class="row">
-    <div class="col-md-5 mt-1">
+    <div class="col-md-4 mt-1">
       <h4>Filtrar por:</h4>
     </div>
     <div class="col-md-6">
@@ -15,7 +15,7 @@
     <div class="d-flex flex-wrap">
       <div *ngFor="let social of availableSocialMedias" class="row">
         <nb-icon [icon]="social.name+'-icon'" pack="seekop" (click)="toggleSocialMedia(social)"
-          class="filter-icons icon-hover" [class.icon-active]="social.selected"
+          class="filter-icons icon-hover" [class.icon-active]="social.selected" [nbTooltip]="social.name"
           style="font-size: xx-large; cursor: pointer;">
         </nb-icon>
       </div>
@@ -61,7 +61,17 @@
 
 
 <div class="row">
-  <!-- Contenedor principal para una categoría de KPIs -->
+  <!-- Mensaje cuando no hay selección de red social -->
+<div *ngIf="selectedSocialMedias.size === 0" class="row justify-content-center align-items-center" style="height: 300px;">
+  <div class="col-md-4 mt-5"></div>
+  <div class="col text-center mt-5">
+    <h4 class="mt-5"><nb-icon  icon="info-outline" pack="eva" style="font-size: 40px; color: #aaa; margin-right: 10px; "></nb-icon>No hay datos que mostrar</h4>
+    <p>Selecciona una red social para comenzar a visualizar los KPIs.</p>
+  </div>
+</div>
+
+<!-- Contenedor principal para una categoría de KPIs -->
+<div *ngIf="selectedSocialMedias.size > 0">
   <div *ngFor="let group of groupedKpisData" class="kpi-category-group">
     <h4>{{ group.category }}</h4>
     <div class="row">
@@ -71,4 +81,6 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
