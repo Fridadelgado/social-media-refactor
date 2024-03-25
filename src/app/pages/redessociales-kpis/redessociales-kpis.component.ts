@@ -2,6 +2,30 @@
 
 import { Component, OnInit } from '@angular/core';
 
+interface KpiValue {
+  anterior: number;
+  actual: number;
+}
+
+interface KpiMetric {
+  name: string;
+  values: {
+    month: KpiValue;
+    week: KpiValue;
+    day: KpiValue;
+  };
+}
+
+interface KpiCategory {
+  category: string;
+  metrics: KpiMetric[];
+}
+
+interface SocialMediaKpi {
+  socialMedia: string;
+  KPIs: KpiCategory[];
+}
+
 @Component({
   selector: 'app-redessociales-kpis',
   templateUrl: './redessociales-kpis.component.html',
@@ -9,6 +33,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RedesSocialesKpisComponent implements OnInit {
   kpisData: any[] = [];
+  groupedKpisData: any[] = [];
   filteredKpisData: any[] = [];
   selectedSocialMedias: Set<string> = new Set();
   availableSocialMedias: any[] = [
@@ -25,119 +50,161 @@ export class RedesSocialesKpisComponent implements OnInit {
 
   ngOnInit() {
     this.kpisData = [
-      // Datos por mes
-      { socialMedia: 'facebook', period: 'month', name: "Impresiones", anterior: 12000, actual: 13000 },
-      { socialMedia: 'facebook', period: 'month', name: "Alcance Orgánico", anterior: 8000, actual: 8500 },
-      { socialMedia: 'facebook', period: 'month', name: "Alcance Pagado", anterior: 4000, actual: 4500 },
-      { socialMedia: 'facebook', period: 'month', name: "Clics en Enlaces", anterior: 2500, actual: 2700 },
-      { socialMedia: 'facebook', period: 'month', name: "Clics en Publicidad", anterior: 100, actual: 110 },
-
-      { socialMedia: 'twitter', period: 'month', name: "Favoritos", anterior: 650, actual: 700 },
-      { socialMedia: 'twitter', period: 'month', name: "Respuestas", anterior: 300, actual: 320 },
-      { socialMedia: 'twitter', period: 'month', name: "Clics en Enlaces", anterior: 1800, actual: 2000 },
-      { socialMedia: 'twitter', period: 'month', name: "Retuits con Comentario", anterior: 120, actual: 130 },
-
-      { socialMedia: 'instagram', period: 'month', name: "Interacciones", anterior: 1800, actual: 2000 },
-      { socialMedia: 'instagram', period: 'month', name: "Impresiones de Perfil", anterior: 7000, actual: 7500 },
-      { socialMedia: 'instagram', period: 'month', name: "Clics en Enlaces", anterior: 4000, actual: 4500 },
-      { socialMedia: 'instagram', period: 'month', name: "Visitas al Perfil", anterior: 25000, actual: 28000 },
-
-      { socialMedia: 'youtube', period: 'month', name: "Suscriptores", anterior: 7500, actual: 8000 },
-      { socialMedia: 'youtube', period: 'month', name: "Visualizaciones de Playlist", anterior: 35000, actual: 38000 },
-      { socialMedia: 'youtube', period: 'month', name: "Clics en Anuncios", anterior: 5000, actual: 5500 },
-      { socialMedia: 'youtube', period: 'month', name: "Minutos Vistos", anterior: 12000, actual: 13000 },
-
-      { socialMedia: 'tiktok', period: 'month', name: "Seguidores", anterior: 2500, actual: 2800 },
-      { socialMedia: 'tiktok', period: 'month', name: "Visualizaciones de Perfil", anterior: 30000, actual: 32000 },
-      { socialMedia: 'tiktok', period: 'month', name: "Clics en Enlaces", anterior: 700, actual: 750 },
-      { socialMedia: 'tiktok', period: 'month', name: "Comentarios en Videos", anterior: 150, actual: 170 },
-
-      { socialMedia: 'linkedin', period: 'month', name: "Publicaciones", anterior: 25, actual: 30 },
-      { socialMedia: 'linkedin', period: 'month', name: "Alcance de Publicaciones", anterior: 100000, actual: 110000 },
-      { socialMedia: 'linkedin', period: 'month', name: "Clics en Contenido", anterior: 1500, actual: 1700 },
-      { socialMedia: 'linkedin', period: 'month', name: "Comentarios en Publicaciones", anterior: 50, actual: 60 },
-
-      { socialMedia: 'pinterest', period: 'month', name: "Visitas al Sitio", anterior: 1000, actual: 1100 },
-      { socialMedia: 'pinterest', period: 'month', name: "Compartidos", anterior: 200, actual: 220 },
-      { socialMedia: 'pinterest', period: 'month', name: "Clics en Pines", anterior: 500, actual: 550 },
-      { socialMedia: 'pinterest', period: 'month', name: "Seguidores Nuevos", anterior: 100, actual: 120 },
-      // Datos por semana
-      { socialMedia: 'facebook', period: 'week', name: "Impresiones", anterior: 3000, actual: 3200 },
-      { socialMedia: 'facebook', period: 'week', name: "Alcance Orgánico", anterior: 20000, actual: 22000 },
-      { socialMedia: 'facebook', period: 'week', name: "Alcance Pagado", anterior: 1000, actual: 12000 },
-      { socialMedia: 'facebook', period: 'week', name: "Clics en Enlaces", anterior: 8000, actual: 8500 },
-      { socialMedia: 'facebook', period: 'week', name: "Clics en Publicidad", anterior: 3000, actual: 3200 },
-
-      { socialMedia: 'twitter', period: 'week', name: "Favoritos", anterior: 150, actual: 170 },
-      { socialMedia: 'twitter', period: 'week', name: "Respuestas", anterior: 70, actual: 80 },
-      { socialMedia: 'twitter', period: 'week', name: "Clics en Enlaces", anterior: 500, actual: 550 },
-      { socialMedia: 'twitter', period: 'week', name: "Retuits con Comentario", anterior: 40, actual: 45 },
-
-      { socialMedia: 'instagram', period: 'week', name: "Interacciones", anterior: 800, actual: 850 },
-      { socialMedia: 'instagram', period: 'week', name: "Impresiones de Perfil", anterior: 150000, actual: 160000 },
-      { socialMedia: 'instagram', period: 'week', name: "Clics en Enlaces", anterior: 1200, actual: 1300 },
-      { socialMedia: 'instagram', period: 'week', name: "Visitas al Perfil", anterior: 8000, actual: 8500 },
-
-      { socialMedia: 'youtube', period: 'week', name: "Suscriptores", anterior: 1800, actual: 2000 },
-      { socialMedia: 'youtube', period: 'week', name: "Visualizaciones de Playlist", anterior: 9000, actual: 9500 },
-      { socialMedia: 'youtube', period: 'week', name: "Clics en Anuncios", anterior: 1200, actual: 1300 },
-      { socialMedia: 'youtube', period: 'week', name: "Minutos Vistos", anterior: 250000, actual: 270000 },
-
-      { socialMedia: 'tiktok', period: 'week', name: "Seguidores", anterior: 600, actual: 650 },
-      { socialMedia: 'tiktok', period: 'week', name: "Visualizaciones de Perfil", anterior: 5000, actual: 5500 },
-      { socialMedia: 'tiktok', period: 'week', name: "Clics en Enlaces", anterior: 150, actual: 170 },
-      { socialMedia: 'tiktok', period: 'week', name: "Comentarios en Videos", anterior: 30, actual: 35 },
-
-      { socialMedia: 'linkedin', period: 'week', name: "Publicaciones", anterior: 5, actual: 6 },
-      { socialMedia: 'linkedin', period: 'week', name: "Alcance de Publicaciones", anterior: 15000, actual: 17000 },
-      { socialMedia: 'linkedin', period: 'week', name: "Clics en Contenido", anterior: 200, actual: 220 },
-      { socialMedia: 'linkedin', period: 'week', name: "Comentarios en Publicaciones", anterior: 8, actual: 10 },
-
-      { socialMedia: 'pinterest', period: 'week', name: "Visitas al Sitio", anterior: 300, actual: 320 },
-      { socialMedia: 'pinterest', period: 'week', name: "Compartidos", anterior: 50, actual: 55 },
-      { socialMedia: 'pinterest', period: 'week', name: "Clics en Pines", anterior: 80, actual: 90 },
-      { socialMedia: 'pinterest', period: 'week', name: "Seguidores Nuevos", anterior: 20, actual: 25 },
-      // Datos por día
-      { socialMedia: 'facebook', period: 'day', name: "Impresiones", anterior: 50000, actual: 55000 },
-      { socialMedia: 'facebook', period: 'day', name: "Alcance Orgánico", anterior: 30000, actual: 32000 },
-      { socialMedia: 'facebook', period: 'day', name: "Alcance Pagado", anterior: 20000, actual: 23000 },
-      { socialMedia: 'facebook', period: 'day', name: "Clics en Enlaces", anterior: 1000, actual: 1100 },
-      { socialMedia: 'facebook', period: 'day', name: "Clics en Publicidad", anterior: 500, actual: 550 },
-
-      { socialMedia: 'twitter', period: 'day', name: "Favoritos", anterior: 20, actual: 25 },
-      { socialMedia: 'twitter', period: 'day', name: "Respuestas", anterior: 8, actual: 10 },
-      { socialMedia: 'twitter', period: 'day', name: "Clics en Enlaces", anterior: 50, actual: 55 },
-      { socialMedia: 'twitter', period: 'day', name: "Retuits con Comentario", anterior: 3, actual: 4 },
-
-      { socialMedia: 'instagram', period: 'day', name: "Interacciones", anterior: 50, actual: 60 },
-      { socialMedia: 'instagram', period: 'day', name: "Impresiones de Perfil", anterior: 10000, actual: 11000 },
-      { socialMedia: 'instagram', period: 'day', name: "Clics en Enlaces", anterior: 200, actual: 220 },
-      { socialMedia: 'instagram', period: 'day', name: "Visitas al Perfil", anterior: 1000, actual: 1200 },
-
-      { socialMedia: 'youtube', period: 'day', name: "Suscriptores", anterior: 30, actual: 35 },
-      { socialMedia: 'youtube', period: 'day', name: "Visualizaciones de Playlist", anterior: 200, actual: 220 },
-      { socialMedia: 'youtube', period: 'day', name: "Clics en Anuncios", anterior: 30, actual: 35 },
-      { socialMedia: 'youtube', period: 'day', name: "Minutos Vistos", anterior: 5000, actual: 5500 },
-
-      { socialMedia: 'tiktok', period: 'day', name: "Seguidores", anterior: 5, actual: 6 },
-      { socialMedia: 'tiktok', period: 'day', name: "Visualizaciones de Perfil", anterior: 50, actual: 55 },
-      { socialMedia: 'tiktok', period: 'day', name: "Clics en Enlaces", anterior: 3, actual: 4 },
-      { socialMedia: 'tiktok', period: 'day', name: "Comentarios en Videos", anterior: 2, actual: 3 },
-
-      { socialMedia: 'linkedin', period: 'day', name: "Publicaciones", anterior: 1, actual: 2 },
-      { socialMedia: 'linkedin', period: 'day', name: "Alcance de Publicaciones", anterior: 500, actual: 550 },
-      { socialMedia: 'linkedin', period: 'day', name: "Clics en Contenido", anterior: 5, actual: 6 },
-      { socialMedia: 'linkedin', period: 'day', name: "Comentarios en Publicaciones", anterior: 1, actual: 2 },
-
-      { socialMedia: 'pinterest', period: 'day', name: "Visitas al Sitio", anterior: 10, actual: 12 },
-      { socialMedia: 'pinterest', period: 'day', name: "Compartidos", anterior: 2, actual: 3 },
-      { socialMedia: 'pinterest', period: 'day', name: "Clics en Pines", anterior: 5, actual: 6 },
-      { socialMedia: 'pinterest', period: 'day', name: "Seguidores Nuevos", anterior: 1, actual: 2 },
+      {
+        socialMedia: 'facebook',
+        KPIs: [
+          {
+            category: 'Alcance',
+            metrics: [
+              {
+                name: 'Alcance Orgánico',
+                values: {
+                  month: { anterior: 8000, actual: 8500 },
+                  week: { anterior: 2000, actual: 2100 },
+                  day: { anterior: 250, actual: 300 }
+                }
+              },
+              {
+                name: 'Alcance Pagado',
+                values: {
+                  month: { anterior: 4000, actual: 4500 },
+                  week: { anterior: 1000, actual: 1125 },
+                  day: { anterior: 140, actual: 160 }
+                }
+              },
+              {
+                name: 'Impresiones',
+                values: {
+                  month: { anterior: 12000, actual: 13000 },
+                  week: { anterior: 3000, actual: 3200 },
+                  day: { anterior: 400, actual: 450 }
+                }
+              }
+            ]
+          },
+          {
+            category: 'Engagement',
+            metrics: [
+              {
+                name: 'Me gusta',
+                values: {
+                  month: { anterior: 5000, actual: 5500 },
+                  week: { anterior: 1250, actual: 1375 },
+                  day: { anterior: 175, actual: 195 }
+                }
+              },
+              {
+                name: 'Comentarios',
+                values: {
+                  month: { anterior: 1500, actual: 1650 },
+                  week: { anterior: 375, actual: 412 },
+                  day: { anterior: 50, actual: 58 }
+                }
+              },
+              {
+                name: 'Reacciones',
+                values: {
+                  month: { anterior: 7000, actual: 7700 },
+                  week: { anterior: 1750, actual: 1925 },
+                  day: { anterior: 250, actual: 275 }
+                }
+              },
+              {
+                name: 'Compartidos',
+                values: {
+                  month: { anterior: 1000, actual: 1100 },
+                  week: { anterior: 250, actual: 275 },
+                  day: { anterior: 35, actual: 40 }
+                }
+              }
+            ]
+          },
+          {
+            category: 'Clics',
+            metrics: [
+              {
+                name: 'Clics en Enlaces',
+                values: {
+                  month: { anterior: 3000, actual: 3300 },
+                  week: { anterior: 750, actual: 825 },
+                  day: { anterior: 100, actual: 110 }
+                }
+              },
+              {
+                name: 'Clics en Publicaciones',
+                values: {
+                  month: { anterior: 2000, actual: 2200 },
+                  week: { anterior: 500, actual: 550 },
+                  day: { anterior: 70, actual: 78 }
+                }
+              }
+            ]
+          },
+          {
+            category: 'Conversiones',
+            metrics: [
+              {
+                name: 'Leads',
+                values: {
+                  month: { anterior: 250, actual: 275 },
+                  week: { anterior: 62, actual: 68 },
+                  day: { anterior: 8, actual: 9 }
+                }
+              },
+              {
+                name: 'Ventas',
+                values: {
+                  month: { anterior: 120, actual: 130 },
+                  week: { anterior: 30, actual: 33 },
+                  day: { anterior: 4, actual: 5 }
+                }
+              }
+            ]
+          },
+          {
+            category: 'Otros KPIs',
+            metrics: [
+              {
+                name: 'Tasa de Participación',
+                values: {
+                  month: { anterior: 4.5, actual: 4.7 },
+                  week: { anterior: 1.12, actual: 1.17 },
+                  day: { anterior: 0.16, actual: 0.17 }
+                }
+              },
+              {
+                name: 'Tasa de Crecimiento de Seguidores',
+                values: {
+                  month: { anterior: 2, actual: 2.1 },
+                  week: { anterior: 0.5, actual: 0.52 },
+                  day: { anterior: 0.07, actual: 0.075 }
+                }
+              },
+              {
+                name: 'Coste por Clic (CPC)',
+                values: {
+                  month: { anterior: 0.25, actual: 0.27 },
+                  week: { anterior: 0.0625, actual: 0.0675 },
+                  day: { anterior: 0.0089, actual: 0.0096 }
+                }
+              },
+              {
+                name: 'Coste por Adquisición (CPA)',
+                values: {
+                  month: { anterior: 1.5, actual: 1.6 },
+                  week: { anterior: 0.375, actual: 0.4 },
+                  day: { anterior: 0.053, actual: 0.057 }
+                }
+              }
+            ]
+          }
+        ]
+      }
+      // Aquí podrías añadir otros medios sociales siguiendo el mismo patrón
     ];
-
-    // Aplica los filtros iniciales basados en el periodo por mes
-    this.setTimeFilter('month');
   }
+
+
 
   toggleSocialMedia(socialMedia: any) {
     socialMedia.selected = !socialMedia.selected; // Cambia el estado de selección
@@ -173,10 +240,47 @@ export class RedesSocialesKpisComponent implements OnInit {
   }
 
   applyFilters() {
-    // Filtra los datos de KPI basados en el periodo de tiempo seleccionado
-    this.filteredKpisData = this.kpisData.filter(kpi =>
-      kpi.period === this.timeFilter &&
-      (this.selectedSocialMedias.size === 0 || this.selectedSocialMedias.has(kpi.socialMedia))
+    let socialMediaData = this.kpisData.find(social => this.selectedSocialMedias.has(social.socialMedia));
+
+    if (!socialMediaData) {
+      this.filteredKpisData = [];
+      return;
+    }
+
+    // Asegurándonos de que el tipo de 'category' y 'metric' no sea 'any'
+    this.filteredKpisData = socialMediaData.KPIs.flatMap((category: KpiCategory) =>
+      category.metrics.map((metric: KpiMetric) => {
+        // La estructura de retorno aquí debe coincidir con la estructura esperada por 'filteredKpisData'
+        // Si 'filteredKpisData' espera un tipo específico, asegúrate de que los objetos aquí creados coincidan con ese tipo
+        return {
+          category: category.category,
+          name: metric.name,
+          socialMedia: socialMediaData.socialMedia,
+          // 'values' aquí debería estructurarse de acuerdo a cómo espera ser usado
+          // Esto podría necesitar ajustes si 'filteredKpisData' espera una estructura diferente
+          values: metric.values[this.timeFilter]
+        };
+      })
     );
+
+    this.transformKpisDataForCategories();
   }
+
+
+  transformKpisDataForCategories() {
+    const categoriesMap = new Map();
+
+    // Iterar sobre filteredKpisData para agrupar por categoría
+    this.filteredKpisData.forEach(kpi => {
+      if (!categoriesMap.has(kpi.category)) {
+        categoriesMap.set(kpi.category, []);
+      }
+      categoriesMap.get(kpi.category).push(kpi);
+    });
+
+    // Convertir el Map en un array para iterar en la plantilla
+    this.groupedKpisData = Array.from(categoriesMap, ([category, kpis]) => ({ category, kpis }));
+  }
+
+
 }

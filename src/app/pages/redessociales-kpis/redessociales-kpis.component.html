@@ -16,6 +16,7 @@
       </div>
     </div>
 
+
     <div class="d-flex align-items-center ">
       <div class="row">
         <!-- Título de los KPIs que cambia con el filtro seleccionado -->
@@ -50,9 +51,16 @@
 
 
   <div class="row">
-    <!-- Usa NbCard para cada KPI -->
-    <div class="col-md-4" *ngFor="let kpi of filteredKpisData">
+    <!-- Contenedor principal para una categoría de KPIs -->
+<div *ngFor="let group of groupedKpisData" class="kpi-category-group">
+  <h4>{{ group.category }}</h4>
+  <div class="row">
+    <!-- Itera sobre los KPIs y colócalos en una cuadrícula -->
+    <div class="col-md-4" *ngFor="let kpi of group.kpis">
       <app-kpi-card [socialMedia]="kpi"></app-kpi-card>
     </div>
   </div>
+</div>
+  </div>
+
 </div>

@@ -26,7 +26,7 @@ export class KpiCardComponent implements AfterViewInit {
         labels: ['Anterior', 'Más'],
         datasets: [{
           label: this.socialMedia.name,
-          data: [this.socialMedia.anterior, this.socialMedia.actual - this.socialMedia.anterior],
+          data: [this.socialMedia.values.anterior, this.socialMedia.values.actual - this.socialMedia.values.anterior],
           backgroundColor: [ '#E2E2E2', '#D2F16E'],
           hoverBackgroundColor: ['#E2E2E2', '#D2F16E'],
           borderWidth: 3,
