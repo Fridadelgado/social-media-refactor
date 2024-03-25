@@ -241,7 +241,7 @@ export class RedesSocialesKpisComponent implements OnInit {
               {
                 name: 'Alcance Total',
                 values: {
-                  month: { anterior: 10000, actual: 12000 },
+                  month: { anterior: 10000, actual: 800 },
                   week: { anterior: 2500, actual: 3000 },
                   day: { anterior: 300, actual: 350 }
                 }

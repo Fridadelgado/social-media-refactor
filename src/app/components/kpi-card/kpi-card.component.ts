@@ -13,22 +13,56 @@ Chart.register(DoughnutController, ArcElement, Tooltip, Legend, ChartDataLabels)
 export class KpiCardComponent implements AfterViewInit {
   @Input() socialMedia: any;
   @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
+  valueToShow = 0; // Variable para mostrar el valor animado
 
   ngAfterViewInit(): void {
-    this.initializeChart();
+    //this.initializeChart();
+    this.animateValue(0, this.socialMedia.values.actual, 300); // Iniciar la animación
+  }
+
+  formatNumber(value: number): string {
+    return value.toLocaleString('en-US');
+  }
+
+  formatNumberUnDecimal(value: number): string {
+    return value.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  }
+
+
+
+  animateValue(start: number, end: number, duration: number): void {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      this.valueToShow = Math.floor(progress * (end - start) + start);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
   }
 
   initializeChart(): void {
     const ctx = this.chartCanvas.nativeElement.getContext('2d');
     if (ctx) {
+      // Determina si el cambio es positivo o negativo
+      const cambio = this.socialMedia.values.actual - this.socialMedia.values.anterior;
+      const esNegativo = cambio < 0;
+
+      // Configura los colores y la etiqueta en base al cambio
+      const color = esNegativo ? '#F77C74' : '#D2F16E'; // Rojo para negativo, verde para positivo
+      const etiqueta = esNegativo ? 'Menos' : 'Más'; // Cambia la etiqueta en base al cambio
+
+
       // Define la configuración del gráfico
       const data: ChartData<'doughnut'> = {
-        labels: ['Anterior', 'Más'],
+        labels: ['Anterior', etiqueta],
         datasets: [{
           label: this.socialMedia.name,
           data: [this.socialMedia.values.anterior, this.socialMedia.values.actual - this.socialMedia.values.anterior],
-          backgroundColor: [ '#E2E2E2', '#D2F16E'],
-          hoverBackgroundColor: ['#E2E2E2', '#D2F16E'],
+          backgroundColor: ['#E2E2E2', color],
+          hoverBackgroundColor: ['#E2E2E2', color],
           borderWidth: 3,
           borderColor: '#ffffff',
           hoverBorderColor: '#ffffff',
@@ -49,12 +83,12 @@ export class KpiCardComponent implements AfterViewInit {
             formatter: function (value, context) {
               if (context.dataIndex === 0) { // Cambiamos a índice 1 para aplicar al valor "Más" o incremento
 
-                let valorActual:any = Number(context.chart.data.datasets[0].data[1])  + Number(value.toFixed(0))
+                let valorActual: any = Number(context.chart.data.datasets[0].data[1]) + Number(value.toFixed(0))
                 let valorAnterior = Number(value.toFixed(0))
-                let porcentajeCambio = ((valorActual - valorAnterior) / valorAnterior)* 100;
+                let porcentajeCambio = ((valorActual - valorAnterior) / valorAnterior) * 100;
 
                 // Retorna el porcentaje de cambio formateado como un número decimal con 2 dígitos y añade el símbolo '%'
-                return porcentajeCambio.toFixed(1) + '%';
+                return valorActual;
               } else {
                 // Para el primer dato (valor anterior), solo muestra su valor sin calcular el porcentaje
                 return value.toFixed(0); // Ajusta aquí si quieres mostrar decimales o no

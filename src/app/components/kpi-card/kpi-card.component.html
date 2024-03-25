@@ -1,24 +1,41 @@
 <!-- kpi-card.component.html -->
 <div class="card kpi-card shadow-sm">
-  <div class="row align-items-center" style="height: 100%; margin-top:-20px;">
-    <div class="col-6 d-flex justify-content-center align-items-center mb-5">
-      <canvas class="mb-5" #chartCanvas></canvas>
+  <div class="row align-items-center" style="height: 100%; margin-top:-40px;">
+    <div class="col-6 d-flex justify-content-center align-items-center position-relative">
+      <h1 #animatedValue style="font-size: xxx-large; margin-top: 60px;">{{  this.formatNumber(valueToShow) }}</h1>
+      <!-- Icono condicional para cambio -->
+      <ng-container *ngIf="socialMedia.values.actual - socialMedia.values.anterior >= 0; else negativeChange">
+        <nb-icon icon="arrowhead-up-outline" pack="eva" class="change-icon positive-change"></nb-icon>
+      </ng-container>
+      <ng-template #negativeChange>
+        <nb-icon icon="arrowhead-down-outline" pack="eva" class="change-icon negative-change"></nb-icon>
+      </ng-template>
     </div>
     <div class="col-6">
-      <div class="row " style="margin-bottom: -10px;" >
-        <div class="col-12">
-          <h6 class="kpi-title" style="margin-top: -85px;">
-            {{ socialMedia.name }}
-          </h6>
-        </div>
-      </div>
-      <div class="row mb-5" >
-        <div class="col-12 mb-5">
-          <h5 class="kpi-value" style="font-size: xx-large; margin-bottom: -88px; margin-left: -30px;" nbTooltip="Periodo Anterior vs Periodo Actual"
-            nbTooltipPlacement="bottom">
-            {{ socialMedia.values.anterior }}/{{ socialMedia.values.actual }}
-          </h5>
-        </div>
+      <div class="col-12">
+        <h6>
+          {{ socialMedia.name }}
+        </h6>
+        <p>
+          <nb-icon icon="award-outline" pack="eva"
+            [ngStyle]="{'font-size': '20px', 'color': (socialMedia.values.actual - socialMedia.values.anterior) < 0 ? '#F77C74' : '#A3BD36', 'margin-right': '10px'}"></nb-icon> VS PM: <strong>{{
+            formatNumber(socialMedia.values.actual - socialMedia.values.anterior) }} </strong>
+        </p>
+        <p>
+          <!-- Verificar si VAR PM es negativo y cambiar el icono y color apropiadamente -->
+          <ng-container *ngIf="((socialMedia.values.actual - socialMedia.values.anterior) / socialMedia.values.anterior) * 100 < 0; else positiveVarPm">
+            <nb-icon icon="trending-down-outline" pack="eva"
+              style="font-size: 20px; color: #F77C74; margin-right: 10px;"></nb-icon>VAR PM: <strong>{{
+              formatNumberUnDecimal(((socialMedia.values.actual - socialMedia.values.anterior) / socialMedia.values.anterior) * 100)
+              }}% </strong>
+          </ng-container>
+          <ng-template #positiveVarPm>
+            <nb-icon icon="trending-up-outline" pack="eva"
+              [ngStyle]="{'font-size': '20px', 'color': '#A3BD36', 'margin-right': '10px'}"></nb-icon>VAR PM: <strong>{{
+             formatNumberUnDecimal( ((socialMedia.values.actual - socialMedia.values.anterior) / socialMedia.values.anterior) * 100)
+              }}% </strong>
+          </ng-template>
+        </p>
       </div>
     </div>
   </div>
