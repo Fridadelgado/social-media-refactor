@@ -32,7 +32,7 @@ interface SocialMediaKpi {
   styleUrls: ['./redessociales-kpis.component.scss']
 })
 export class RedesSocialesKpisComponent implements OnInit {
-  kpisData: any[] = [];
+  kpisData: SocialMediaKpi[] = [];
   groupedKpisData: any[] = [];
   filteredKpisData: any[] = [];
   selectedSocialMedias: Set<string> = new Set();
@@ -47,6 +47,9 @@ export class RedesSocialesKpisComponent implements OnInit {
   ];
   timeFilter: 'month' | 'week' | 'day' = 'month';
   currentTitle: string = 'KPIs por Mes'; // Título inicial
+  selectedCategories: string[] = []; // Para almacenar múltiples categorías
+  allCategories?: string[]; // Para almacenar todas las categorías disponibles
+
 
   ngOnInit() {
     this.kpisData = [
@@ -202,6 +205,11 @@ export class RedesSocialesKpisComponent implements OnInit {
       }
       // Aquí podrías añadir otros medios sociales siguiendo el mismo patrón
     ];
+    // tu código existente para inicializar kpisData y allCategories
+    this.allCategories = Array.from(new Set(this.kpisData.flatMap(kpi => kpi.KPIs.map(kpiCategory => kpiCategory.category))));
+
+    // Establece todas las categorías como seleccionadas por defecto
+    this.selectedCategories = [...this.allCategories];
   }
 
 
@@ -240,30 +248,34 @@ export class RedesSocialesKpisComponent implements OnInit {
   }
 
   applyFilters() {
-    let socialMediaData = this.kpisData.find(social => this.selectedSocialMedias.has(social.socialMedia));
+    // Encuentra los datos de la red social seleccionada.
+    // Se asume que `kpisData` tiene un tipo explícito basado en la estructura de 'SocialMediaKpi[]'.
+    let socialMediaData: SocialMediaKpi | undefined = this.kpisData.find(social => this.selectedSocialMedias.has(social.socialMedia));
 
     if (!socialMediaData) {
       this.filteredKpisData = [];
       return;
     }
 
-    // Asegurándonos de que el tipo de 'category' y 'metric' no sea 'any'
+    // Filtra y transforma los datos basándose en el filtro de tiempo seleccionado.
+    // Aquí se asegura que el tipo de 'category' y 'metric' sea conocido y no 'any'.
     this.filteredKpisData = socialMediaData.KPIs.flatMap((category: KpiCategory) =>
       category.metrics.map((metric: KpiMetric) => {
-        // La estructura de retorno aquí debe coincidir con la estructura esperada por 'filteredKpisData'
-        // Si 'filteredKpisData' espera un tipo específico, asegúrate de que los objetos aquí creados coincidan con ese tipo
         return {
           category: category.category,
           name: metric.name,
-          socialMedia: socialMediaData.socialMedia,
-          // 'values' aquí debería estructurarse de acuerdo a cómo espera ser usado
-          // Esto podría necesitar ajustes si 'filteredKpisData' espera una estructura diferente
+          socialMedia: socialMediaData!.socialMedia,
           values: metric.values[this.timeFilter]
         };
       })
     );
 
     this.transformKpisDataForCategories();
+
+    // Filtra por categorías seleccionadas, si las hay.
+    if (this.selectedCategories.length > 0) {
+      this.groupedKpisData = this.groupedKpisData.filter(group => this.selectedCategories.includes(group.category));
+    }
   }
 
 
