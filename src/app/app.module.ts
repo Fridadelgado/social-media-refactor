@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module'; // Gestión de rutas de
 import { RouterModule } from '@angular/router'; // Sistema de enrutamiento de Angular.
 import { HttpClientModule } from '@angular/common/http'; // Módulo para realizar peticiones HTTP.
 import { AppComponent } from './app.component'; // Componente raíz de la aplicación.
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 // Importación del módulo CoreModule que contiene servicios e iconos personalizados.
@@ -81,6 +82,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
     // Nebular, ngx-translate, y otras librerías de terceros son configuradas aquí.
     CoreModule,
+    BrowserAnimationsModule,
     NbTooltipModule,
     FullCalendarModule,
     NgxFileDropModule,
