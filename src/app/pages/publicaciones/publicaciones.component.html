@@ -10,12 +10,13 @@
 
       <!-- Cabecera de la tarjeta, muestra los íconos de las redes sociales asociadas a la publicación. -->
       <nb-card-header>
-        <div class="header-content">
-          <h3>{{ 'pages.publicaciones.labelPublicadoEn' | translate }}</h3> <!-- Texto internacionalizado para "Publicado en". -->
-          <!-- Muestra un ícono para cada red social de la publicación. Los íconos son obtenidos dinámicamente según la red social. -->
-          <img *ngFor="let red of publicacion.redSocial" [src]="getSocialMediaIcon(red)" [alt]="red" class="social-media-icon">
+        <div class="header-content d-flex">
+          <h3>{{ 'pages.publicaciones.labelPublicadoEn' | translate }}</h3>
+          <!-- Utiliza nb-icon para mostrar íconos -->
+          <nb-icon class="col-md-1 filter-icons" style="margin-right: 2px;" *ngFor="let red of publicacion.redSocial" [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
         </div>
       </nb-card-header>
+
 
       <!-- Cuerpo de la tarjeta, muestra el título y la descripción de la publicación. -->
       <nb-card-body>

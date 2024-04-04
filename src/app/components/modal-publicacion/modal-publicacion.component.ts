@@ -127,18 +127,18 @@ export class ModalPublicacionComponent {
   }
 
   getSocialMediaIcon(red: string): string {
-    // Obtiene el icono correspondiente a la red social.
     const iconsMap: { [key: string]: string } = {
-      facebook: 'https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-0.png', // Asegúrate de poner la ruta correcta a tus imágenes
-      twitter: 'https://img.freepik.com/vector-gratis/nuevo-diseno-icono-x-logotipo-twitter-2023_1017-45418.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1710288000&semt=ais',
-      instagram: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png',
-      linkedin: 'https://cdn-icons-png.flaticon.com/256/174/174857.png',
-      tiktok: 'https://cdn.pixabay.com/photo/2021/01/30/06/42/tiktok-5962992_640.png',
-      pinterest: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png',
-      youtube: 'https://w7.pngwing.com/pngs/982/799/png-transparent-youtube-logo-youtube-logo-internet-marketing-subscribe-television-label-text.png'
-      // y así sucesivamente...
+      facebook: 'facebook-icon', // Asume que 'facebook-icon' es el nombre del ícono en tu paquete
+      twitter: 'twitter-icon',
+      instagram: 'instagram-icon',
+      linkedin: 'linkedin-icon',
+      tiktok: 'tiktok-icon',
+      pinterest: 'pinterest-icon',
+      youtube: 'youtube-icon'
+      // Asegúrate de que estos nombres de íconos correspondan a los de tu paquete de Nebular.
     };
 
-    return iconsMap[red] || 'path/to/default-icon.png';
+    return iconsMap[red] || 'default-icon'; // 'default-icon' es un ícono predeterminado
   }
+
 }

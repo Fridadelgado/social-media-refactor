@@ -73,9 +73,8 @@
           <div class="previsualizacion-info">
             <p><strong>{{publicacion.titulo}}</strong></p>
             <p>{{publicacion.descripcion}}</p>
-            <div class="redes-sociales">
-              <img *ngFor="let red of publicacion.redSocial" [src]="getSocialMediaIcon(red)" class="img-red-social"
-                alt="{{red}}">
+            <div class="redes-sociales d-flex">
+              <nb-icon class="col-md-2 filter-icons" style="margin-right: -8px;" *ngFor="let red of publicacion.redSocial" [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
             </div>
           </div>
         </div>
