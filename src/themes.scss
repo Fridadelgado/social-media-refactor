@@ -33,15 +33,15 @@ $nb-themes: nb-register-theme(
     actions-icon-color: #002a7f,
 
     // Paleta de colores definida para Seekop, incluyendo primario, éxito, información, advertencia y peligro.
-    color-primary-100: #f7fbd7, // Más claro
-    color-primary-200: #eef8b1,
-    color-primary-300: #dbeb86,
-    color-primary-400: #c3d764,
-    color-primary-500: #a3bd36, // Color primario estándar
-    color-primary-600: #88a227,
-    color-primary-700: #6e881b,
-    color-primary-800: #566d11,
-    color-primary-900: #445a0a, // Más oscuro
+    color-primary-100: #A3BD36, // Más claro
+    color-primary-200: #A3BD36,
+    color-primary-300: #A3BD36,
+    color-primary-400: #A3BD36,
+    color-primary-500: #A3BD36, // Color primario estándar
+    color-primary-600: #A3BD36,
+    color-primary-700: #A3BD36,
+    color-primary-800: #A3BD36,
+    color-primary-900: #A3BD36, // Más oscuro
     color-success-100: #c6def8, // y así sucesivamente para los otros colores...
     // Continúa con color-info, color-warning, color-danger
     color-success-200: #91bbf2,
@@ -103,6 +103,19 @@ $nb-themes: nb-register-theme(
     slide-out-background: linear-gradient(270deg, #f7eded 0%, #e4e9f2 100%),
     slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
     slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+
+    input-basic-background-color: #fff,
+    input-basic-border-color: #C5C5C5,
+    input-basic-placeholder-text-color:#C5C5C5,
+    //input-basic-text-color: red,
+
+    //select-medium-placeholder-text-color: red,
+    select-outline-basic-background-color: #fff,
+    select-outline-basic-border-color:#C5C5C5,
+    //select-outline-basic-border-color: red,
+    //select-outline-basic-text-color: red
+    select-outline-basic-placeholder-text-color:#C5C5C5,
+
   ),
   'seekop', // Nombre del tema.
   'corporate' // Tema base sobre el cual se aplican las personalizaciones.

@@ -14,7 +14,7 @@
 
 /* Estilos generales para el modal de publicación, incluyendo dimensiones y comportamiento de desbordamiento. */
 .modal-publicacion {
-  width: 1000px; /* Ancho fijo para el modal, que puede ajustarse según las necesidades de diseño. */
+  width: 1100px; /* Ancho fijo para el modal, que puede ajustarse según las necesidades de diseño. */
   height: 700px; /* Altura inicial para el modal, que puede ajustarse o dejarse para que el contenido dicte la altura. */
   max-height: 90%; /* Limita la altura máxima del modal para asegurar que no ocupe toda la pantalla en dispositivos con altas resoluciones. */
   overflow-y: auto; /* Permite el desplazamiento vertical dentro del modal si el contenido excede la altura del mismo. */
@@ -31,5 +31,5 @@
 }
 
 .custom-content.error {
-  color: #CF3341; /* Color de texto para indicar un error o un archivo no válido. */
+  color: #f44336; /* Color de texto para indicar un error o un archivo no válido. */
 }

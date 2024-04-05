@@ -10,6 +10,22 @@
   @include nb-theme-global();
 }
 
+
+.modal-publicacion-icono svg {
+  width: 25px !important;
+  height: 20px !important; /* Ajusta esta propiedad para mantener la proporción si es necesario */
+}
+
+.titulo-modal-publicacion-icono svg {
+  width: 40px !important;
+  height: 40px !important; /* Ajusta esta propiedad para mantener la proporción si es necesario */
+}
+
+.subtitulo-modal-publicacion-icono svg {
+  width: 25px !important;
+  height: 25px !important; /* Ajusta esta propiedad para mantener la proporción si es necesario */
+}
+
 body{
   text-align: left;
   font: normal normal bold 24px/17px Montserrat;
@@ -96,6 +112,30 @@ nb-badge.status-danger {
 }
 
 
+button {
+  opacity: 1 !important;
+  border-radius: 10px !important;
+  text-transform: capitalize !important;
+  height: 30px !important;
+  padding: 5px !important;
+}
+
+input {
+  border-radius: 10px !important;
+  height: 30px !important;
+}
+
+textarea{
+  border-radius: 10px !important;
+}
+
+nb-card-footer {
+  border-top: 0 !important;
+}
+
+nb-card-header{
+  border-bottom: 0 !important;
+}
 
 
 
