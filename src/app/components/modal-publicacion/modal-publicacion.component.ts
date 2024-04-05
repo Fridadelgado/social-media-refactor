@@ -130,14 +130,24 @@ esFechaValidaFlag: boolean = true;
   }
 
   processFile(file: File) {
-    // Procesa el archivo cargado para su previsualización.
     const reader = new FileReader();
-    reader.onload = (e) => {
-      this.imagenPrevisualizacion = reader.result;
-      this.publicacion.imagen = reader.result as string; // Actualiza la propiedad de la imagen de la publicación
+    reader.onload = () => {
+      // Asegúrate de que reader.result no sea null antes de usarlo
+      if (reader.result) {
+        this.imagenPrevisualizacion = reader.result;
+        this.publicacion.imagen = reader.result.toString(); // Actualiza la propiedad de la imagen de la publicación
+      } else {
+        console.error('Error al leer el archivo');
+        // Manejar adecuadamente el error, por ejemplo, mostrando un mensaje al usuario
+      }
+    };
+    reader.onerror = (error) => {
+      console.error('Error al cargar el archivo: ', error);
+      // También es importante manejar los errores que puedan ocurrir durante la lectura del archivo
     };
     reader.readAsDataURL(file);
   }
+
 
   definirAudiencia() {
     // Lógica para definir la audiencia de la publicación.

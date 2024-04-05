@@ -1,41 +1,59 @@
-// Autor: Gilberto García (gilberto.garcia@seekop.com)
-// publicaciones.service.ts
-
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-// Define la estructura de datos para una publicación, incluyendo los campos necesarios
-// como redSocial (un arreglo de nombres de redes sociales), título, descripción, imagen y link.
 export interface Publicacion {
   redSocial: string[];
   titulo: string;
   descripcion: string;
-  imagen: string;
+  imagen: string; // Esta propiedad contendrá la imagen codificada en base64
   link: string;
 }
 
-// El decorador @Injectable marca la clase como disponible para ser provista e inyectada como dependencia.
-// providedIn: 'root' indica que el servicio es global y disponible en toda la aplicación.
 @Injectable({
   providedIn: 'root'
 })
 export class PublicacionesService {
-  // _publicaciones es un BehaviorSubject que mantiene un estado reactivo de la lista de publicaciones.
-  // Se inicializa como un arreglo vacío de Publicacion.
   private _publicaciones = new BehaviorSubject<Publicacion[]>([]);
+  private baseUrl = 'https://fzq9t36ec9.execute-api.us-west-1.amazonaws.com/dev/';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  // Método público para acceder al estado actual de las publicaciones de manera reactiva.
-  // Devuelve un Observable que permite a los suscriptores reaccionar a cambios en la lista de publicaciones.
   get publicaciones(): Observable<Publicacion[]> {
     return this._publicaciones.asObservable();
   }
 
-  // Método para agregar una nueva publicación al estado actual.
-  // Recibe un objeto Publicacion, lo agrega al arreglo existente y actualiza el BehaviorSubject.
   agregarPublicacion(publicacion: Publicacion) {
-    const currentValue = this._publicaciones.value; // Obtiene el valor actual del BehaviorSubject.
-    this._publicaciones.next([...currentValue, publicacion]); // Añade la nueva publicación y emite el nuevo estado.
+    if (publicacion.redSocial.includes('twitter')) {
+      // Elimina el prefijo 'data:image/jpeg;base64,' antes de enviar
+      let imageBase64 = publicacion.imagen;
+      const base64ImagePattern = /^data:image\/[a-z]+;base64,/;
+      if (base64ImagePattern.test(imageBase64)) {
+        imageBase64 = imageBase64.split(',')[1]; // Extrae solo la parte base64 de la cadena
+      }
+
+      const payload = {
+        text: publicacion.titulo + ' - ' + publicacion.descripcion,
+        imageBase64: imageBase64 // Envía solo la cadena base64 de la imagen
+      };
+
+      console.log("Payload a enviar:", payload); // Para depuración, se recomienda eliminar en producción
+
+      this.http.post(`${this.baseUrl}publicarentwitter`, payload).subscribe({
+        next: (response) => {
+          console.log('Publicación exitosa', response);
+          this.actualizarPublicaciones(publicacion); // Actualiza el estado de las publicaciones
+        },
+        error: (error) => console.error('Error al publicar en Twitter', error)
+      });
+    } else {
+      // Maneja otras redes sociales o actualiza el estado directamente
+      this.actualizarPublicaciones(publicacion);
+    }
+  }
+
+  private actualizarPublicaciones(publicacion: Publicacion) {
+    const currentValue = this._publicaciones.value;
+    this._publicaciones.next([...currentValue, publicacion]);
   }
 }
