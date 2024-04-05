@@ -8,8 +8,7 @@
       <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-1 ">
-          <nb-icon class="titulo-modal-publicacion-icono" icon="mdi-contact-info"
-            pack="seekop"></nb-icon>
+          <nb-icon class="titulo-modal-publicacion-icono" icon="mdi-contact-info" pack="seekop"></nb-icon>
         </div>
         <div class="col-md-6" style="margin-left: -30px;">
           <h1> {{ 'components.modal-publicacion.labelCrearPublicacion' | translate }}</h1>
@@ -51,7 +50,8 @@
 
           <!-- Área de texto para la descripción de la publicación con validación. -->
           <div class="col-md-12">
-            <label [ngClass]="{'text-danger': submitted && !publicacion.descripcion}">Descripción de la publicación *</label>
+            <label [ngClass]="{'text-danger': submitted && !publicacion.descripcion}">Descripción de la publicación
+              *</label>
             <textarea fieldSize="large" fullWidth nbInput
               placeholder="{{'components.modal-publicacion.placehoderDescripcionPublicacion' | translate }}"
               [(ngModel)]="publicacion.descripcion" required class="form-control mb-4"></textarea>
@@ -71,6 +71,26 @@
           </div>
 
         </div>
+
+        <strong style="font-size: 20px;"><nb-icon class="subtitulo-programar-modal-publicacion-icono"
+            style="margin-right: 20px; margin-bottom: 30px; margin-top: 50px;" icon="calendar-text-outline"
+            pack="seekop"></nb-icon>
+          <div style="margin-top: -43px; margin-left: 48px;">Programar Publicación</div>
+        </strong>
+
+
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <label [ngClass]="{'text-danger': submitted && !esFechaValidaFlag}">Selecciona fecha de publicación *</label>
+
+          </div>
+          <div class="col-md-12">
+            <input fullWidth nbInput placeholder="Selecciona la fecha de publicación (opcional)" [nbDatepicker]="datepicker" [(ngModel)]="fechaProgramada" (ngModelChange)="esFechaValida()">
+            <nb-datepicker #datepicker></nb-datepicker>
+
+          </div>
+        </div>
+
       </div>
 
       <!-- Columna derecha para previsualizar la publicación con título, descripción e imagen cargada. -->
@@ -79,20 +99,50 @@
             style=" color: #002A7F; margin-right: 20px; margin-bottom: 30px; margin-top: 10px;" icon="eye-outline"
             pack="eva"></nb-icon>{{ 'components.modal-publicacion.labelPrevisualizacion' | translate }}</strong>
         <div class="previsualizacion-container mb-4">
-          <div class="redes-sociales d-flex">
-            <nb-icon class="col-md-2 filter-icons" style="margin-right: -10px;"
-              *ngFor="let red of publicacion.redSocial" [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
-          </div>
-          <div class="previsualizacion-info">
-            <p><strong>{{publicacion.titulo}}</strong></p>
-          </div>
-          <img *ngIf="imagenPrevisualizacion" [src]="imagenPrevisualizacion" class="img-fluid img-previsualizacion"
-            alt="{{'components.modal-publicacion.altPrevisualizacion' | translate}}">
-          <div class="previsualizacion-info">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="redes-sociales d-flex">
+                <nb-icon class="col-md-2 filter-icons icon-hover" style="margin-right: -10px;"
+                  *ngFor="let red of publicacion.redSocial.length ? publicacion.redSocial : publicacionDefault.redSocial"
+                  [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
+              </div>
 
-            <p>{{publicacion.descripcion}}</p>
+            </div>
 
           </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="previsualizacion-info" style="margin-top: 50px;">
+                <strong>{{ publicacion.titulo || publicacionDefault.titulo }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <!-- En tu sección de previsualización dentro del modal -->
+              <img *ngIf="imagenPrevisualizacion; else defaultImageTemplate" [src]="imagenPrevisualizacion"
+                class="img-fluid img-previsualizacion"
+                alt="{{'components.modal-publicacion.altPrevisualizacion' | translate}}">
+              <ng-template #defaultImageTemplate>
+                <img [src]="defaultPreviewImage" class="img-fluid img-previsualizacion" alt="Imagen por defecto">
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="previsualizacion-info" style="margin-top: -16px">
+
+                <p>{{ publicacion.descripcion || publicacionDefault.descripcion }}</p>
+
+              </div>
+            </div>
+
+          </div>
+
+
         </div>
       </div>
     </nb-card-body>
@@ -113,26 +163,18 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
         </div>
         <div class="col-md-1">
           <button nbButton hero status="primary" (click)="agregarPublicacion()" class="btn btn-primary "
-            style="margin-left: -90px;">
+            style="margin-left: -50px; padding: 10px !important;">
             <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;" icon="mdi-cloud-upload-outline"
               pack="seekop"></nb-icon>
             {{ 'components.modal-publicacion.botonPublicar' | translate }}
           </button>
         </div>
         <div class="col-md-1">
-          <button nbButton status="success" (click)="calendarizar()" class="btn btn-success"
-            style="margin-left: -75px;">
-            <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 4px;" icon="calendar-text-outline"
-              pack="seekop"></nb-icon>
-            {{ 'components.modal-publicacion.botonCalendarizar' | translate }}
-          </button>
-        </div>
-        <div class="col-md-1">
-          <button nbButton status="danger" (click)="cancelar()" class="btn btn-danger" style="margin-left: -35px;">
+          <button nbButton status="danger" (click)="cancelar()" class="btn btn-danger" style="margin-left: -30px; padding: 10px !important;">
             <nb-icon class="col-md-1 modal-publicacion-icono" icon="close-circle-outline" pack="eva"></nb-icon>
             {{ 'components.modal-publicacion.botonCancelar' | translate }}
           </button>

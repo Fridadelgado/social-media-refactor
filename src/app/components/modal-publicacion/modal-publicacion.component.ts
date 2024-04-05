@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme'; // Para manejar el cierre del modal.
 import { PublicacionesService, Publicacion } from '../../services/publicaciones.service'; // Servicio para manejar las publicaciones.
 import { TranslateService } from '@ngx-translate/core'; // Para la internacionalización.
@@ -10,6 +10,22 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
   styleUrls: ['./modal-publicacion.component.scss']
 })
 export class ModalPublicacionComponent {
+  // En tu componente ModalPublicacionComponent
+
+  esProgramada: boolean = false;
+// Cambia la inicialización de `fechaProgramada` a `null`
+fechaProgramada: Date | null = null; // Ahora es null por defecto
+esFechaValidaFlag: boolean = true;
+
+
+  publicacionDefault = {
+    titulo: 'Título Predeterminado',
+    descripcion: 'Descripción predeterminada... Este coche no es solo un medio de transporte; es tu próximo compañero de aventuras. Con su elegante diseño, confort inigualable y rendimiento excepcional, está listo para convertirse en parte de tu vida y llevarte a nuevos destinos.',
+    redSocial: ['facebook', 'twitter'], // Asume que estos valores están en tu array de `redesSocialesDisponibles`
+  };
+
+  public defaultPreviewImage: string = '../../../assets/images/defaultcar.png'; // Asegúrate de tener esta imagen en tus activos
+
   publicacion: Publicacion = { redSocial: [], titulo: '', descripcion: '', imagen: '', link: '' };
   imagenPrevisualizacion: string | ArrayBuffer | null = '';
   redesSocialesDisponibles = [
@@ -26,13 +42,17 @@ export class ModalPublicacionComponent {
   submitted = false; // Controla la validación del formulario.
   dropZoneMessage: string = ""; // Mensaje de la zona de arrastre de archivos.
   isValidFile: boolean = false; // Controla si el archivo cargado es válido.
-
+  minDate: Date;
 
   constructor(
     protected ref: NbDialogRef<ModalPublicacionComponent>,
     private publicacionesService: PublicacionesService,
-    private translate: TranslateService
-  ) { }
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef
+  ) {
+    const currentDate = new Date();
+    this.minDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+  }
 
   ngOnInit(): void {
     // Obtiene el mensaje predeterminado para la zona de arrastre.
@@ -40,6 +60,24 @@ export class ModalPublicacionComponent {
       this.dropZoneMessage = res;
     });
   }
+
+  esFechaValida(): boolean {
+    if (!this.fechaProgramada) {
+      // Si no hay fecha seleccionada, considera la validación como exitosa
+      this.esFechaValidaFlag = true;
+      return true;
+    }
+
+    // Tu lógica existente de validación de fecha
+    const fechaHoy = new Date();
+    fechaHoy.setHours(0, 0, 0, 0); // Ignora la hora actual para solo comparar la fecha
+
+    // Comprueba si la fechaProgramada es válida y no es anterior a hoy
+    this.esFechaValidaFlag = this.fechaProgramada >= fechaHoy;
+    return this.esFechaValidaFlag;
+  }
+
+
   onFileDrop(files: NgxFileDropEntry[]) {
     // Lógica para manejar la carga de archivos mediante arrastrar y soltar.
     this.submitted = true;
@@ -106,17 +144,32 @@ export class ModalPublicacionComponent {
   }
 
   agregarPublicacion() {
-    // Lógica para agregar la publicación utilizando PublicacionesService.
-    this.submitted = true; // Activa la validación
+    this.submitted = true; // Marca el intento de envío del formulario para activar la validación de la UI.
 
-    if (this.publicacion.redSocial.length === 0 || !this.publicacion.titulo || !this.publicacion.descripcion) {
-      return; // No realiza la publicación si hay campos vacíos
+    // Comprobaciones de validación para campos obligatorios.
+    if (this.publicacion.redSocial.length === 0 || !this.publicacion.titulo || !this.publicacion.descripcion || !this.imagenPrevisualizacion) {
+      console.error('Hay campos obligatorios que están vacíos.');
+      return; // Detiene la ejecución si algún campo obligatorio está vacío.
     }
 
-    // Antes de agregar, asegúrate de que la propiedad imagen contenga la URL base64 de la imagen
+    // Comprueba si se ha seleccionado una fecha.
+    if (this.fechaProgramada && this.fechaProgramada instanceof Date) {
+      // Si se ha seleccionado una fecha, verifica si es válida.
+      if (!this.esFechaValida()) {
+        console.error('La fecha programada no es válida.');
+        this.submitted = true; // Asegura que se muestren los mensajes de error.
+        return; // Detiene la ejecución si la fecha no es válida.
+      }
+      // Si la fecha es válida o no se ha seleccionado ninguna fecha, procede con la publicación.
+    }
+
+    // Si llega hasta aquí, todo está bien para proceder con la publicación.
+    console.log('Publicación agregada con éxito.');
     this.publicacionesService.agregarPublicacion(this.publicacion);
-    this.ref.close();
+    this.ref.close(); // Cierra el modal después de la publicación.
   }
+
+
 
   calendarizar() {
     // Lógica para calendarizar la publicación.

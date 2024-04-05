@@ -26,6 +26,14 @@
   height: 25px !important; /* Ajusta esta propiedad para mantener la proporción si es necesario */
 }
 
+
+.subtitulo-programar-modal-publicacion-icono svg {
+  width: 45px !important;
+  height: 35px !important; /* Ajusta esta propiedad para mantener la proporción si es necesario */
+  color: #002A7F !important
+}
+
+
 body{
   text-align: left;
   font: normal normal bold 24px/17px Montserrat;
@@ -116,7 +124,7 @@ button {
   opacity: 1 !important;
   border-radius: 10px !important;
   text-transform: capitalize !important;
-  height: 30px !important;
+  height: 32px !important;
   padding: 5px !important;
 }
 
@@ -137,7 +145,9 @@ nb-card-header{
   border-bottom: 0 !important;
 }
 
-
+.ngx-file-drop__drop-zone{
+  border: 2px dotted #C5C5C5 !important;
+}
 
 // Importa solo el sistema de cuadrícula de Bootstrap para su uso en el layout.
 @import 'node_modules/bootstrap/scss/bootstrap-grid.scss';
