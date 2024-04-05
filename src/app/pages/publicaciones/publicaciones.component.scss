@@ -2,10 +2,15 @@
 
 /* Estilos para la clase .img-previsualizacion, destinada a imágenes de previsualización en el modal. */
 .img-previsualizacion {
-  max-width: 100%; /* Asegura que la imagen se ajuste al ancho de su contenedor sin excederlo, preservando la proporción y evitando que la imagen se desborde. */
-  max-height: 200px; /* Establece un alto máximo de 200px para la imagen, ayudando a mantener la uniformidad en el tamaño de las imágenes y a no alterar el diseño del modal. */
-  object-fit: cover; /* Ajusta la imagen para cubrir completamente el área designada sin distorsionar sus proporciones. Si la imagen no encaja perfectamente en el contenedor, se recortará para cubrir el espacio. */
+  width: 350px; /* Establece un ancho fijo */
+  height: 200px; /* Establece una altura fija */
+  object-fit: contain; /* Escala la imagen para adaptarse al contenedor, mostrándola completa */
+  display: block; /* Elimina espacio extra alrededor de la imagen */
+  margin-left: auto; /* Centra la imagen horizontalmente */
+  margin-right: auto; /* Centra la imagen horizontalmente */
+  margin-left: 95px;
 }
+
 
 /* Estilos para la clase .social-media-icon, destinada a íconos de redes sociales en el modal. */
 .social-media-icon {

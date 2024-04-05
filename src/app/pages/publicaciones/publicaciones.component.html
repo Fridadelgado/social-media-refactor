@@ -1,12 +1,24 @@
 <!-- Botón para abrir un modal de creación de publicación. Utiliza Nebular para el estilo y ngx-translate para la internacionalización del texto. -->
 <button nbButton hero status="primary" (click)="openModal()"><nb-icon class="col-md-1 filter-icons" style="margin-right: 4px;" icon="text-box-plus-outline-success" pack="seekop"></nb-icon>{{ 'pages.publicaciones.botonCrearPublicacion' | translate }}</button>
 
+<!-- Mensaje cuando no hay publicaciones -->
+<div *ngIf="publicaciones.length === 0" class="row justify-content-center align-items-center" style="height: 300px;">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-6 text-center mt-5">
+      <h4 class="mt-5"><nb-icon icon="info-outline" pack="eva" style="font-size: 40px; color: #aaa; margin-right: 10px;"></nb-icon>No hay datos que mostrar</h4>
+      <p style="margin-left: 53px; margin-top: -20px">Comienza creando tu primera publicación.</p>
+    </div>
+  </div>
+
+</div>
+
 <!-- Contenedor para las publicaciones. Utiliza Bootstrap para el diseño responsivo. -->
-<div class="row">
-  <div class="col-md-4" *ngFor="let publicacion of publicaciones"> <!-- Crea una tarjeta para cada publicación utilizando un bucle *ngFor. -->
+<div class="row" *ngIf="publicaciones.length > 0">
+  <div class="col-md-4 mt-3" *ngFor="let publicacion of publicaciones"> <!-- Crea una tarjeta para cada publicación utilizando un bucle *ngFor. -->
 
     <!-- Tarjeta Nebular para una publicación individual. -->
-    <nb-card>
+    <nb-card style="width: 570px; height: 500px;">
 
       <!-- Cabecera de la tarjeta, muestra los íconos de las redes sociales asociadas a la publicación. -->
       <nb-card-header>
@@ -19,17 +31,17 @@
 
 
       <!-- Cuerpo de la tarjeta, muestra el título y la descripción de la publicación. -->
-      <nb-card-body>
+      <nb-card-body style="margin-top: -30px;">
         <h5>{{ publicacion.titulo }}</h5>
-        <p>{{ publicacion.descripcion }}</p>
         <!-- Si la publicación tiene una imagen asociada, muestra la imagen con un tamaño controlado. -->
-        <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
+        <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion"  style="margin-top: -30px;" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
+        <p>{{ publicacion.descripcion }}</p>
       </nb-card-body>
 
       <!-- Pie de página de la tarjeta, contiene un enlace para más información sobre la publicación. -->
       <nb-card-footer>
         <!-- El enlace abre en una nueva pestaña gracias a target="_blank". -->
-        <a [href]="publicacion.link" target="_blank">{{ 'pages.publicaciones.labelMasInfo' | translate }}</a>
+        <a [href]="publicacion.link" target="_blank">Ver publicación</a>
       </nb-card-footer>
     </nb-card>
   </div>
