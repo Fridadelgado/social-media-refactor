@@ -2,12 +2,4 @@
      que debe ser un arreglo de objetos que definen cada ítem del menú. -->
 <!-- <nb-menu [items]="menuItems" [nbTooltip]="'menuItems.title'"
 style="font-size: xx-large; cursor: pointer;"></nb-menu> -->
-<!--
-<nb-menu [items]="menuItems"></nb-menu> -->
-  
-<div *ngFor="let item of menuItems">
-        <nb-menu [items]="[item]" style="font-size: xx-large; cursor: pointer;" [nbTooltip]="item.title"></nb-menu>
-    
-</div>
-  
-
+<nb-menu [items]="menuItems"></nb-menu>
