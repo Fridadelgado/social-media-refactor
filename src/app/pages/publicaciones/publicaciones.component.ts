@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService  } from '@nebular/theme';
 import { PublicacionesService, Publicacion } from '../../services/publicaciones.service';
 import { ModalPublicacionComponent } from '../../components/modal-publicacion/modal-publicacion.component';
 
@@ -15,8 +15,9 @@ export class PublicacionesComponent implements OnInit {
 
   constructor(
     private publicacionesService: PublicacionesService, // Inyección del servicio PublicacionesService.
-    private dialogService: NbDialogService // Inyección del servicio NbDialogService para manejo de diálogos/modales.
-  ) { }
+    private dialogService: NbDialogService, // Inyección del servicio NbDialogService para manejo de diálogos/modales.
+    
+    ) { }
 
   // Hook ngOnInit que se ejecuta después de la inicialización del componente.
   ngOnInit() {

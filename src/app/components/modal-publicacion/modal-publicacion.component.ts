@@ -204,4 +204,8 @@ esFechaValidaFlag: boolean = true;
     return iconsMap[red] || 'default-icon'; // 'default-icon' es un ícono predeterminado
   }
 
+  closeModal() {
+    this.ref.close();
+  }
+
 }

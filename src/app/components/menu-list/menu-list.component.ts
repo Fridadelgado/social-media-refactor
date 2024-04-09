@@ -1,6 +1,6 @@
 // Importación de los módulos necesarios de Angular y Nebular.
 import { Component } from '@angular/core';
-import { NbIconLibraries } from '@nebular/theme'; // Servicio para registrar y manejar librerías de iconos en Nebular.
+import { NbIconLibraries  } from '@nebular/theme'; // Servicio para registrar y manejar librerías de iconos en Nebular.
 
 
 // Decorador Component que marca la clase siguiente como un componente de Angular, con su metadata.
@@ -19,36 +19,43 @@ export class MenuListComponent {
       title: 'Users',  // Nombre visible en el menú.
       link: '/#', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'mdi-megamenu', // Nombre del icono personalizado registrado en Nebular.
+
     },
     {
       title: 'KPIs',  // Nombre visible en el menú.
       link: '/redessociales-kpis', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'finance-primary',  // Nombre del icono personalizado registrado en Nebular.
+
     },
     {
-      title: 'calendariopublicaciones',  // Nombre visible en el menú.
+      title: 'Calendario Publicaciones',  // Nombre visible en el menú.
       link: '/calendariopublicaciones', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'calendar-text-outline',  // Nombre del icono personalizado registrado en Nebular.
+      
     },
     {
-      title: 'pulicacioes',  // Nombre visible en el menú.
+      title: 'Publicaciones',  // Nombre visible en el menú.
       link: '/publicaciones', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'mdi-cloud-upload-outline',  // Nombre del icono personalizado registrado en Nebular.
+      
     },
     {
       title: 'Conversaciones',  // Nombre visible en el menú.
       link: '/conversaciones', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'comment-send',  // Nombre del icono personalizado registrado en Nebular.
+      
     },
     {
       title: 'Redes Sociales',  // Nombre visible en el menú.
       link: '/redes-sociales', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'text-box-plus-outline-success',  // Nombre del icono personalizado registrado en Nebular.
+      
     },
     {
-      title: 'Distribuidres Asignados',  // Nombre visible en el menú.
+      title: 'Distribuidores Asignados',  // Nombre visible en el menú.
       link: '/distribuidores-asignados', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'mdi-account-group-primary',  // Nombre del icono personalizado registrado en Nebular.
+      
     },
 
     // Se repite la estructura para cada ítem del menú que se desea agregar.

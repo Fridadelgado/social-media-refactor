@@ -18,3 +18,7 @@
   max-height: 50px; /* Establece un alto máximo de 50px para el ícono, asegurando que no sea demasiado grande y mantenga una apariencia estética y proporcionada dentro del modal. */
   object-fit: cover; /* Al igual que con las imágenes de previsualización, ajusta el ícono para cubrir el espacio asignado de manera adecuada. Dependiendo del aspecto y tamaño original del ícono, puede recortarse para encajar. */
 }
+
+.col-md-1.icon_publicacion{
+  text-align: right;
+}

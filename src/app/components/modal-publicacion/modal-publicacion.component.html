@@ -13,6 +13,10 @@
         <div class="col-md-6" style="margin-left: -30px;">
           <h1> {{ 'components.modal-publicacion.labelCrearPublicacion' | translate }}</h1>
         </div>
+
+        <div class="col-md-1" style="text-align: right;">
+          <nb-icon icon="close-outline" nbTooltip="Cerrar" pack="eva" (click)="closeModal()"></nb-icon>
+        </div>
       </div>
     </nb-card-header>
 
@@ -43,7 +47,7 @@
           <!-- Entrada para el título de la publicación con validación. -->
           <div class="col-md-12">
             <label [ngClass]="{'text-danger': submitted && !publicacion.titulo}">Título de la publicación *</label>
-            <input fullWidth nbInput
+            <input fullWidth nbInput maxlength="50"
               placeholder="{{'components.modal-publicacion.placeHolderTituloPublicacion' | translate }}"
               [(ngModel)]="publicacion.titulo" required class="form-control mb-4">
           </div>
