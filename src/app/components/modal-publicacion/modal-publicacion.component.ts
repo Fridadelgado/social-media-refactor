@@ -14,7 +14,8 @@ export class ModalPublicacionComponent {
 
   esProgramada: boolean = false;
 // Cambia la inicialización de `fechaProgramada` a `null`
-fechaProgramada: Date | null = null; // Ahora es null por defecto
+fechaProgramada: Date | null = null; // Define una propiedad para almacenar la fecha
+
 esFechaValidaFlag: boolean = true;
 
 
@@ -56,6 +57,8 @@ esFechaValidaFlag: boolean = true;
 
   ngOnInit(): void {
     // Obtiene el mensaje predeterminado para la zona de arrastre.
+    //this.fechaProgramada = this.ref;
+    console.log('hahahahahahahah',this.ref);
     this.translate.get('components.modal-publicacion.dropZoneDefault').subscribe((res: string) => {
       this.dropZoneMessage = res;
     });

@@ -2,10 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core'; // Importa las opciones de configuración de FullCalendar.
 import dayGridPlugin from '@fullcalendar/daygrid'; // Plugin para la vista de cuadrícula por días.
 import timeGridPlugin from '@fullcalendar/timegrid'; // Plugin para la vista de cuadrícula por tiempos/horas.
+import interactionPlugin from '@fullcalendar/interaction'
 import esLocale from '@fullcalendar/core/locales/es'; // Localización en español.
 import enLocale from '@fullcalendar/core/locales/en-gb'; // Localización en inglés (Reino Unido).
 import { Subscription } from 'rxjs'; // Importa Subscription de RxJS para manejar la desuscripción.
 import { LanguageService } from '../../../app/services/translate-service.service'; // Servicio personalizado para la gestión del idioma.
+import { NbDialogService } from '@nebular/theme';
+// En tu archivo calendariopublicaciones.component.ts
+import { ModalPublicacionComponent } from '../../components/modal-publicacion/modal-publicacion.component';
+
 
 @Component({
   selector: 'app-calendariopublicaciones', // Selector CSS del componente.
@@ -18,7 +23,7 @@ export class CalendariopublicacionesComponent implements OnInit, OnDestroy {
   calendarOptions?: CalendarOptions; // Define las opciones de configuración para FullCalendar.
   private langChangeSubscription?: Subscription; // Suscripción al cambio de idioma.
 
-  constructor(private languageService: LanguageService) { } // Inyecta el LanguageService.
+  constructor(private languageService: LanguageService, private dialogService: NbDialogService) { } // Inyecta el LanguageService.
 
   ngOnInit() {
     this.initializeCalendar(); // Inicializa el calendario.
@@ -35,27 +40,39 @@ export class CalendariopublicacionesComponent implements OnInit, OnDestroy {
     }
   }
 
-
   initializeCalendar() {
-    // Configura las opciones iniciales de FullCalendar.
     this.calendarOptions = {
-      plugins: [dayGridPlugin, timeGridPlugin], // Plugins para diferentes vistas.
-      initialView: 'dayGridMonth',  // Vista inicial.
-      headerToolbar: { // Configura la barra de herramientas del calendario.
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      dateClick: this.handleDateClick.bind(this),
+      initialView: 'dayGridMonth',
+      headerToolbar: {
         left: 'prev,next today',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      weekends: false, // Deshabilita los fines de semana.
-      // Establece la localización según el idioma actual del servicio de idiomas.
+      weekends: false,
       locale: this.languageService.getCurrentLanguage() === 'es' ? esLocale : enLocale,
       events: [
         { title: 'Facebook Kia YouTube', start: new Date('03/15/2024') },
         { title: 'Facebook Toyota Facebook', start: new Date() },
         { title: 'Facebook Kia YouTube', start: new Date() }
-      ]
+      ],
+      // Manejador para el evento de clic en una fecha.
+      // Asegura que `this` dentro de handleDateClick se refiera al componente.
     };
   }
+
+  // Método manejador del evento dateClick de FullCalendar.
+  handleDateClick(arg:any) {
+    this.abrirModalConFecha(arg.date);
+  }
+
+  abrirModalConFecha(fecha: Date) {
+    this.dialogService.open(ModalPublicacionComponent, {
+      context: { fechaProgramada: fecha } // Pasas la fecha al modal
+    });
+  }
+
 
   updateCalendarLocale(lang: string) {
     // Actualiza la localización del calendario cuando el idioma cambia.
