@@ -53,9 +53,9 @@ export class CalendariopublicacionesComponent implements OnInit, OnDestroy {
       weekends: false,
       locale: this.languageService.getCurrentLanguage() === 'es' ? esLocale : enLocale,
       events: [
-        { title: 'Facebook Kia YouTube', start: new Date('03/15/2024') },
-        { title: 'Facebook Toyota Facebook', start: new Date() },
-        { title: 'Facebook Kia YouTube', start: new Date() }
+        { title: 'Facebook Kia YouTubeee',    url: 'https://google.com/', },
+        { title: 'Facebook Toyota Facebook', start: '2024-04-10',  url: 'https://google.com/'},
+        { title: 'Facebook Kia YouTube', start: '2024-04-11', end:  '2024-04-17', url: 'https://google.com/'}
       ],
       // Manejador para el evento de clic en una fecha.
       // Asegura que `this` dentro de handleDateClick se refiera al componente.
