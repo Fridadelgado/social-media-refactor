@@ -24,33 +24,43 @@ export class PublicacionesService {
   }
 
   agregarPublicacion(publicacion: Publicacion) {
-    if (publicacion.redSocial.includes('twitter')) {
-      // Elimina el prefijo 'data:image/jpeg;base64,' antes de enviar
-      let imageBase64 = publicacion.imagen;
-      const base64ImagePattern = /^data:image\/[a-z]+;base64,/;
-      if (base64ImagePattern.test(imageBase64)) {
-        imageBase64 = imageBase64.split(',')[1]; // Extrae solo la parte base64 de la cadena
-      }
+    let imageBase64 = publicacion.imagen;
+    const base64ImagePattern = /^data:image\/[a-z]+;base64,/;
 
-      const payload = {
-        text: publicacion.titulo + ' - ' + publicacion.descripcion,
-        imageBase64: imageBase64 // Envía solo la cadena base64 de la imagen
-      };
-
-      console.log("Payload a enviar:", payload); // Para depuración, se recomienda eliminar en producción
-
-      this.http.post(`${this.baseUrl}publicarentwitter`, payload).subscribe({
-        next: (response) => {
-          console.log('Publicación exitosa', response);
-          this.actualizarPublicaciones(publicacion); // Actualiza el estado de las publicaciones
-        },
-        error: (error) => console.error('Error al publicar en Twitter', error)
-      });
-    } else {
-      // Maneja otras redes sociales o actualiza el estado directamente
-      this.actualizarPublicaciones(publicacion);
+    if (base64ImagePattern.test(imageBase64)) {
+      imageBase64 = imageBase64.split(',')[1]; // Extrae solo la parte base64 de la cadena
     }
+
+    const payload = {
+      text: publicacion.titulo + ' - ' + publicacion.descripcion,
+      imageBase64: imageBase64
+    };
+
+    const requests = publicacion.redSocial.map(red => {
+      switch (red) {
+        case 'twitter':
+          return this.publicarEnTwitter(payload);
+        case 'facebook':
+          return this.publicarEnFacebook(payload);
+        default:
+          return Promise.reject(`Red social no soportada: ${red}`);
+      }
+    });
+
+    Promise.all(requests).then(() => {
+      this.actualizarPublicaciones(publicacion); // Actualiza una vez que todas las publicaciones han sido exitosas
+    }).catch(error => console.error('Error al publicar en redes sociales', error));
   }
+
+
+  private publicarEnTwitter(payload: any): Promise<any> {
+    return this.http.post(`${this.baseUrl}publicarentwitter`, payload).toPromise();
+  }
+
+  private publicarEnFacebook(payload: any): Promise<any> {
+    return this.http.post(`${this.baseUrl}publicarenfacebook`, payload).toPromise();
+  }
+
 
   private actualizarPublicaciones(publicacion: Publicacion) {
     const currentValue = this._publicaciones.value;
