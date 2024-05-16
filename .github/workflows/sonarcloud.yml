@@ -1,4 +1,3 @@
-# .github/workflows/sonarcloud.yml
 name: Análisis SonarCloud
 
 on:
@@ -20,6 +19,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: 'adopt' # Especifica la distribución de Java
 
       # Paso para almacenar en caché las dependencias de SonarCloud
       - name: Cache SonarCloud dependencies
