@@ -3,6 +3,7 @@ import { NbDialogRef } from '@nebular/theme'; // Para manejar el cierre del moda
 import { PublicacionesService, Publicacion } from '../../services/publicaciones.service'; // Servicio para manejar las publicaciones.
 import { TranslateService } from '@ngx-translate/core'; // Para la internacionalización.
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; // Para la carga de archivos.
+import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/campanias.interface';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -13,11 +14,14 @@ export class ModalPublicacionComponent {
   // En tu componente ModalPublicacionComponent
 
   esProgramada: boolean = false;
-// Cambia la inicialización de `fechaProgramada` a `null`
-fechaProgramada: Date | null = null; // Define una propiedad para almacenar la fecha
+  // Cambia la inicialización de `fechaProgramada` a `null`
+  fechaProgramada: Date | null = null; // Define una propiedad para almacenar la fecha
 
-esFechaValidaFlag: boolean = true;
-
+  esFechaValidaFlag: boolean = true;
+  tipoArchivo: string = ''; //Define el formato de la imagen o video 
+  imageExtensions = /\.(jpg|jpeg|png|gif|bmp)$/i;
+  videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
+  campanias: Campanias[] = [];
 
   publicacionDefault = {
     titulo: 'Título Predeterminado',
@@ -27,7 +31,8 @@ esFechaValidaFlag: boolean = true;
 
   public defaultPreviewImage: string = '../../../assets/images/defaultcar.png'; // Asegúrate de tener esta imagen en tus activos
 
-  publicacion: Publicacion = { redSocial: [], titulo: '', descripcion: '', imagen: '', link: '' };
+  publicacion: Publicacion = { redSocial: [], titulo: '', descripcion: '', subcampanas: [], imagen: '', link: '', video: '' };
+
   imagenPrevisualizacion: string | ArrayBuffer | null = '';
   redesSocialesDisponibles = [
     { value: 'facebook', label: 'Facebook' },
@@ -40,10 +45,12 @@ esFechaValidaFlag: boolean = true;
     // y así sucesivamente para otras redes sociales...
   ];
 
+
   submitted = false; // Controla la validación del formulario.
   dropZoneMessage: string = ""; // Mensaje de la zona de arrastre de archivos.
   isValidFile: boolean = false; // Controla si el archivo cargado es válido.
   minDate: Date;
+  fileType: string = "";
 
   constructor(
     protected ref: NbDialogRef<ModalPublicacionComponent>,
@@ -53,12 +60,14 @@ esFechaValidaFlag: boolean = true;
   ) {
     const currentDate = new Date();
     this.minDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
   }
 
   ngOnInit(): void {
     // Obtiene el mensaje predeterminado para la zona de arrastre.
     //this.fechaProgramada = this.ref;
-    console.log('hahahahahahahah',this.ref);
+    console.log('hahahahahahahah', this.ref);
+    this.getCampanias();
     this.translate.get('components.modal-publicacion.dropZoneDefault').subscribe((res: string) => {
       this.dropZoneMessage = res;
     });
@@ -128,33 +137,50 @@ esFechaValidaFlag: boolean = true;
 
   validateFile(fileName: string): boolean {
     // Valida la extensión del archivo cargado.
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.mp4|\.avi|\.mov|\.mkv|\.flv|\.wmv)$/i;
     return allowedExtensions.exec(fileName) ? true : false;
   }
+
+  detectFileType(dataUri: string | ArrayBuffer): string {
+    //Detecta si es imagen o video
+    const fileTypeRegex = /^data:(image|video)\/([a-zA-Z0-9]+);base64,/;
+    const match = dataUri.toString().match(fileTypeRegex);
+    if (match) {
+      this.fileType = match[1];
+      return this.fileType;
+    } else {
+      return 'unknown';
+    }
+  }
+
 
   processFile(file: File) {
     const reader = new FileReader();
     reader.onload = () => {
       // Asegúrate de que reader.result no sea null antes de usarlo
       if (reader.result) {
+        this.detectFileType(reader.result);
+        this.publicacion.imagen = reader.result.toString();
+        this.publicacion.video = reader.result.toString();
         this.imagenPrevisualizacion = reader.result;
-        this.publicacion.imagen = reader.result.toString(); // Actualiza la propiedad de la imagen de la publicación
       } else {
         console.error('Error al leer el archivo');
         // Manejar adecuadamente el error, por ejemplo, mostrando un mensaje al usuario
       }
     };
+
     reader.onerror = (error) => {
       console.error('Error al cargar el archivo: ', error);
       // También es importante manejar los errores que puedan ocurrir durante la lectura del archivo
     };
+
     reader.readAsDataURL(file);
   }
-
 
   definirAudiencia() {
     // Lógica para definir la audiencia de la publicación.
   }
+
 
   agregarPublicacion() {
     this.submitted = true; // Marca el intento de envío del formulario para activar la validación de la UI.
@@ -205,6 +231,38 @@ esFechaValidaFlag: boolean = true;
     };
 
     return iconsMap[red] || 'default-icon'; // 'default-icon' es un ícono predeterminado
+  }
+
+  //Metodo get para obtener campanias desde BD
+  getCampanias(): void {
+    this.publicacionesService.getCampanias()
+      .subscribe((response: GenericResponse<CampaniasBody>) => {
+        if (response)
+          this.campanias = response.body.data;
+        console.log('Respuesta de campanias:', this.campanias);
+      },
+        (error) => {
+          console.error('Error al obtener las campañas:', error);
+          // HandleError
+        }
+      );
+  }
+  agregarNuevaCampania(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    const nuevaSubcampania = inputElement.value.trim();
+    let nuevaCampania: Campanias = { idsubcampanas: 0, nombrecampana: '', status: 0, idredsocial: 0, idpublicacion: 0, idusuario: 0, iddistribuidor: 0, fechainicio: '', fechafin: '' };
+    nuevaCampania.nombrecampana = nuevaSubcampania;
+    this.publicacionesService.setNuevaCampania(nuevaCampania).subscribe((response: GenericResponse<string>) => {
+      if (response)
+        console.log(response);
+        inputElement.value = ''; 
+      this.getCampanias();
+    },
+      (error) => {
+        console.error('Error al obtener las campañas:', error);
+        // HandleError
+      }
+    );
   }
 
   closeModal() {

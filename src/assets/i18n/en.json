@@ -17,6 +17,8 @@
       "altPublicacion": "Publication",
       "placeHolderSeleccionaRedSocial": "Select a social network",
       "validacionSeleccionaRedSocial": "You must select at least one social network.",
+      "placeHolderSeleccionaSubcampanas": "Selecciona las subcampañas",
+      "validacionSeleccionaSubcampanas": "Debes seleccionar al menos una subcampaña.",
       "placeHolderTituloPublicacion": "Publication Title",
       "validacionTituloPublicacion":"Publication title is required.",
       "placehoderDescripcionPublicacion": "Write a description",
