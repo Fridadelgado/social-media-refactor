@@ -4,6 +4,7 @@ import { PublicacionesService, Publicacion } from '../../services/publicaciones.
 import { TranslateService } from '@ngx-translate/core'; // Para la internacionalización.
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; // Para la carga de archivos.
 import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/campanias.interface';
+import { DynamicComponentService } from '../../services/dynamic-component-service.service';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -18,7 +19,7 @@ export class ModalPublicacionComponent {
   fechaProgramada: Date | null = null; // Define una propiedad para almacenar la fecha
 
   esFechaValidaFlag: boolean = true;
-  tipoArchivo: string = ''; //Define el formato de la imagen o video 
+  tipoArchivo: string = ''; //Define el formato de la imagen o video
   imageExtensions = /\.(jpg|jpeg|png|gif|bmp)$/i;
   videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
   campanias: Campanias[] = [];
@@ -56,11 +57,11 @@ export class ModalPublicacionComponent {
     protected ref: NbDialogRef<ModalPublicacionComponent>,
     private publicacionesService: PublicacionesService,
     private translate: TranslateService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dynamicComponentService: DynamicComponentService // Inyecta el servicio aquí
   ) {
     const currentDate = new Date();
     this.minDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-
   }
 
   ngOnInit(): void {
@@ -202,13 +203,22 @@ export class ModalPublicacionComponent {
       // Si la fecha es válida o no se ha seleccionado ninguna fecha, procede con la publicación.
     }
 
-    // Si llega hasta aquí, todo está bien para proceder con la publicación.
-    console.log('Publicación agregada con éxito.');
-    this.publicacionesService.agregarPublicacion(this.publicacion);
-    this.ref.close(); // Cierra el modal después de la publicación.
+    // Muestra el modal de carga
+    this.dynamicComponentService.showBodyLoading();
+
+    // Llama al servicio para agregar la publicación
+    this.publicacionesService.agregarPublicacion(this.publicacion).subscribe(
+      () => {
+        console.log('Publicación agregada con éxito.');
+        this.dynamicComponentService.destroyBodyLoading(); // Destruye el modal de carga
+        this.ref.close(); // Cierra el modal
+      },
+      (error: any) => {
+        console.error('Error al agregar la publicación:', error);
+        this.dynamicComponentService.destroyBodyLoading(); // Destruye el modal de carga en caso de error
+      }
+    );
   }
-
-
 
   calendarizar() {
     // Lógica para calendarizar la publicación.
@@ -243,7 +253,7 @@ export class ModalPublicacionComponent {
       },
         (error) => {
           console.error('Error al obtener las campañas:', error);
-          // HandleError
+           // HandleError
         }
       );
   }
@@ -255,12 +265,12 @@ export class ModalPublicacionComponent {
     this.publicacionesService.setNuevaCampania(nuevaCampania).subscribe((response: GenericResponse<string>) => {
       if (response)
         console.log(response);
-        inputElement.value = ''; 
+        inputElement.value = '';
       this.getCampanias();
     },
       (error) => {
         console.error('Error al obtener las campañas:', error);
-        // HandleError
+         // HandleError
       }
     );
   }

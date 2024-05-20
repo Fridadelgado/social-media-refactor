@@ -27,6 +27,11 @@ import { HttpClient } from '@angular/common/http';
 // Librería para manejo de drag and drop de archivos.
 import { NgxFileDropModule } from 'ngx-file-drop';
 
+// loader
+import { BodyLoadingComponent } from './components/body-loading/body-loading.component';
+import { DynamicComponentService } from './services/dynamic-component-service.service';
+
+
 // Charts
 
 
@@ -63,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Componentes que pertenecen a este módulo.
     // Aquí se listan todos los componentes, directivas y pipes que se crearán y pertenecerán a este módulo.
     AppComponent,
+    BodyLoadingComponent,
     KpiCardComponent,
     MenuListComponent,
     DistribuidoresAsignadosComponent,
@@ -126,6 +132,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
+    DynamicComponentService
       // Servicios que serán creados por el inyector raíz de Angular. Aquí se pueden añadir servicios globales de la aplicación.
   ],
   bootstrap: [AppComponent] // Componente raíz que Angular crea e inserta en el index.html host. Define la vista raíz de la aplicación.

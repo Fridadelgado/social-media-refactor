@@ -28,7 +28,7 @@ export class PublicacionesService {
     return this._publicaciones.asObservable();
   }
 
-  agregarPublicacion(publicacion: Publicacion) {
+  agregarPublicacion(publicacion: Publicacion): Observable<any> {
     let imageBase64 = publicacion.imagen;
     const base64ImagePattern = /^data:image\/[a-z]+;base64,/;
 
@@ -57,21 +57,28 @@ export class PublicacionesService {
       }
     });
 
-    Promise.all(requests).then(responses => {
-      console.log("este es el response ",responses);
+    return new Observable(observer => {
+      Promise.all(requests).then(responses => {
+        console.log("este es el response ",responses);
 
-      // Filtrar las respuestas exitosas de YouTube
-      const youtubeResponse = responses.find(response =>
-        response.statusCode === 200 && response.body && response.body.data && response.body.data.kind === 'youtube#video'
-      );
+        // Filtrar las respuestas exitosas de YouTube
+        const youtubeResponse = responses.find(response =>
+          response.statusCode === 200 && response.body && response.body.data && response.body.data.kind === 'youtube#video'
+        );
 
-      if (youtubeResponse && youtubeResponse.body.data.snippet.thumbnails) {
-        publicacion.thumbnail = youtubeResponse.body.data.snippet.thumbnails.high.url;
-        publicacion.link = `https://www.youtube.com/watch?v=${youtubeResponse.body.data.id}`;
-      }
+        if (youtubeResponse && youtubeResponse.body.data.snippet.thumbnails) {
+          publicacion.thumbnail = youtubeResponse.body.data.snippet.thumbnails.high.url;
+          publicacion.link = `https://www.youtube.com/watch?v=${youtubeResponse.body.data.id}`;
+        }
 
-      this.actualizarPublicaciones(publicacion);
-    }).catch(error => console.error('Error al publicar en redes sociales', error));
+        this.actualizarPublicaciones(publicacion);
+        observer.next(responses);
+        observer.complete();
+      }).catch(error => {
+        console.error('Error al publicar en redes sociales', error);
+        observer.error(error);
+      });
+    });
   }
 
   private publicarEnTwitter(payload: any): Promise<any> {
