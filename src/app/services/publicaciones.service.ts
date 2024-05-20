@@ -37,7 +37,10 @@ export class PublicacionesService {
 
     const payload = {
       text: publicacion.titulo + ' - ' + publicacion.descripcion,
-      imageBase64: imageBase64
+      imageBase64: imageBase64,
+      videoBase64: publicacion.video ? publicacion.video.split(',')[1] : null, // Extrae solo la parte base64 del video
+      title: publicacion.titulo,
+      description: publicacion.descripcion
     };
 
     const requests = publicacion.redSocial.map(red => {
@@ -46,6 +49,8 @@ export class PublicacionesService {
           return this.publicarEnTwitter(payload);
         case 'facebook':
           return this.publicarEnFacebook(payload);
+        case 'youtube':
+          return this.publicarEnYouTube(payload);
         default:
           return Promise.reject(`Red social no soportada: ${red}`);
       }
@@ -56,7 +61,6 @@ export class PublicacionesService {
     }).catch(error => console.error('Error al publicar en redes sociales', error));
   }
 
-
   private publicarEnTwitter(payload: any): Promise<any> {
     return this.http.post(`${this.baseUrl}publicarentwitter`, payload).toPromise();
   }
@@ -65,6 +69,9 @@ export class PublicacionesService {
     return this.http.post(`${this.baseUrl}publicarenfacebook`, payload).toPromise();
   }
 
+  private publicarEnYouTube(payload: any): Promise<any> {
+    return this.http.post(`${this.baseUrl}publicarenyoutube`, payload).toPromise();
+  }
 
   private actualizarPublicaciones(publicacion: Publicacion) {
     const currentValue = this._publicaciones.value;
@@ -72,11 +79,10 @@ export class PublicacionesService {
   }
 
   getCampanias(): Observable<GenericResponse<CampaniasBody>> {
-    return this.http.get<GenericResponse<CampaniasBody>>(GlobalConstants.urlApiCampanias)
+    return this.http.get<GenericResponse<CampaniasBody>>(GlobalConstants.urlApiCampanias);
   }
 
   setNuevaCampania(registroNuevaCampania: Campanias): Observable<GenericResponse<string>> {
     return this.http.post<GenericResponse<string>>(GlobalConstants.urlApiCampanias, registroNuevaCampania);
   }
 }
-
