@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Campanias, CampaniasBody, GenericResponse } from '../interfaces/campanias.interface';
+import { GlobalConstants } from '../common/global-constants';
 
 export interface Publicacion {
   redSocial: string[];
   titulo: string;
   descripcion: string;
+  subcampanas: string[];
   imagen: string; // Esta propiedad contendrá la imagen codificada en base64
+  video: string;
   link: string;
 }
 
@@ -66,4 +70,13 @@ export class PublicacionesService {
     const currentValue = this._publicaciones.value;
     this._publicaciones.next([...currentValue, publicacion]);
   }
+
+  getCampanias(): Observable<GenericResponse<CampaniasBody>> {
+    return this.http.get<GenericResponse<CampaniasBody>>(GlobalConstants.urlApiCampanias)
+  }
+
+  setNuevaCampania(registroNuevaCampania: Campanias): Observable<GenericResponse<string>> {
+    return this.http.post<GenericResponse<string>>(GlobalConstants.urlApiCampanias, registroNuevaCampania);
+  }
 }
+
