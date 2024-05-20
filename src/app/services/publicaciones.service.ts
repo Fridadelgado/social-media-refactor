@@ -9,9 +9,10 @@ export interface Publicacion {
   titulo: string;
   descripcion: string;
   subcampanas: string[];
-  imagen: string; // Esta propiedad contendrá la imagen codificada en base64
+  imagen: string;
   video: string;
   link: string;
+  thumbnail?: string;
 }
 
 @Injectable({
@@ -32,13 +33,13 @@ export class PublicacionesService {
     const base64ImagePattern = /^data:image\/[a-z]+;base64,/;
 
     if (base64ImagePattern.test(imageBase64)) {
-      imageBase64 = imageBase64.split(',')[1]; // Extrae solo la parte base64 de la cadena
+      imageBase64 = imageBase64.split(',')[1];
     }
 
     const payload = {
       text: publicacion.titulo + ' - ' + publicacion.descripcion,
       imageBase64: imageBase64,
-      videoBase64: publicacion.video ? publicacion.video.split(',')[1] : null, // Extrae solo la parte base64 del video
+      videoBase64: publicacion.video ? publicacion.video.split(',')[1] : null,
       title: publicacion.titulo,
       description: publicacion.descripcion
     };
@@ -56,8 +57,20 @@ export class PublicacionesService {
       }
     });
 
-    Promise.all(requests).then(() => {
-      this.actualizarPublicaciones(publicacion); // Actualiza una vez que todas las publicaciones han sido exitosas
+    Promise.all(requests).then(responses => {
+      console.log("este es el response ",responses);
+
+      // Filtrar las respuestas exitosas de YouTube
+      const youtubeResponse = responses.find(response =>
+        response.statusCode === 200 && response.body && response.body.data && response.body.data.kind === 'youtube#video'
+      );
+
+      if (youtubeResponse && youtubeResponse.body.data.snippet.thumbnails) {
+        publicacion.thumbnail = youtubeResponse.body.data.snippet.thumbnails.high.url;
+        publicacion.link = `https://www.youtube.com/watch?v=${youtubeResponse.body.data.id}`;
+      }
+
+      this.actualizarPublicaciones(publicacion);
     }).catch(error => console.error('Error al publicar en redes sociales', error));
   }
 
