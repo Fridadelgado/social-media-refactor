@@ -16,7 +16,7 @@ export class PublicacionesComponent implements OnInit {
   constructor(
     private publicacionesService: PublicacionesService, // Inyección del servicio PublicacionesService.
     private dialogService: NbDialogService, // Inyección del servicio NbDialogService para manejo de diálogos/modales.
-    
+
     ) { }
 
   // Hook ngOnInit que se ejecuta después de la inicialización del componente.
@@ -52,5 +52,11 @@ export class PublicacionesComponent implements OnInit {
     };
 
     return iconsMap[red] || 'default-icon'; // Retorna el nombre del ícono o un valor predeterminado
+  }
+
+  isVideo(url: string): boolean {
+    // Lógica para determinar si la URL apunta a un video
+    const videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
+    return videoExtensions.test(url);
   }
 }
