@@ -27,7 +27,6 @@ interface SocialMediaKpi {
   KPIs: KpiCategory[];
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -75,20 +74,20 @@ export class FacebookService {
       socialMedia: 'facebook',
       KPIs: [{
         category: name,
-        metrics: Object.keys(periods).map(periodKey => ({
-          name: `${name} (${periodKey})`,
+        metrics: [{
+          name: name,
           values: {
-            days_28: periodKey === 'days_28' ? this.extractValues(periods[periodKey]) : { anterior: 0, actual: 0 },
-            week: periodKey === 'week' ? this.extractValues(periods[periodKey]) : { anterior: 0, actual: 0 },
-            day: periodKey === 'day' ? this.extractValues(periods[periodKey]) : { anterior: 0, actual: 0 }
+            days_28: this.extractValues(periods['days_28']),
+            week: this.extractValues(periods['week']),
+            day: this.extractValues(periods['day'])
           }
-        }))
+        }]
       }]
     }));
   }
 
   // Helper function to extract 'anterior' and 'actual' from an array of values
- private  extractValues(values:any) {
+  private extractValues(values: any) {
     if (values.length >= 2) {
       // Assuming the array is ordered by 'end_time' ascending, so the last two are the most recent
       return {

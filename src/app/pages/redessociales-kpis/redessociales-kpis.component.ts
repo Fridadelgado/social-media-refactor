@@ -1,8 +1,5 @@
-// redessociales-kpis.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FacebookService } from '../../services/facebook.service';
-
 
 interface KpiValue {
   anterior: number;
@@ -54,7 +51,6 @@ export class RedesSocialesKpisComponent implements OnInit {
 
   constructor(private facebookService: FacebookService) { }
 
-
   ngOnInit() {
     this.loadFacebookKpis();
   }
@@ -73,35 +69,25 @@ export class RedesSocialesKpisComponent implements OnInit {
     );
   }
 
-
-
   toggleSocialMedia(selectedSocialMedia: any) {
-    // Primero, desmarcamos todos como seleccionados excepto el que se acaba de clickear
     this.availableSocialMedias.forEach(socialMedia => {
       if (socialMedia.name === selectedSocialMedia.name) {
-        // Cambia el estado de selección solo del clickeado, si no estaba ya seleccionado
         socialMedia.selected = !socialMedia.selected;
       } else {
-        // Asegura que los demás estén deseleccionados
         socialMedia.selected = false;
       }
     });
 
-    // Ahora, actualizamos el conjunto de medios sociales seleccionados basado en el nuevo estado
-    this.selectedSocialMedias.clear(); // Limpia el conjunto para asegurar una única selección
+    this.selectedSocialMedias.clear();
     if (selectedSocialMedia.selected) {
       this.selectedSocialMedias.add(selectedSocialMedia.name);
-      // Actualiza el título con la red social seleccionada y el filtro de tiempo
       this.updateCurrentTitle(selectedSocialMedia.name, this.timeFilter);
     } else {
-      // Si ninguna red social está seleccionada, actualiza el título sin la red social
       this.updateCurrentTitle(null, this.timeFilter);
     }
 
     this.applyFilters();
   }
-
-
 
   setTimeFilter(filter: 'days_28' | 'week' | 'day') {
     this.timeFilter = filter;
@@ -109,7 +95,6 @@ export class RedesSocialesKpisComponent implements OnInit {
     this.updateCurrentTitle(selectedSocialMediaName, filter);
     this.applyFilters();
   }
-
 
   updateCurrentTitle(socialMediaName: string | null, timeFilter: 'days_28' | 'week' | 'day') {
     let timeFilterText = '';
@@ -129,50 +114,39 @@ export class RedesSocialesKpisComponent implements OnInit {
     this.currentTitle = socialMediaName ? `${timeFilterText} de ${socialMediaName.toUpperCase()} ` : timeFilterText;
   }
 
-
-
   applyFilters() {
-    // Restablece los datos filtrados
     this.filteredKpisData = [];
     let categoriesForSelectedSocials = new Set<string>();
 
-    // Combina los datos de todas las redes sociales seleccionadas
     this.kpisData.forEach(socialMediaData => {
       if (this.selectedSocialMedias.has(socialMediaData.socialMedia)) {
         socialMediaData.KPIs.forEach(category => {
-          categoriesForSelectedSocials.add(category.category); // Agrega todas las categorías de las redes sociales seleccionadas
+          categoriesForSelectedSocials.add(category.category);
         });
 
         const filteredData = socialMediaData.KPIs
-          .filter(category => this.selectedCategories.includes(category.category)) // Filtra por categorías seleccionadas
+          .filter(category => this.selectedCategories.includes(category.category))
           .flatMap((category: KpiCategory) =>
-            category.metrics.map((metric: KpiMetric) => {
-              return {
+            category.metrics
+              .filter((metric: KpiMetric) => metric.values[this.timeFilter].actual !== 0 || metric.values[this.timeFilter].anterior !== 0)
+              .map((metric: KpiMetric) => ({
                 category: category.category,
                 name: metric.name,
                 socialMedia: socialMediaData.socialMedia,
                 values: metric.values[this.timeFilter],
-              };
-            })
+              }))
           );
         this.filteredKpisData.push(...filteredData);
       }
     });
 
-    // Actualiza las categorías disponibles basadas en las redes sociales seleccionadas SIN filtrar por categorías seleccionadas
     this.allCategories = Array.from(categoriesForSelectedSocials);
-
-    // No filtres las categorías seleccionadas aquí; eso se maneja por el usuario
-
-    // Transforma los datos de KPI para su presentación
     this.transformKpisDataForCategories();
   }
-
 
   transformKpisDataForCategories() {
     const categoriesMap = new Map();
 
-    // Iterar sobre filteredKpisData para agrupar por categoría
     this.filteredKpisData.forEach(kpi => {
       if (!categoriesMap.has(kpi.category)) {
         categoriesMap.set(kpi.category, []);
@@ -180,9 +154,6 @@ export class RedesSocialesKpisComponent implements OnInit {
       categoriesMap.get(kpi.category).push(kpi);
     });
 
-    // Convertir el Map en un array para iterar en la plantilla
     this.groupedKpisData = Array.from(categoriesMap, ([category, kpis]) => ({ category, kpis }));
   }
-
-
 }
