@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FacebookService } from '../../services/facebook.service';
+import { YouTubeService } from '../../services/youtube.service';
 
 interface KpiValue {
   anterior: number;
@@ -40,7 +41,7 @@ interface FilteredKpi {
 export class RedesSocialesKpisComponent implements OnInit {
   kpisData: SocialMediaKpi[] = [];
   groupedKpisData: any[] = [];
-  filteredKpisData: FilteredKpi[] = [];  // Explicitly defining the type
+  filteredKpisData: FilteredKpi[] = [];
   selectedSocialMedias: Set<string> = new Set();
   availableSocialMedias: any[] = [
     { name: 'facebook', selected: false },
@@ -56,22 +57,30 @@ export class RedesSocialesKpisComponent implements OnInit {
   selectedCategories: string[] = []; // Para almacenar múltiples categorías
   allCategories?: string[]; // Para almacenar todas las categorías disponibles
 
-  constructor(private facebookService: FacebookService) { }
+  constructor(private facebookService: FacebookService, private youTubeService: YouTubeService) { }
 
   ngOnInit() {
-    this.loadFacebookKpis();
+    this.loadKpis();
   }
 
-  loadFacebookKpis() {
+  loadKpis() {
     this.facebookService.getKpis().subscribe(
-      (data: SocialMediaKpi[]) => {
-        this.kpisData = Array.isArray(data) ? data : [];
-        this.allCategories = Array.from(new Set(this.kpisData.reduce((acc, kpi) => {
-          kpi.KPIs.forEach(kpiCategory => acc.push(kpiCategory.category));
-          return acc;
-        }, [] as string[])));
-        this.selectedCategories = [...this.allCategories];
-        this.applyFilters();  // Aplica filtros iniciales o actualiza la vista
+      (facebookData: SocialMediaKpi[]) => {
+        this.kpisData = Array.isArray(facebookData) ? facebookData : [];
+        this.youTubeService.getKpis().subscribe(
+          (youtubeData: SocialMediaKpi[]) => {
+            this.kpisData = this.kpisData.concat(Array.isArray(youtubeData) ? youtubeData : []);
+            this.allCategories = Array.from(new Set(this.kpisData.reduce((acc, kpi) => {
+              kpi.KPIs.forEach(kpiCategory => acc.push(kpiCategory.category));
+              return acc;
+            }, [] as string[])));
+            this.selectedCategories = [...this.allCategories];
+            this.applyFilters();  // Aplica filtros iniciales o actualiza la vista
+          },
+          error => {
+            console.error('Error loading KPIs from YouTube:', error);
+          }
+        );
       },
       error => {
         console.error('Error loading KPIs from Facebook:', error);
