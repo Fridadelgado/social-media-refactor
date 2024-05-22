@@ -25,6 +25,13 @@ interface SocialMediaKpi {
   KPIs: KpiCategory[];
 }
 
+interface FilteredKpi {
+  category: string;
+  name: string;
+  socialMedia: string;
+  values: KpiValue;
+}
+
 @Component({
   selector: 'app-redessociales-kpis',
   templateUrl: './redessociales-kpis.component.html',
@@ -33,7 +40,7 @@ interface SocialMediaKpi {
 export class RedesSocialesKpisComponent implements OnInit {
   kpisData: SocialMediaKpi[] = [];
   groupedKpisData: any[] = [];
-  filteredKpisData: any[] = [];
+  filteredKpisData: FilteredKpi[] = [];  // Explicitly defining the type
   selectedSocialMedias: Set<string> = new Set();
   availableSocialMedias: any[] = [
     { name: 'facebook', selected: false },
@@ -58,8 +65,11 @@ export class RedesSocialesKpisComponent implements OnInit {
   loadFacebookKpis() {
     this.facebookService.getKpis().subscribe(
       (data: SocialMediaKpi[]) => {
-        this.kpisData = data;
-        this.allCategories = Array.from(new Set(this.kpisData.flatMap(kpi => kpi.KPIs.map(kpiCategory => kpiCategory.category))));
+        this.kpisData = Array.isArray(data) ? data : [];
+        this.allCategories = Array.from(new Set(this.kpisData.reduce((acc, kpi) => {
+          kpi.KPIs.forEach(kpiCategory => acc.push(kpiCategory.category));
+          return acc;
+        }, [] as string[])));
         this.selectedCategories = [...this.allCategories];
         this.applyFilters();  // Aplica filtros iniciales o actualiza la vista
       },
@@ -126,16 +136,19 @@ export class RedesSocialesKpisComponent implements OnInit {
 
         const filteredData = socialMediaData.KPIs
           .filter(category => this.selectedCategories.includes(category.category))
-          .flatMap((category: KpiCategory) =>
+          .reduce((acc, category: KpiCategory) => {
             category.metrics
               .filter((metric: KpiMetric) => metric.values[this.timeFilter].actual !== 0 || metric.values[this.timeFilter].anterior !== 0)
-              .map((metric: KpiMetric) => ({
-                category: category.category,
-                name: metric.name,
-                socialMedia: socialMediaData.socialMedia,
-                values: metric.values[this.timeFilter],
-              }))
-          );
+              .forEach((metric: KpiMetric) => {
+                acc.push({
+                  category: category.category,
+                  name: metric.name,
+                  socialMedia: socialMediaData.socialMedia,
+                  values: metric.values[this.timeFilter],
+                });
+              });
+            return acc;
+          }, [] as FilteredKpi[]);
         this.filteredKpisData.push(...filteredData);
       }
     });
@@ -145,13 +158,13 @@ export class RedesSocialesKpisComponent implements OnInit {
   }
 
   transformKpisDataForCategories() {
-    const categoriesMap = new Map();
+    const categoriesMap = new Map<string, FilteredKpi[]>();
 
     this.filteredKpisData.forEach(kpi => {
       if (!categoriesMap.has(kpi.category)) {
         categoriesMap.set(kpi.category, []);
       }
-      categoriesMap.get(kpi.category).push(kpi);
+      categoriesMap.get(kpi.category)?.push(kpi);
     });
 
     this.groupedKpisData = Array.from(categoriesMap, ([category, kpis]) => ({ category, kpis }));
