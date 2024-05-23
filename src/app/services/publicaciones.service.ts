@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Campanias, CampaniasBody, GenericResponse } from '../interfaces/campanias.interface';
 import { GlobalConstants } from '../common/global-constants';
+import { ResponseRedesSociales } from '../interfaces/redes-sociales.interface';
 
 export interface Publicacion {
   redSocial: string[];
@@ -104,5 +105,9 @@ export class PublicacionesService {
 
   setNuevaCampania(registroNuevaCampania: Campanias): Observable<GenericResponse<string>> {
     return this.http.post<GenericResponse<string>>(GlobalConstants.urlApiCampanias, registroNuevaCampania);
+  }
+
+  getRedesSociales(): Observable<ResponseRedesSociales> {
+    return this.http.get<ResponseRedesSociales>(GlobalConstants.urlApiRedesSociales);
   }
 }

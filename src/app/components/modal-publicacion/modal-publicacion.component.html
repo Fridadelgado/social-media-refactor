@@ -38,8 +38,8 @@
             <nb-select fullWidth class="mb-4"
               placeholder="{{'components.modal-publicacion.placeHolderSeleccionaRedSocial' | translate}}"
               [(ngModel)]="publicacion.redSocial" multiple>
-              <nb-option *ngFor="let redSocial of redesSocialesDisponibles" [value]="redSocial.value">
-                {{ redSocial.label }}
+              <nb-option *ngFor="let redSocial of redesSociales" [value]="redSocial.nombre">
+                {{ redSocial.nombre }}
               </nb-option>
             </nb-select>
           </div>
@@ -80,34 +80,27 @@
               Selecciona las subcampañas *
             </label>
             <nb-select fullWidth class="mb-4"
-                       placeholder="{{'components.modal-publicacion.placeHolderSeleccionaSubcampanas' | translate}}"
-                       [(ngModel)]="publicacion.subcampanas" multiple>
+              placeholder="{{'components.modal-publicacion.placeHolderSeleccionaSubcampanas' | translate}}"
+              [(ngModel)]="publicacion.subcampanas" multiple>
               <nb-option *ngFor="let campania of campanias" [value]="campania.idsubcampanas">
                 {{ campania.nombrecampana }}
               </nb-option>
               <nb-option>
-                <nb-icon class="subtitulo-modal-publicacion-icono"
-                         icon="mdi-plus-circle-outline"
-                         pack="seekop"
-                         style="margin-right: 10px;"></nb-icon> <!-- Espacio entre el icono y el input -->
-                <input type="text"
-                       placeholder="Nueva subcampaña"
-                       (click)="$event.stopPropagation()"
-                       id="nuevaSubcampania"
-                       style="
+                <nb-icon class="subtitulo-modal-publicacion-icono" icon="mdi-plus-circle-outline" pack="seekop"
+                  style="margin-right: 10px;"></nb-icon> <!-- Espacio entre el icono y el input -->
+                <input type="text" placeholder="Nueva subcampaña" (click)="$event.stopPropagation()"
+                  id="nuevaSubcampania" style="
                          border: 1px solid rgba(0, 0, 0, 0.1);
                          border-radius: 4px;
                          padding: 4px 8px;
                          outline: none;
                          font-size: inherit;
                          width: calc(100% - 50px); /* Ajusta el tamaño del input teniendo en cuenta el margen del icono */
-                       "
-                       (keydown.enter)="agregarNuevaCampania($event)"
-                       (keydown.space)="$event.stopPropagation()">
+                       " (keydown.enter)="agregarNuevaCampania($event)" (keydown.space)="$event.stopPropagation()">
               </nb-option>
             </nb-select>
           </div>
-          
+
 
 
 
@@ -148,8 +141,9 @@
             <div class="col-md-12">
               <div class="redes-sociales d-flex">
                 <nb-icon class="col-md-2 filter-icons icon-hover" style="margin-right: -10px;"
-                  *ngFor="let red of publicacion.redSocial.length ? publicacion.redSocial : publicacionDefault.redSocial"
-                  [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
+         *ngFor="let red of publicacion.redSocial.length ? publicacion.redSocial : publicacionDefault.redSocial"
+         [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
+
               </div>
 
             </div>

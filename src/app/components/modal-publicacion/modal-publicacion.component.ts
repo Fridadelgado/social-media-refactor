@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core'; // Para la internacional
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; // Para la carga de archivos.
 import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/campanias.interface';
 import { DynamicComponentService } from '../../services/dynamic-component-service.service';
+import { RedesSociales, ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -23,6 +24,7 @@ export class ModalPublicacionComponent {
   imageExtensions = /\.(jpg|jpeg|png|gif|bmp)$/i;
   videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
   campanias: Campanias[] = [];
+  redesSociales: ResponseRedesSociales = [];
 
   publicacionDefault = {
     titulo: 'Título Predeterminado',
@@ -67,8 +69,8 @@ export class ModalPublicacionComponent {
   ngOnInit(): void {
     // Obtiene el mensaje predeterminado para la zona de arrastre.
     //this.fechaProgramada = this.ref;
-    console.log('hahahahahahahah', this.ref);
     this.getCampanias();
+    this.getRedesSociales();
     this.translate.get('components.modal-publicacion.dropZoneDefault').subscribe((res: string) => {
       this.dropZoneMessage = res;
     });
@@ -90,6 +92,32 @@ export class ModalPublicacionComponent {
     return this.esFechaValidaFlag;
   }
 
+  getRedesSociales(): void {
+    this.publicacionesService.getRedesSociales()
+      .subscribe((redesSociales: ResponseRedesSociales) => {
+        if (redesSociales && redesSociales.length > 0)
+          this.redesSociales = redesSociales;
+      },
+        (error) => {
+          console.error('Error al obtener las redes sociales:', error);
+          // HandleError
+        }
+      );
+  }
+
+  //Metodo para obtener campañas
+  getCampanias(): void {
+    this.publicacionesService.getCampanias()
+      .subscribe((response: GenericResponse<CampaniasBody>) => {
+        if (response)
+          this.campanias = response.body.data;
+      },
+        (error) => {
+          console.error('Error al obtener las campañas:', error);
+          // HandleError
+        }
+      );
+  }
 
   onFileDrop(files: NgxFileDropEntry[]) {
     // Lógica para manejar la carga de archivos mediante arrastrar y soltar.
@@ -229,34 +257,16 @@ export class ModalPublicacionComponent {
   }
 
   getSocialMediaIcon(red: string): string {
-    const iconsMap: { [key: string]: string } = {
-      facebook: 'facebook-icon', // Asume que 'facebook-icon' es el nombre del ícono en tu paquete
-      twitter: 'twitter-icon',
-      instagram: 'instagram-icon',
-      linkedin: 'linkedin-icon',
-      tiktok: 'tiktok-icon',
-      pinterest: 'pinterest-icon',
-      youtube: 'youtube-icon'
-      // Asegúrate de que estos nombres de íconos correspondan a los de tu paquete de Nebular.
-    };
-
-    return iconsMap[red] || 'default-icon'; // 'default-icon' es un ícono predeterminado
+    if (this.publicacion.redSocial && this.publicacion.redSocial.length > 0) {
+      const socialMedia = this.redesSociales.find(media => media.nombre.toLowerCase() === red.toLowerCase());
+      return socialMedia ? socialMedia.icon : 'default-icon';
+    }
+    return '';
   }
+
 
   //Metodo get para obtener campanias desde BD
-  getCampanias(): void {
-    this.publicacionesService.getCampanias()
-      .subscribe((response: GenericResponse<CampaniasBody>) => {
-        if (response)
-          this.campanias = response.body.data;
-        console.log('Respuesta de campanias:', this.campanias);
-      },
-        (error) => {
-          console.error('Error al obtener las campañas:', error);
-           // HandleError
-        }
-      );
-  }
+
   agregarNuevaCampania(event: any) {
     const inputElement = event.target as HTMLInputElement;
     const nuevaSubcampania = inputElement.value.trim();
@@ -265,12 +275,12 @@ export class ModalPublicacionComponent {
     this.publicacionesService.setNuevaCampania(nuevaCampania).subscribe((response: GenericResponse<string>) => {
       if (response)
         console.log(response);
-        inputElement.value = '';
+      inputElement.value = '';
       this.getCampanias();
     },
       (error) => {
         console.error('Error al obtener las campañas:', error);
-         // HandleError
+        // HandleError
       }
     );
   }
