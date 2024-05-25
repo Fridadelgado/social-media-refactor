@@ -13,6 +13,7 @@ import { PublicacionesComponent } from './pages/publicaciones/publicaciones.comp
 import { ConversacionesComponent } from './pages/conversaciones/conversaciones.component';
 import { DistribuidoresAsignadosComponent } from './pages/distribuidores-asignados/distribuidores-asignados.component';
 import { RedesSocialesComponent } from './pages/redes-sociales/redes-sociales.component';
+import { SocialAuthComponent } from './pages/social-auth/social-auth.component'; // Asegúrate de importar el nuevo componente
 
 // Importaciones de componentes de autenticación proporcionados por Nebular para manejar login, registro, etc.
 import {
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: 'conversaciones', component: ConversacionesComponent },
       { path: 'redes-sociales', component: RedesSocialesComponent },
       { path: 'distribuidores-asignados', component: DistribuidoresAsignadosComponent },
+      { path: 'social-auth', component: SocialAuthComponent }, // Nueva ruta para autenticación de redes sociales
       // ... más rutas autenticadas ...
     ]
   },

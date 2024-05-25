@@ -1,0 +1,33 @@
+<!-- Botón para abrir un modal de autenticación. -->
+<button nbButton hero status="primary" (click)="openModal()">
+  <nb-icon class="col-md-1 filter-icons" style="margin-right: 4px;" icon="text-box-plus-outline-success" pack="seekop"></nb-icon>
+  Nuevo Logueo
+</button>
+
+<!-- Mensaje cuando no hay logueos -->
+<div *ngIf="logins.length === 0" class="row justify-content-center align-items-center" style="height: 300px;">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-6 text-center mt-5">
+      <h4 class="mt-5"><nb-icon icon="info-outline" pack="eva" style="font-size: 40px; color: #aaa; margin-right: 10px;"></nb-icon>No hay datos que mostrar</h4>
+      <p style="margin-left: 53px; margin-top: -20px">Comienza creando tu primer logueo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contenedor para los logueos -->
+<div class="row" *ngIf="logins.length > 0">
+  <div class="col-md-4 mt-3" *ngFor="let login of logins">
+    <nb-card style="width: 570px; height: 150px;">
+      <nb-card-header>
+        <div class="header-content d-flex">
+          <h3>{{ login.nombre_cuenta }}</h3>
+          <nb-icon class="col-md-1 filter-icons" style="margin-right: 2px;" [icon]="getSocialMediaIcon(login.idred)" pack="seekop"></nb-icon>
+        </div>
+      </nb-card-header>
+      <nb-card-body style="margin-top: -30px;">
+        <p>{{ login.email }}</p>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

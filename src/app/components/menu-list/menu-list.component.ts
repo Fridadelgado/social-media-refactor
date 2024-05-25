@@ -22,6 +22,11 @@ export class MenuListComponent {
 
     },
     {
+      title: 'Autenticación Redes Sociales',  // Nombre visible en el menú.
+      link: '/social-auth', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
+      icon: 'mdi-account-group-primary',  // Nombre del icono personalizado registrado en Nebular.
+    },
+    {
       title: 'KPIs',  // Nombre visible en el menú.
       link: '/redessociales-kpis', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'finance-primary',  // Nombre del icono personalizado registrado en Nebular.
@@ -31,35 +36,26 @@ export class MenuListComponent {
       title: 'Calendario Publicaciones',  // Nombre visible en el menú.
       link: '/calendariopublicaciones', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'calendar-text-outline',  // Nombre del icono personalizado registrado en Nebular.
-      
+
     },
     {
       title: 'Publicaciones',  // Nombre visible en el menú.
       link: '/publicaciones', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'mdi-cloud-upload-outline',  // Nombre del icono personalizado registrado en Nebular.
-      
+
     },
     {
       title: 'Conversaciones',  // Nombre visible en el menú.
       link: '/conversaciones', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'comment-send',  // Nombre del icono personalizado registrado en Nebular.
-      
+
     },
     {
       title: 'Redes Sociales',  // Nombre visible en el menú.
       link: '/redes-sociales', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
       icon: 'text-box-plus-outline-success',  // Nombre del icono personalizado registrado en Nebular.
-      
-    },
-    {
-      title: 'Distribuidores Asignados',  // Nombre visible en el menú.
-      link: '/distribuidores-asignados', // Ruta o enlace del ítem del menú. '#' es un placeholder en este ejemplo.
-      icon: 'mdi-account-group-primary',  // Nombre del icono personalizado registrado en Nebular.
-      
-    },
 
-    // Se repite la estructura para cada ítem del menú que se desea agregar.
-    // ...
+    },
   ];
 
   // Inyección del servicio NbIconLibraries a través del constructor para manejar librerías de iconos.

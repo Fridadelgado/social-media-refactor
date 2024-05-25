@@ -53,6 +53,8 @@ import { CalendariopublicacionesComponent } from './pages/calendariopublicacione
 import { ConversacionesComponent } from './pages/conversaciones/conversaciones.component';
 import { DistribuidoresAsignadosComponent } from './pages/distribuidores-asignados/distribuidores-asignados.component';
 import { RedesSocialesComponent } from './pages/redes-sociales/redes-sociales.component';
+import { SocialAuthComponent } from './pages/social-auth/social-auth.component';
+import { SocialAuthModalComponent } from './components/social-auth-modal/social-auth-modal.component';
 
 // Módulo para implementar un calendario interactivo.
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -68,6 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Componentes que pertenecen a este módulo.
     // Aquí se listan todos los componentes, directivas y pipes que se crearán y pertenecerán a este módulo.
     AppComponent,
+    SocialAuthModalComponent,
+    SocialAuthComponent,
     BodyLoadingComponent,
     KpiCardComponent,
     MenuListComponent,

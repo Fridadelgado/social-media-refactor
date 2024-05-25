@@ -4,7 +4,7 @@ export interface RedesSociales {
   idred: number
   nombre: string
   endpointapi: string
-  apikey: string
-  secretkey: string
+  client_id: string
+  client_secret: string
   icon: string
 }
