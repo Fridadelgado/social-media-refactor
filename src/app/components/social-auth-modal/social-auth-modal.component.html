@@ -50,6 +50,11 @@
               </nb-option>
             </nb-select>
           </div>
+
+          <!-- Mensaje de autenticación -->
+          <div *ngIf="alreadyAuthenticated" class="col-md-12">
+            <span style="color: red;">El usuario ya está autenticado.</span>
+          </div>
         </div>
       </div>
     </nb-card-body>
@@ -63,25 +68,20 @@
               <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;" icon="mdi-alert-outline" pack="seekop"></nb-icon>
             </div>
             <div class="col-md-10" style="margin-left: -15px;">
-              <span
-                style="font: italic normal normal 15px/20px Montserrat; color: #272D3B; opacity: 1; letter-spacing: 0px;">Los
-                campos con un * son obligatorios</span>
+              <span style="font: italic normal normal 15px/20px Montserrat; color: #272D3B; opacity: 1; letter-spacing: 0px;">Los campos con un * son obligatorios</span>
             </div>
           </div>
         </div>
         <div class="col-md-5">
         </div>
         <div class="col-md-1">
-          <button nbButton hero status="primary" (click)="iniciarAutenticacion()" class="btn btn-primary "
-            style="margin-left: -50px; padding: 10px !important;">
-            <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;" icon="mdi-cloud-upload-outline"
-              pack="seekop"></nb-icon>
+          <button nbButton hero status="primary" (click)="iniciarAutenticacion()" class="btn btn-primary " style="margin-left: -50px; padding: 10px !important;">
+            <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;" icon="mdi-cloud-upload-outline" pack="seekop"></nb-icon>
             Autenticar
           </button>
         </div>
         <div class="col-md-1">
-          <button nbButton status="danger" (click)="cancelar()" class="btn btn-danger"
-            style="margin-left: -30px; padding: 10px !important;">
+          <button nbButton status="danger" (click)="cancelar()" class="btn btn-danger" style="margin-left: -30px; padding: 10px !important;">
             <nb-icon class="col-md-1 modal-publicacion-icono" icon="close-circle-outline" pack="eva"></nb-icon>
             Cancelar
           </button>
