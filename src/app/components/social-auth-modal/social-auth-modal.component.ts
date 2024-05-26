@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { AuthRedsocialService } from '../../services/auth-redsocial.service';
 import { RedesSociales, ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
+import { DynamicComponentService } from '../../services/dynamic-component-service.service'; // Asegúrate de importar el servicio de componentes dinámicos
 
 @Component({
   selector: 'app-social-auth-modal',
@@ -22,7 +23,8 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
 
   constructor(
     protected ref: NbDialogRef<SocialAuthModalComponent>,
-    private authRedsocialService: AuthRedsocialService
+    private authRedsocialService: AuthRedsocialService,
+    private dynamicComponentService: DynamicComponentService // Inyecta el servicio aquí
   ) { }
 
   ngOnInit(): void {
@@ -70,12 +72,17 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // Mostrar loader
+    this.dynamicComponentService.showBodyLoading();
+
     // Verificar si ya está autenticado
     this.authRedsocialService.obtenerLogueos(this.email, this.selectedRedSocial, this.selectedDistribuidor)
       .subscribe((logins: any[]) => {
         if (logins.length > 0) {
           this.alreadyAuthenticated = true; // Actualizar variable de estado
           console.log('El usuario ya está autenticado.');
+          // Quitar loader
+          this.dynamicComponentService.destroyBodyLoading();
         } else {
           // Iniciar el proceso de autenticación
           this.authRedsocialService.iniciarAutenticacion(this.email, this.selectedRedSocial, this.selectedDistribuidor, this.nombreCuenta)
@@ -96,15 +103,20 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
                   this.verificarAutenticacion();
                 }, 3000);
               }
+              // Quitar loader
+              this.dynamicComponentService.destroyBodyLoading();
             }, error => {
               console.error('Error en la autenticación:', error);
+              // Quitar loader
+              this.dynamicComponentService.destroyBodyLoading();
             });
         }
       }, error => {
         console.error('Error al verificar la autenticación:', error);
+        // Quitar loader
+        this.dynamicComponentService.destroyBodyLoading();
       });
   }
-
 
   verificarAutenticacion() {
     // Verificar si el usuario ya está autenticado
@@ -123,11 +135,16 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
           // Detiene el chequeo periódico
           clearInterval(this.checkAuthInterval);
 
+          // Quitar loader
+          this.dynamicComponentService.destroyBodyLoading();
+
           // Cierra el modal
           this.ref.close();
         }
       }, error => {
         console.error('Error al verificar la autenticación:', error);
+        // Quitar loader en caso de error
+        this.dynamicComponentService.destroyBodyLoading();
       });
   }
 
