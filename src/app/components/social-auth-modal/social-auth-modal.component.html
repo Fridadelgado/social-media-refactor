@@ -51,6 +51,12 @@
             </nb-select>
           </div>
 
+          <!-- Entrada para el nombre de la cuenta con validación. -->
+          <div class="col-md-12">
+            <label [ngClass]="{'text-danger': submitted && !nombreCuenta}">Nombre de la Cuenta *</label>
+            <input fullWidth nbInput maxlength="50" placeholder="Ingresa el nombre de la cuenta" [(ngModel)]="nombreCuenta" required class="form-control mb-4">
+          </div>
+
           <!-- Mensaje de autenticación -->
           <div *ngIf="alreadyAuthenticated" class="col-md-12">
             <span style="color: red;">El usuario ya está autenticado.</span>

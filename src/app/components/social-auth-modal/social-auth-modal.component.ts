@@ -13,6 +13,7 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
   selectedRedSocial: number = 0;
   selectedDistribuidor: string = '';
   email: string = '';
+  nombreCuenta: string = ''; // Nuevo campo
   distribuidores: any[] = [];
   submitted: boolean = false;
   alreadyAuthenticated: boolean = false; // Nueva variable de estado
@@ -64,7 +65,7 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
 
   iniciarAutenticacion() {
     this.submitted = true;
-    if (!this.email || !this.selectedRedSocial || !this.selectedDistribuidor) {
+    if (!this.email || !this.selectedRedSocial || !this.selectedDistribuidor || !this.nombreCuenta) {
       console.error('Todos los campos son obligatorios.');
       return;
     }
@@ -77,7 +78,7 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
           console.log('El usuario ya está autenticado.');
         } else {
           // Iniciar el proceso de autenticación
-          this.authRedsocialService.iniciarAutenticacion(this.email, this.selectedRedSocial, this.selectedDistribuidor)
+          this.authRedsocialService.iniciarAutenticacion(this.email, this.selectedRedSocial, this.selectedDistribuidor, this.nombreCuenta)
             .subscribe(response => {
               if (response.statusCode === 302) {
                 const redirectUrl = response.headers.Location;

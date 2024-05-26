@@ -23,8 +23,8 @@ export class AuthRedsocialService {
     return this.http.get<any[]>(`${this.apiSocialMediaUrl}/grupos`);
   }
 
-  iniciarAutenticacion(email: string, idred: number, distribuidor: string): Observable<any> {
-    const params = { email, idred, distribuidor };
+  iniciarAutenticacion(email: string, idred: number, distribuidor: string, nombre_cuenta: string): Observable<any> {
+    const params = { email, idred, distribuidor, nombre_cuenta };
     return this.http.get<any>(`${this.apiUrl}/autenticacion`, { params });
   }
 
