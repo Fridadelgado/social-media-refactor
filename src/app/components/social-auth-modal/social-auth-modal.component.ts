@@ -82,7 +82,14 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
             .subscribe(response => {
               if (response.statusCode === 302) {
                 const redirectUrl = response.headers.Location;
-                this.authWindow = window.open(redirectUrl, 'authWindow', 'width=600,height=400');
+
+                // Calcular las dimensiones y posición de la ventana
+                const width = 800;
+                const height = 600;
+                const left = (window.screen.width / 2) - (width / 2);
+                const top = (window.screen.height / 2) - (height / 2);
+
+                this.authWindow = window.open(redirectUrl, 'authWindow', `width=${width},height=${height},top=${top},left=${left}`);
 
                 // Inicia el chequeo periódico de la autenticación
                 this.checkAuthInterval = setInterval(() => {
@@ -97,6 +104,7 @@ export class SocialAuthModalComponent implements OnInit, OnDestroy {
         console.error('Error al verificar la autenticación:', error);
       });
   }
+
 
   verificarAutenticacion() {
     // Verificar si el usuario ya está autenticado
