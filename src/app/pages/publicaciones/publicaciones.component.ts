@@ -33,6 +33,7 @@ export class PublicacionesComponent implements OnInit {
     this.dialogService.open(ModalPublicacionComponent, {
       context: {}, // Contexto y datos adicionales para pasar al modal.
       dialogClass: 'custom-modal-full', // Clase CSS para personalizar el modal, p.ej., ajustar su tamaño.
+      closeOnBackdropClick: false, // prop para no cerrar el modal, solo si es en btn cerrar
     });
   }
 
