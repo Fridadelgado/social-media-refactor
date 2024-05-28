@@ -1,4 +1,3 @@
-// src/app/services/auth-redsocial.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -38,5 +37,10 @@ export class AuthRedsocialService {
       .pipe(
         map(response => response.body)  // Desanidar los datos de la respuesta
       );
+  }
+
+  desvincularCuenta(email: string, idred: number, distribuidor: string): Observable<any> {
+    const params = { email, idred, distribuidor };
+    return this.http.get<any>(`${this.apiUrl}/desvincular`, { params });
   }
 }

@@ -1,10 +1,10 @@
-// src/app/pages/social-auth/social-auth.component.ts
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { AuthRedsocialService } from '../../services/auth-redsocial.service';
 import { SocialAuthModalComponent } from '../../components/social-auth-modal/social-auth-modal.component';
 import { ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
 import { RedSocialLogin } from 'src/app/interfaces/red-social-login.interface';
+import { DynamicComponentService } from '../../services/dynamic-component-service.service'; // Asegúrate de importar el servicio de componentes dinámicos
 
 @Component({
   selector: 'app-social-auth',
@@ -18,7 +18,8 @@ export class SocialAuthComponent implements OnInit {
 
   constructor(
     private authRedsocialService: AuthRedsocialService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private dynamicComponentService: DynamicComponentService
   ) { }
 
   ngOnInit(): void {
@@ -62,5 +63,18 @@ export class SocialAuthComponent implements OnInit {
       // Agrega otros íconos aquí con el idred correspondiente
     };
     return iconsMap[idred] || 'default-icon';
+  }
+
+  desvincularCuenta(login: RedSocialLogin) {
+    this.dynamicComponentService.showBodyLoading();
+
+    this.authRedsocialService.desvincularCuenta(login.email, login.idred, login.distribuidor)
+      .subscribe(() => {
+        this.dynamicComponentService.destroyBodyLoading();
+        this.obtenerLogueos(); // Actualiza la lista de logueos después de desvincular una cuenta
+      }, error => {
+        this.dynamicComponentService.destroyBodyLoading();
+        console.error('Error al desvincular la cuenta:', error);
+      });
   }
 }
