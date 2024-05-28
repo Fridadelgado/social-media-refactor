@@ -13,12 +13,13 @@
   <div class="col-md-12 col-lg-4">
     <strong>Red Social:</strong>
     <div class="d-flex ">
-      <div *ngFor="let social of availableSocialMedias" class="row">
-        <nb-icon [icon]="social.name+'-icon'" pack="seekop" (click)="toggleSocialMedia(social)"
-          class="filter-icons icon-hover" [class.icon-active]="social.selected" [nbTooltip]="social.name"
+      <div *ngFor="let social of redesSociales" class="row">
+        <nb-icon [icon]="social.icon" pack="seekop" (click)="toggleSocialMedia(social)" class="filter-icons icon-hover"
+          [class.icon-active]="social.selected" [nbTooltip]="social.nombre"
           style="font-size: xx-large; cursor: pointer;">
         </nb-icon>
       </div>
+
     </div>
   </div>
 

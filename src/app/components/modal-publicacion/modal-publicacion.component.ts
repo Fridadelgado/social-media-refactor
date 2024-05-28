@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core'; // Para la internacional
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; // Para la carga de archivos.
 import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/campanias.interface';
 import { DynamicComponentService } from '../../services/dynamic-component-service.service';
-import { RedesSociales, ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
+import { ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -274,7 +274,6 @@ export class ModalPublicacionComponent {
     nuevaCampania.nombrecampana = nuevaSubcampania;
     this.publicacionesService.setNuevaCampania(nuevaCampania).subscribe((response: GenericResponse<string>) => {
       if (response)
-        console.log(response);
       inputElement.value = '';
       this.getCampanias();
     },

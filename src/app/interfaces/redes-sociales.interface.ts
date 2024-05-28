@@ -7,4 +7,5 @@ export interface RedesSociales {
   apikey: string
   secretkey: string
   icon: string
+  selected?: boolean;
 }
