@@ -37,17 +37,6 @@ export class ModalPublicacionComponent {
   publicacion: Publicacion = { redSocial: [], titulo: '', descripcion: '', subcampanas: [], imagen: '', link: '', video: '' };
 
   imagenPrevisualizacion: string | ArrayBuffer | null = '';
-  redesSocialesDisponibles = [
-    { value: 'facebook', label: 'Facebook' },
-    { value: 'twitter', label: 'Twitter' },
-    { value: 'instagram', label: 'Instagram' },
-    { value: 'linkedin', label: 'LinkedIn' },
-    { value: 'tiktok', label: 'TikTok' },
-    { value: 'pinterest', label: 'Pinterest' },
-    { value: 'youtube', label: 'YouTube' },
-    // y así sucesivamente para otras redes sociales...
-  ];
-
 
   submitted = false; // Controla la validación del formulario.
   dropZoneMessage: string = ""; // Mensaje de la zona de arrastre de archivos.

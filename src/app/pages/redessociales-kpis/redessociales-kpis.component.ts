@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FacebookService } from '../../services/facebook.service';
 import { YouTubeService } from '../../services/youtube.service';
 import { FilteredKpi, KpiCategory, KpiMetric, SocialMediaKpi } from 'src/app/interfaces/redessociales-kpis.interface';
-import { RedesSociales, ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
+import { RedesSociales } from 'src/app/interfaces/redes-sociales.interface';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { InstagramService } from 'src/app/services/instagram.service';
 
