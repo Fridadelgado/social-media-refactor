@@ -31,6 +31,7 @@ export class PublicacionesService {
   }
 
   agregarPublicacion(publicacion: Publicacion): Observable<any> {
+    publicacion.redSocial
     let imageBase64 = publicacion.imagen;
     const base64ImagePattern = /^data:image\/[a-z]+;base64,/;
 
@@ -47,7 +48,7 @@ export class PublicacionesService {
     };
 
     const requests = publicacion.redSocial.map(red => {
-      switch (red) {
+      switch (red.toLowerCase()) {
         case 'twitter':
           return this.publicarEnTwitter(payload);
         case 'facebook':
@@ -88,10 +89,12 @@ export class PublicacionesService {
   }
 
   private publicarEnFacebook(payload: any): Promise<any> {
+    console.log("payload en publicarEnFacebook Service:",payload)
     return this.http.post(`${this.baseUrl}publicarenfacebook`, payload).toPromise();
   }
 
   private publicarEnYouTube(payload: any): Promise<any> {
+    console.log(payload);
     return this.http.post(`${this.baseUrl}publicarenyoutube`, payload).toPromise();
   }
 
