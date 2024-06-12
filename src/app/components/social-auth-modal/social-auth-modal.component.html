@@ -34,7 +34,7 @@
           <!-- Selección de redes sociales con validación. -->
           <div class="col-md-12">
             <label [ngClass]="{'text-danger': submitted && !selectedRedSocial}">Selecciona Red Social *</label>
-            <nb-select fullWidth class="mb-4" placeholder="Selecciona Red Social" [(ngModel)]="selectedRedSocial">
+            <nb-select fullWidth class="mb-4" placeholder="Selecciona Red Social" [(ngModel)]="selectedRedSocial" [disabled]="selectedRedSocial !== 0">
               <nb-option *ngFor="let redSocial of redesSociales" [value]="redSocial.idred">
                 {{ redSocial.nombre }}
               </nb-option>

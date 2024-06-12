@@ -15,6 +15,7 @@ export class SocialAuthComponent implements OnInit {
 
   logins: RedSocialLogin[] = [];
   redesSociales: ResponseRedesSociales = [];
+  filteredRedesSociales: ResponseRedesSociales = []; // Nueva lista filtrada
 
   constructor(
     private authRedsocialService: AuthRedsocialService,
@@ -40,29 +41,27 @@ export class SocialAuthComponent implements OnInit {
       .subscribe((redesSociales: ResponseRedesSociales) => {
         if (redesSociales && redesSociales.length > 0) {
           this.redesSociales = redesSociales;
+          this.filteredRedesSociales = redesSociales.filter(redSocial => !['Facebook', 'Instagram'].includes(redSocial.nombre)); // Filtrar Facebook e Instagram
         }
       }, (error) => {
         console.error('Error al obtener las redes sociales:', error);
       });
   }
 
-  openModal() {
+  getLoginsByRedSocial(idred: number): RedSocialLogin[] {
+    return this.logins.filter(login => login.idred === idred);
+  }
+
+  openModal(idred: number) {
     this.dialogService.open(SocialAuthModalComponent, {
       context: {
-        redesSociales: this.redesSociales
+        redesSociales: this.redesSociales,
+        selectedRedSocial: idred
       },
       dialogClass: 'custom-modal-full',
     }).onClose.subscribe(() => {
       this.obtenerLogueos(); // Actualiza la lista de logueos después de cerrar el modal
     });
-  }
-
-  getSocialMediaIcon(idred: number): string {
-    const iconsMap: { [key: number]: string } = {
-      12: 'facebook-icon',
-      // Agrega otros íconos aquí con el idred correspondiente
-    };
-    return iconsMap[idred] || 'default-icon';
   }
 
   desvincularCuenta(login: RedSocialLogin) {

@@ -1,9 +1,3 @@
-<!-- Botón para abrir un modal de autenticación. -->
-<button nbButton hero status="primary" (click)="openModal()">
-  <nb-icon class="col-md-1 filter-icons" style="margin-right: 4px;" icon="text-box-plus-outline-success" pack="seekop"></nb-icon>
-  Conectar nueva cuenta
-</button>
-
 <!-- Mensaje cuando no hay logueos -->
 <div *ngIf="logins.length === 0" class="row justify-content-center align-items-center" style="height: 300px;">
   <div class="row">
@@ -15,20 +9,29 @@
   </div>
 </div>
 
-<!-- Contenedor para los logueos -->
-<div class="row" *ngIf="logins.length > 0">
-  <div class="col-md-4 mt-3" *ngFor="let login of logins">
-    <nb-card style="width: 570px; height: 150px;">
+<!-- Contenedor para todas las redes sociales -->
+<div class="row">
+  <div class="col-md-4 mt-3" *ngFor="let redSocial of filteredRedesSociales">
+    <nb-card style="width: 570px; height: auto;">
       <nb-card-header>
         <div class="header-content d-flex">
-          <h3>{{ login.nombre_cuenta }}</h3>
-          <nb-icon class="col-md-1 filter-icons" style="margin-right: 2px;" [icon]="getSocialMediaIcon(login.idred)" pack="seekop"></nb-icon>
+          <nb-icon class="col-md-1 filter-icons" style="margin-right: 2px;" [icon]="redSocial.icon" pack="seekop"></nb-icon>
+          <h3>{{ redSocial.nombre }}</h3>
         </div>
       </nb-card-header>
       <nb-card-body style="margin-top: -30px;">
-        <p>{{ login.email }}</p>
-        <button nbButton status="danger" (click)="desvincularCuenta(login)">Desvincular cuenta</button>
+        <!-- Mostrar conexiones para esta red social -->
+        <div *ngFor="let login of getLoginsByRedSocial(redSocial.idred)">
+          <p>{{ login.email }}</p>
+          <button nbButton status="danger" (click)="desvincularCuenta(login)">Desvincular cuenta</button>
+        </div>
+        <!-- Botón para conectar nueva cuenta -->
+        <button nbButton status="primary" (click)="openModal(redSocial.idred)">
+          {{ getLoginsByRedSocial(redSocial.idred).length > 0 ? 'Conectar otra cuenta' : 'Conectar' }}
+        </button>
       </nb-card-body>
     </nb-card>
   </div>
 </div>
+
+

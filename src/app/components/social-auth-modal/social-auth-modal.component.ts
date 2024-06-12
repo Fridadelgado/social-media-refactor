@@ -11,7 +11,7 @@ import { DynamicComponentService } from '../../services/dynamic-component-servic
 })
 export class SocialAuthModalComponent implements OnInit, OnDestroy {
   @Input() redesSociales: ResponseRedesSociales = [];
-  selectedRedSocial: number = 0;
+  @Input() selectedRedSocial: number = 0;  // Recibimos la red social seleccionada desde el contexto
   selectedDistribuidor: string = '';
   email: string = '';
   nombreCuenta: string = ''; // Nuevo campo
