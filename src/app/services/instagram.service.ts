@@ -13,7 +13,7 @@ export class InstagramService {
     constructor(private http: HttpClient) { }
 
     getKpis() {
-        return this.http.get(GlobalConstants.urlApliKpisInstagram).pipe(
+        return this.http.get(GlobalConstants.urlApiKpisInstagram).pipe(
             map((response: any) => {
                 // Extraer el campo `body` que contiene los datos reales
                 const kpisData: SocialMediaKpi[] = response.body;

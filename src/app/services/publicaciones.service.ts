@@ -22,7 +22,6 @@ export interface Publicacion {
 })
 export class PublicacionesService {
   private _publicaciones = new BehaviorSubject<Publicacion[]>([]);
-  private baseUrl = 'https://ehqxqw484e.execute-api.us-west-1.amazonaws.com/dev/';
   private readonly STORAGE_KEY = 'redesSocialesCache';
 
   constructor(private http: HttpClient) { }
@@ -40,15 +39,7 @@ export class PublicacionesService {
       imageBase64 = imageBase64.split(',')[1];
     }
 
-   /* const payload = {
-      text: publicacion.titulo + ' - ' + publicacion.descripcion,
-      imageBase64: imageBase64,
-      videoBase64: publicacion.video ? publicacion.video.split(',')[1] : null,
-      title: publicacion.titulo,
-      description: publicacion.descripcion
-    };*/
-
-    const payload: PayloadRedSocial ={
+    const payload: PayloadRedSocial = {
       email: 'default.pruebas@seekop.com',
       distribuidor: "104425",
       text: publicacion.titulo,
@@ -64,6 +55,8 @@ export class PublicacionesService {
           return this.publicarEnYouTube(payload);
         case 'instagram':
           return this.publicarEnInstagram(payload);
+        case 'tiktok':
+          return this.publicarEnTikTok(payload);
         default:
           return Promise.reject(`Red social no soportada: ${red}`);
       }
@@ -94,22 +87,23 @@ export class PublicacionesService {
   }
 
   private publicarEnTwitter(payload: any): Promise<any> {
-    return this.http.post(`${this.baseUrl}publicarentwitter`, payload).toPromise();
+    return this.http.post(GlobalConstants.urlApiPublicar + `publicarentwitter`, payload).toPromise();
   }
 
   private publicarEnFacebook(payload: PayloadRedSocial): Promise<any> {
-    console.log("payload en publicarEnFacebook Service:", payload)
-    return this.http.post(`${this.baseUrl}publicarenfacebook`, payload).toPromise();
+    return this.http.post(GlobalConstants.urlApiPublicar + `publicarenfacebook`, payload).toPromise();
   }
 
   private publicarEnYouTube(payload: any): Promise<any> {
-    return this.http.post(`${this.baseUrl}publicarenyoutube`, payload).toPromise();
+    return this.http.post(GlobalConstants.urlApiPublicar + `publicarenyoutube`, payload).toPromise();
   }
   private publicarEnInstagram(payload: PayloadRedSocial): Promise<any> {
-    console.log(payload);
-    return this.http.post(`${this.baseUrl}publicareninstagram`, payload).toPromise();
+    return this.http.post(GlobalConstants.urlApiPublicar + `publicareninstagram`, payload).toPromise();
   }
 
+  private publicarEnTikTok(payload: PayloadRedSocial): Promise<any> {
+    return this.http.post(GlobalConstants.urlApiPublicar + `publicareninstagram`, payload).toPromise();
+  }
 
   private actualizarPublicaciones(publicacion: Publicacion) {
     const currentValue = this._publicaciones.value;

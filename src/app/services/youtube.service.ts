@@ -15,13 +15,13 @@ export class YouTubeService {
   constructor(private http: HttpClient) { }
 
   getKpis() {
-    return this.http.get(GlobalConstants.urlApliKpisYoutube).pipe(
+    return this.http.get(GlobalConstants.urlApiKpisYoutube).pipe(
       map((response: any) => {
         const kpisData: SocialMediaKpi[] = response.body;
         return kpisData;
       }),
       catchError(error => {
-        console.error('Error fetching data from Lambda function', error);
+        console.error('Error fetching data from youtube Lambda function', error);
         return throwError('Error fetching data from Lambda function');
       })
     );
