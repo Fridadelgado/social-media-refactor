@@ -1,0 +1,74 @@
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nb-card-body .d-flex {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nb-card-body .d-flex .nbButton {
+  align-self: flex-end;
+}
+
+.nb-card {
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  border-radius: 10px; /* Aseguramos bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra inicial */
+}
+
+.nb-card:hover {
+  transform: translate(4px, 4px); /* Mueve la tarjeta ligeramente hacia la derecha y hacia abajo */
+}
+
+.facebook:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}
+
+.youtube:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}
+
+.tiktok:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}
+
+.pinterest:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}
+
+.mercadolibre:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}
+
+.meta:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}
+
+.twitter:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}
+
+.linkedin:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  transform: translate(4px, 4px);
+  color: black;
+}

@@ -64,6 +64,10 @@ export class SocialAuthComponent implements OnInit {
     });
   }
 
+  getCardClass(redSocialNombre: string): string {
+    return redSocialNombre.toLowerCase().replace(/\s+/g, '');
+  }
+
   desvincularCuenta(login: RedSocialLogin) {
     this.dynamicComponentService.showBodyLoading();
 
