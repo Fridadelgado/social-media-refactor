@@ -46,6 +46,7 @@ export class PublicacionesService {
       mediaBase64: imageBase64
     }
     const requests = publicacion.redSocial.map(red => {
+      console.log(red);
       switch (red.toLowerCase()) {
         case 'twitter':
           return this.publicarEnTwitter(payload);
@@ -57,6 +58,8 @@ export class PublicacionesService {
           return this.publicarEnInstagram(payload);
         case 'tiktok':
           return this.publicarEnTikTok(payload);
+        case 'pinterest':
+          return this.publicarEnPinterest(payload);
         default:
           return Promise.reject(`Red social no soportada: ${red}`);
       }
@@ -100,8 +103,11 @@ export class PublicacionesService {
   private publicarEnInstagram(payload: PayloadRedSocial): Promise<any> {
     return this.http.post(GlobalConstants.urlApiPublicar + `publicareninstagram`, payload).toPromise();
   }
-
+  //actualizar endpoint
   private publicarEnTikTok(payload: PayloadRedSocial): Promise<any> {
+    return this.http.post(GlobalConstants.urlApiPublicar + `publicareninstagram`, payload).toPromise();
+  }
+  private publicarEnPinterest(payload: PayloadRedSocial): Promise<any> {
     return this.http.post(GlobalConstants.urlApiPublicar + `publicareninstagram`, payload).toPromise();
   }
 

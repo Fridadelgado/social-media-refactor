@@ -7,5 +7,6 @@ export interface RedesSociales {
   client_id: string
   client_secret: string
   icon: string
+  fileType: string
   selected?: boolean;
 }

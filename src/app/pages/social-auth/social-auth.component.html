@@ -11,11 +11,11 @@
 
 <!-- Contenedor para todas las redes sociales -->
 <div class="row">
-  <div class="col-md-4 mt-3" *ngFor="let redSocial of filteredRedesSociales">
-    <nb-card [ngClass]="getCardClass(redSocial.nombre)" style="width: 570px; height: auto;">
+  <div class="col-12 col-sm-6 col-md-4 mt-3" *ngFor="let redSocial of filteredRedesSociales">
+    <nb-card [ngClass]="getCardClass(redSocial.nombre)" class="h-100">
       <nb-card-header>
         <div class="header-content d-flex align-items-center">
-          <nb-icon class="col-md-2 filter-icons" style="margin-right: 10px;" [icon]="redSocial.icon" pack="seekop"></nb-icon>
+          <nb-icon class="col-2 filter-icons me-2" [icon]="redSocial.icon" pack="seekop"></nb-icon>
           <h3>{{ redSocial.nombre }}</h3>
         </div>
       </nb-card-header>
@@ -37,6 +37,7 @@
     </nb-card>
   </div>
 </div>
+
 
 
 
