@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { Campanias, CampaniasBody, GenericResponse } from '../interfaces/campanias.interface';
 import { GlobalConstants } from '../common/global-constants';
-import { ResponseRedesSociales } from '../interfaces/redes-sociales.interface';
+import { PinterestPublicacion, ResponseRedesSociales } from '../interfaces/redes-sociales.interface';
 import { PayloadRedSocial } from '../interfaces/instagram.interface';
 
 export interface Publicacion {
@@ -42,11 +42,13 @@ export class PublicacionesService {
     const payload: PayloadRedSocial = {
       email: 'default.pruebas@seekop.com',
       distribuidor: "104425",
-      text: publicacion.titulo,
-      mediaBase64: imageBase64
+      title: publicacion.titulo,
+     // mediaBase64: imageBase64,
+      description: publicacion.descripcion,
+      alt_text: 'Texto descriptivo'
     }
     const requests = publicacion.redSocial.map(red => {
-      console.log(red);
+      console.log(payload);
       switch (red.toLowerCase()) {
         case 'twitter':
           return this.publicarEnTwitter(payload);
@@ -108,7 +110,7 @@ export class PublicacionesService {
     return this.http.post(GlobalConstants.urlApiPublicar + `publicareninstagram`, payload).toPromise();
   }
   private publicarEnPinterest(payload: PayloadRedSocial): Promise<any> {
-    return this.http.post(GlobalConstants.urlApiPublicar + `publicareninstagram`, payload).toPromise();
+    return this.http.post(GlobalConstants.urlApiPublicar + `publicarenpinterest`, payload).toPromise();
   }
 
   private actualizarPublicaciones(publicacion: Publicacion) {

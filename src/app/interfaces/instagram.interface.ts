@@ -1,6 +1,8 @@
-export interface PayloadRedSocial{
+export interface PayloadRedSocial {
     email: string;
     distribuidor: string;
-    text: string;
-    mediaBase64: string;
+    title: string;
+    mediaBase64?: string;
+    description: string,
+    alt_text: string
 }
