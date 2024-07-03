@@ -5,21 +5,23 @@ import { throwError } from 'rxjs';
 import { GlobalConstants } from '../common/global-constants';
 import { SocialMediaKpi } from '../interfaces/redessociales-kpis.interface';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
-export class FacebookService {
+export class YouTubeService {
 
   constructor(private http: HttpClient) { }
 
   getKpis() {
-    return this.http.get(GlobalConstants.urlApiKpis + `facebook`).pipe(
+    return this.http.get(GlobalConstants.urlApiKpis + `youtube`).pipe(
       map((response: any) => {
         const kpisData: SocialMediaKpi[] = response.body;
         return kpisData;
       }),
       catchError(error => {
-        console.error('Error fetching data from Lambda function', error);
+        console.error('Error fetching data from youtube Lambda function', error);
         return throwError('Error fetching data from Lambda function');
       })
     );

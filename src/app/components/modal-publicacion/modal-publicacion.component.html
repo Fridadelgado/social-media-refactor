@@ -36,10 +36,11 @@
           <div class="col-md-12">
             <label [ngClass]="{'text-danger': submitted && publicacion.redSocial.length === 0}">Publicar en *</label>
             <nb-select fullWidth class="mb-4"
+            (ngModelChange)="onRedSocialChange($event)"
               placeholder="{{'components.modal-publicacion.placeHolderSeleccionaRedSocial' | translate}}"
               [(ngModel)]="publicacion.redSocial" multiple>
-              <nb-option *ngFor="let redSocial of redesSocialesDisponibles" [value]="redSocial.value">
-                {{ redSocial.label }}
+              <nb-option *ngFor="let redSocial of redesSociales" [value]="redSocial.nombre">
+                {{ redSocial.nombre }}
               </nb-option>
             </nb-select>
           </div>
@@ -61,9 +62,9 @@
               [(ngModel)]="publicacion.descripcion" required class="form-control mb-4"></textarea>
           </div>
 
-          <!-- Componente de carga de archivos con previsualización de imagen. -->
-          <div class="col-md-12">
-            <label [ngClass]="{'text-danger': submitted && !isValidFile}">Imágen de la publicación *</label>
+          <!-- Componente de carga de archivos con previsualización de imagen o video. -->
+          <div class="col-md-12 mb-4">
+            <label [ngClass]="{'text-danger': submitted && !isValidFile}">Imágen o video de la publicación *</label>
             <ngx-file-drop (onFileDrop)="onFileDrop($event)" (click)="fileInput.click()">
               <ng-template ngx-file-drop-content-tmp>
                 <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
@@ -73,6 +74,30 @@
             </ngx-file-drop>
             <input type="file" #fileInput style="display: none;" (change)="onFileSelect($event)">
           </div>
+
+          <!-- Seleccion de subcampañas -->
+          <div class="col-md-12">
+            <label [ngClass]="{'text-danger': submitted && publicacion.subcampanas.length === 0}">
+              Selecciona las subcampañas *
+            </label>
+            <nb-select fullWidth class="mb-4"
+              placeholder="{{'components.modal-publicacion.placeHolderSeleccionaSubcampanas' | translate}}"
+              [(ngModel)]="publicacion.subcampanas" multiple>
+              <nb-option *ngFor="let campania of campanias" [value]="campania.idsubcampanas">
+                {{ campania.nombrecampana }}
+              </nb-option>
+              <nb-option>
+                <nb-icon class="subtitulo-modal-publicacion-icono" icon="mdi-plus-circle-outline" pack="seekop"
+                  style="margin-right: 10px;"></nb-icon>
+                <input class="input-file" type="text" placeholder="Nueva subcampaña" (click)="$event.stopPropagation()"
+                  id="nuevaSubcampania" (keydown.enter)="agregarNuevaCampania($event)"
+                  (keydown.space)="$event.stopPropagation()">
+              </nb-option>
+            </nb-select>
+          </div>
+
+
+
 
         </div>
 
@@ -85,15 +110,19 @@
 
         <div class="row mt-3">
           <div class="col-md-12">
-            <label [ngClass]="{'text-danger': submitted && !esFechaValidaFlag}">Selecciona fecha de publicación *</label>
+            <label [ngClass]="{'text-danger': submitted && !esFechaValidaFlag}">Selecciona fecha de publicación
+              *</label>
 
           </div>
           <div class="col-md-12">
-            <input fullWidth nbInput placeholder="Selecciona la fecha de publicación (opcional)" [nbDatepicker]="datepicker" [(ngModel)]="fechaProgramada" (ngModelChange)="esFechaValida()">
+            <input fullWidth nbInput placeholder="Selecciona la fecha de publicación (opcional)"
+              [nbDatepicker]="datepicker" [(ngModel)]="fechaProgramada" (ngModelChange)="esFechaValida()">
             <nb-datepicker #datepicker></nb-datepicker>
 
           </div>
         </div>
+
+
 
       </div>
 
@@ -109,6 +138,7 @@
                 <nb-icon class="col-md-2 filter-icons icon-hover" style="margin-right: -10px;"
                   *ngFor="let red of publicacion.redSocial.length ? publicacion.redSocial : publicacionDefault.redSocial"
                   [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
+
               </div>
 
             </div>
@@ -123,17 +153,29 @@
             </div>
           </div>
 
+          <!-- Previsualizacion iamgen o video-->
           <div class="row">
             <div class="col-md-12">
-              <!-- En tu sección de previsualización dentro del modal -->
-              <img *ngIf="imagenPrevisualizacion; else defaultImageTemplate" [src]="imagenPrevisualizacion"
-                class="img-fluid img-previsualizacion"
-                alt="{{'components.modal-publicacion.altPrevisualizacion' | translate}}">
+              <ng-container *ngIf="fileType !== ''; else defaultImageTemplate">
+                <ng-container *ngIf="imagenPrevisualizacion">
+                  <video *ngIf="fileType === 'video'; else imageTemplate" [src]="imagenPrevisualizacion"
+                    class="img-fluid img-previsualizacion" controls></video>
+                </ng-container>
+                <ng-template #imageTemplate>
+                  <img *ngIf="fileType === 'image'" [src]="imagenPrevisualizacion"
+                    class="img-fluid img-previsualizacion"
+                    alt="{{ 'components.modal-publicacion.altPrevisualizacion' | translate }}">
+                </ng-template>
+              </ng-container>
               <ng-template #defaultImageTemplate>
-                <img [src]="defaultPreviewImage" class="img-fluid img-previsualizacion" alt="Imagen por defecto">
+                <img *ngIf="!imagenPrevisualizacion" [src]="defaultPreviewImage" class="img-fluid img-previsualizacion"
+                  alt="Imagen por defecto">
               </ng-template>
             </div>
           </div>
+
+
+
 
           <div class="row">
             <div class="col-md-12">
@@ -178,7 +220,8 @@
           </button>
         </div>
         <div class="col-md-1">
-          <button nbButton status="danger" (click)="cancelar()" class="btn btn-danger" style="margin-left: -30px; padding: 10px !important;">
+          <button nbButton status="danger" (click)="cancelar()" class="btn btn-danger"
+            style="margin-left: -30px; padding: 10px !important;">
             <nb-icon class="col-md-1 modal-publicacion-icono" icon="close-circle-outline" pack="eva"></nb-icon>
             {{ 'components.modal-publicacion.botonCancelar' | translate }}
           </button>

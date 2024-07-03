@@ -10,7 +10,6 @@
       <p style="margin-left: 53px; margin-top: -20px">Comienza creando tu primera publicación.</p>
     </div>
   </div>
-
 </div>
 
 <!-- Contenedor para las publicaciones. Utiliza Bootstrap para el diseño responsivo. -->
@@ -29,12 +28,18 @@
         </div>
       </nb-card-header>
 
-
       <!-- Cuerpo de la tarjeta, muestra el título y la descripción de la publicación. -->
       <nb-card-body style="margin-top: -30px;">
         <h5>{{ publicacion.titulo }}</h5>
-        <!-- Si la publicación tiene una imagen asociada, muestra la imagen con un tamaño controlado. -->
-        <img *ngIf="publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion"  style="margin-top: -30px;" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
+        <!-- Si la publicación tiene una imagen o video asociado, muestra la previsualización correspondiente. -->
+        <ng-container *ngIf="publicacion.thumbnail || publicacion.imagen || publicacion.video; else noMedia">
+          <img *ngIf="publicacion.thumbnail" [src]="publicacion.thumbnail" class="img-fluid img-previsualizacion" style="margin-top: -30px;" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
+          <video *ngIf="isVideo(publicacion.video)" [src]="publicacion.video" class="img-fluid img-previsualizacion" style="margin-top: -30px;" controls></video>
+          <img *ngIf="!isVideo(publicacion.video) && publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" style="margin-top: -30px;" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
+        </ng-container>
+        <ng-template #noMedia>
+          <p>No hay media que mostrar</p>
+        </ng-template>
         <p>{{ publicacion.descripcion }}</p>
       </nb-card-body>
 

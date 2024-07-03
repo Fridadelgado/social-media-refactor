@@ -17,6 +17,8 @@
       "altPublicacion": "Publicación",
       "placeHolderSeleccionaRedSocial": "Selecciona una red social",
       "validacionSeleccionaRedSocial": "Debes seleccionar al menos una red social.",
+      "placeHolderSeleccionaSubcampanas": "Selecciona las subcampañas",
+      "validacionSeleccionaSubcampanas": "Debes seleccionar al menos una subcampaña.",
       "placeHolderTituloPublicacion": "Titulo de la publicación",
       "validacionTituloPublicacion":"El título de la publicación es obligatorio.",
       "placehoderDescripcionPublicacion": "Escribe una descripción",
@@ -27,7 +29,7 @@
       "botonPublicar": "Publicar",
       "botonCalendarizar": "Calendarizar",
       "botonCancelar": "Cancelar",
-      "dropZoneDefault": "Arrastra tu imagen aquí o haz clic para seleccionar",
+      "dropZoneDefault": "Arrastra tu imagen o video aquí o haz clic para seleccionar",
       "dropZoneValidacion": "Archivo no válido. Considera PNG, JPG, etc.",
       "dropZoneSuccess": "Archivo subido exitosamente"
 

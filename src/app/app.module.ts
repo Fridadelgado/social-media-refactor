@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module'; // Gestión de rutas de la aplicación.
 import { RouterModule } from '@angular/router'; // Sistema de enrutamiento de Angular.
-import { HttpClientModule } from '@angular/common/http'; // Módulo para realizar peticiones HTTP.
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Módulo para realizar peticiones HTTP.
 import { AppComponent } from './app.component'; // Componente raíz de la aplicación.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -27,6 +27,11 @@ import { HttpClient } from '@angular/common/http';
 // Librería para manejo de drag and drop de archivos.
 import { NgxFileDropModule } from 'ngx-file-drop';
 
+// loader
+import { BodyLoadingComponent } from './components/body-loading/body-loading.component';
+import { DynamicComponentService } from './services/dynamic-component-service.service';
+
+
 // Charts
 
 
@@ -48,9 +53,12 @@ import { CalendariopublicacionesComponent } from './pages/calendariopublicacione
 import { ConversacionesComponent } from './pages/conversaciones/conversaciones.component';
 import { DistribuidoresAsignadosComponent } from './pages/distribuidores-asignados/distribuidores-asignados.component';
 import { RedesSocialesComponent } from './pages/redes-sociales/redes-sociales.component';
+import { SocialAuthComponent } from './pages/social-auth/social-auth.component';
+import { SocialAuthModalComponent } from './components/social-auth-modal/social-auth-modal.component';
 
 // Módulo para implementar un calendario interactivo.
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 // Función para configurar el cargador de traducciones, que indica cómo cargar los archivos de traducción.
 export function HttpLoaderFactory(http: HttpClient) {
@@ -63,6 +71,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Componentes que pertenecen a este módulo.
     // Aquí se listan todos los componentes, directivas y pipes que se crearán y pertenecerán a este módulo.
     AppComponent,
+    SocialAuthModalComponent,
+    SocialAuthComponent,
+    BodyLoadingComponent,
     KpiCardComponent,
     MenuListComponent,
     DistribuidoresAsignadosComponent,
@@ -126,7 +137,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-      // Servicios que serán creados por el inyector raíz de Angular. Aquí se pueden añadir servicios globales de la aplicación.
+    DynamicComponentService
+    ,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent] // Componente raíz que Angular crea e inserta en el index.html host. Define la vista raíz de la aplicación.
 })
