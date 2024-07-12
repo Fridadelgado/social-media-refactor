@@ -15,7 +15,7 @@ export class YouTubeService {
   constructor(private http: HttpClient) { }
 
   getKpis() {
-    return this.http.get(GlobalConstants.urlApiKpisYoutube).pipe(
+    return this.http.get(GlobalConstants.urlApiKpis + `youtube`).pipe(
       map((response: any) => {
         const kpisData: SocialMediaKpi[] = response.body;
         return kpisData;

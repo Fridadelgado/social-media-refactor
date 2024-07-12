@@ -85,7 +85,22 @@ export class ModalPublicacionComponent {
     this.publicacionesService.getRedesSociales()
       .subscribe((redesSociales: ResponseRedesSociales) => {
         if (redesSociales && redesSociales.length > 0)
-          this.redesSociales = redesSociales;
+          this.redesSociales = redesSociales.map(redSocial => {
+            switch (redSocial.nombre.toLowerCase()) {
+              case 'facebook':
+              case 'twitter':
+                return { ...redSocial, fileType: 'both' };
+              case 'instagram':
+              case 'pinterest':
+                return { ...redSocial, fileType: 'imagen' };
+              case 'youtube':
+              case 'tik tok':
+                return { ...redSocial, fileType: 'video' };
+              default:
+                return { ...redSocial, fileType: 'both' };
+            }
+          });
+        console.log(this.redesSociales);
       },
         (error) => {
           console.error('Error al obtener las redes sociales:', error);
@@ -93,6 +108,38 @@ export class ModalPublicacionComponent {
         }
       );
   }
+
+  onRedSocialChange(event: any) {
+    // Lógica para manejar el cambio de la red social seleccionada
+    console.log('ngModelChange event:', event);
+    this.updateDropZoneMessage(event);
+  }
+
+  updateDropZoneMessage(event: string[]) {
+    const selectedRedSocialName = event[0]; // Asumimos que solo seleccionas una red social a la vez.
+    const selectedRedSocial = this.redesSociales.find(rs => rs.nombre === selectedRedSocialName);
+    
+    if (selectedRedSocial) {
+      console.log(selectedRedSocial);
+      switch (selectedRedSocial.fileType) {
+        case 'imagen':
+          this.dropZoneMessage = 'Arrastra tu imagen aquí o haz clic para seleccionar';
+          break;
+        case 'video':
+          this.dropZoneMessage = 'Arrastra tu video aquí o haz clic para seleccionar';
+          break;
+        case 'both':
+        default:
+          this.dropZoneMessage = 'Arrastra tu imagen o video aquí o haz clic para seleccionar';
+          break;
+      }
+    } else {
+      this.dropZoneMessage = 'Arrastra y suelta tu archivo aquí';
+    }
+  
+  }
+  
+
 
   //Metodo para obtener campañas
   getCampanias(): void {

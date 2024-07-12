@@ -1,41 +1,42 @@
 <!-- Botón para abrir un modal de creación de publicación. Utiliza Nebular para el estilo y ngx-translate para la internacionalización del texto. -->
-<button nbButton hero status="primary" (click)="openModal()"><nb-icon class="col-md-1 filter-icons" style="margin-right: 4px;" icon="text-box-plus-outline-success" pack="seekop"></nb-icon>{{ 'pages.publicaciones.botonCrearPublicacion' | translate }}</button>
+<button nbButton hero status="primary" (click)="openModal()" class="d-flex align-items-center">
+  <nb-icon class="filter-icons me-2" icon="text-box-plus-outline-success" pack="seekop"></nb-icon>{{ 'pages.publicaciones.botonCrearPublicacion' | translate }}
+</button>
 
 <!-- Mensaje cuando no hay publicaciones -->
 <div *ngIf="publicaciones.length === 0" class="row justify-content-center align-items-center" style="height: 300px;">
-  <div class="row">
-    <div class="col-4"></div>
-    <div class="col-6 text-center mt-5">
-      <h4 class="mt-5"><nb-icon icon="info-outline" pack="eva" style="font-size: 40px; color: #aaa; margin-right: 10px;"></nb-icon>No hay datos que mostrar</h4>
-      <p style="margin-left: 53px; margin-top: -20px">Comienza creando tu primera publicación.</p>
-    </div>
+  <div class="col-12 text-center mt-5">
+    <h4 class="mt-5">
+      <nb-icon icon="info-outline" pack="eva" style="font-size: 40px; color: #aaa; margin-right: 10px;"></nb-icon>
+      No hay datos que mostrar
+    </h4>
+    <p>Comienza creando tu primera publicación.</p>
   </div>
 </div>
 
 <!-- Contenedor para las publicaciones. Utiliza Bootstrap para el diseño responsivo. -->
 <div class="row" *ngIf="publicaciones.length > 0">
-  <div class="col-md-4 mt-3" *ngFor="let publicacion of publicaciones"> <!-- Crea una tarjeta para cada publicación utilizando un bucle *ngFor. -->
+  <div class="col-12 col-md-6 col-lg-4 mt-3" *ngFor="let publicacion of publicaciones"> <!-- Crea una tarjeta para cada publicación utilizando un bucle *ngFor. -->
 
     <!-- Tarjeta Nebular para una publicación individual. -->
-    <nb-card style="width: 570px; height: 500px;">
-
+    <nb-card>
       <!-- Cabecera de la tarjeta, muestra los íconos de las redes sociales asociadas a la publicación. -->
       <nb-card-header>
-        <div class="header-content d-flex">
-          <h3>{{ 'pages.publicaciones.labelPublicadoEn' | translate }}</h3>
+        <div class="header-content d-flex align-items-center">
+          <h3 class="me-2">{{ 'pages.publicaciones.labelPublicadoEn' | translate }}</h3>
           <!-- Utiliza nb-icon para mostrar íconos -->
-          <nb-icon class="col-md-1 filter-icons" style="margin-right: 2px;" *ngFor="let red of publicacion.redSocial" [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
+          <nb-icon class="filter-icons me-2" *ngFor="let red of publicacion.redSocial" [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
         </div>
       </nb-card-header>
 
       <!-- Cuerpo de la tarjeta, muestra el título y la descripción de la publicación. -->
-      <nb-card-body style="margin-top: -30px;">
+      <nb-card-body>
         <h5>{{ publicacion.titulo }}</h5>
         <!-- Si la publicación tiene una imagen o video asociado, muestra la previsualización correspondiente. -->
         <ng-container *ngIf="publicacion.thumbnail || publicacion.imagen || publicacion.video; else noMedia">
-          <img *ngIf="publicacion.thumbnail" [src]="publicacion.thumbnail" class="img-fluid img-previsualizacion" style="margin-top: -30px;" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
-          <video *ngIf="isVideo(publicacion.video)" [src]="publicacion.video" class="img-fluid img-previsualizacion" style="margin-top: -30px;" controls></video>
-          <img *ngIf="!isVideo(publicacion.video) && publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion" style="margin-top: -30px;" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
+          <img *ngIf="publicacion.thumbnail" [src]="publicacion.thumbnail" class="img-fluid img-previsualizacion mb-3" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
+          <video *ngIf="isVideo(publicacion.video)" [src]="publicacion.video" class="img-fluid img-previsualizacion mb-3" controls></video>
+          <img *ngIf="!isVideo(publicacion.video) && publicacion.imagen" [src]="publicacion.imagen" class="img-fluid img-previsualizacion mb-3" alt="{{ 'pages.publicaciones.altPublicacion' | translate }}">
         </ng-container>
         <ng-template #noMedia>
           <p>No hay media que mostrar</p>

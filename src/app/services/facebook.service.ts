@@ -13,9 +13,8 @@ export class FacebookService {
   constructor(private http: HttpClient) { }
 
   getKpis() {
-    return this.http.get(GlobalConstants.urlApiKpisFacebook).pipe(
+    return this.http.get(GlobalConstants.urlApiKpis + `facebook`).pipe(
       map((response: any) => {
-        // Extraer el campo `body` que contiene los datos reales
         const kpisData: SocialMediaKpi[] = response.body;
         return kpisData;
       }),

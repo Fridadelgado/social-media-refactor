@@ -36,6 +36,7 @@
           <div class="col-md-12">
             <label [ngClass]="{'text-danger': submitted && publicacion.redSocial.length === 0}">Publicar en *</label>
             <nb-select fullWidth class="mb-4"
+            (ngModelChange)="onRedSocialChange($event)"
               placeholder="{{'components.modal-publicacion.placeHolderSeleccionaRedSocial' | translate}}"
               [(ngModel)]="publicacion.redSocial" multiple>
               <nb-option *ngFor="let redSocial of redesSociales" [value]="redSocial.nombre">
@@ -87,16 +88,10 @@
               </nb-option>
               <nb-option>
                 <nb-icon class="subtitulo-modal-publicacion-icono" icon="mdi-plus-circle-outline" pack="seekop"
-                  style="margin-right: 10px;"></nb-icon> <!-- Espacio entre el icono y el input -->
-                <input type="text" placeholder="Nueva subcampaña" (click)="$event.stopPropagation()"
-                  id="nuevaSubcampania" style="
-                         border: 1px solid rgba(0, 0, 0, 0.1);
-                         border-radius: 4px;
-                         padding: 4px 8px;
-                         outline: none;
-                         font-size: inherit;
-                         width: calc(100% - 50px); /* Ajusta el tamaño del input teniendo en cuenta el margen del icono */
-                       " (keydown.enter)="agregarNuevaCampania($event)" (keydown.space)="$event.stopPropagation()">
+                  style="margin-right: 10px;"></nb-icon>
+                <input class="input-file" type="text" placeholder="Nueva subcampaña" (click)="$event.stopPropagation()"
+                  id="nuevaSubcampania" (keydown.enter)="agregarNuevaCampania($event)"
+                  (keydown.space)="$event.stopPropagation()">
               </nb-option>
             </nb-select>
           </div>
@@ -141,8 +136,8 @@
             <div class="col-md-12">
               <div class="redes-sociales d-flex">
                 <nb-icon class="col-md-2 filter-icons icon-hover" style="margin-right: -10px;"
-         *ngFor="let red of publicacion.redSocial.length ? publicacion.redSocial : publicacionDefault.redSocial"
-         [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
+                  *ngFor="let red of publicacion.redSocial.length ? publicacion.redSocial : publicacionDefault.redSocial"
+                  [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
 
               </div>
 

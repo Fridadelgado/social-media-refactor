@@ -24,6 +24,7 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   // Rutas para el sistema de autenticación de Nebular.
@@ -53,7 +54,8 @@ const routes: Routes = [
       { path: 'conversaciones', component: ConversacionesComponent },
       { path: 'redes-sociales', component: RedesSocialesComponent },
       { path: 'distribuidores-asignados', component: DistribuidoresAsignadosComponent },
-      { path: 'social-auth', component: SocialAuthComponent }, // Nueva ruta para autenticación de redes sociales
+      { path: 'social-auth', component: SocialAuthComponent }, 
+      { path: '**', component: PageNotFoundComponent }
       // ... más rutas autenticadas ...
     ]
   },
