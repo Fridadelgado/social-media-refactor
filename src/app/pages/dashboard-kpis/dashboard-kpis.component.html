@@ -3,7 +3,10 @@
     <div class="col-md-3">
         <!-- Barra lateral (Sidebar) -->
         <nav id="sidebar" class="d-md-block bg-light sidebar position-sticky">
-            <div *ngFor="let social of redesSociales" class="menu-item" (onClick)="selectRedSocial()">
+            <div class="menu-item" (click)="onClickSeekop()">
+                <img src="../assets/images/seekop-imagotipo.png"
+                    class="logo-image" /><strong>Seekop</strong></div>
+            <div *ngFor="let social of redesSociales" class="menu-item" (click)="selectRedSocial()">
                 <nb-icon [icon]="social.icon" pack="seekop" class="filter-icons icon-hover"
                     [class.icon-active]="social.selected" [nbTooltip]="social.nombre"
                     style="font-size: 3rem; cursor: pointer;">
@@ -17,19 +20,27 @@
     </div>
 
     <div class="col-md-9">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div>
+
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="!isSeekopSelected">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" (click)="selectTab('vision-general')" [class.active]="selectedTab === 'vision-general'">
+                    <li class="nav-item" (click)="selectTab('vision-general')"
+                        [class.active]="selectedTab === 'vision-general'">
                         <span class="nav-link" [class.active]="selectedTab === 'vision-general'">VISION GENERAL</span>
                     </li>
-                    <li class="nav-item" (click)="selectTab('demografia')" [class.active]="selectedTab === 'demografia'">
+                    <li class="nav-item" (click)="selectTab('demografia')"
+                        [class.active]="selectedTab === 'demografia'">
                         <span class="nav-link" [class.active]="selectedTab === 'demografia'">DEMOGRAFIA</span>
                     </li>
-                    <li class="nav-item" (click)="selectTab('clicks-en-la-pagina')" [class.active]="selectedTab === 'clicks-en-la-pagina'">
-                        <span class="nav-link" [class.active]="selectedTab === 'clicks-en-la-pagina'">CLICKS EN LA PAGINA</span>
+                    <li class="nav-item" (click)="selectTab('clicks-en-la-pagina')"
+                        [class.active]="selectedTab === 'clicks-en-la-pagina'">
+                        <span class="nav-link" [class.active]="selectedTab === 'clicks-en-la-pagina'">CLICKS EN LA
+                            PAGINA</span>
                     </li>
-                    <li class="nav-item" (click)="selectTab('publicaciones')" [class.active]="selectedTab === 'publicaciones'">
+                    <li class="nav-item" (click)="selectTab('publicaciones')"
+                        [class.active]="selectedTab === 'publicaciones'">
                         <span class="nav-link" [class.active]="selectedTab === 'publicaciones'">PUBLICACIONES</span>
                     </li>
                     <li class="nav-item" (click)="selectTab('historias')" [class.active]="selectedTab === 'historias'">
@@ -38,11 +49,26 @@
                 </ul>
             </div>
         </nav>
-    
-        <!-- Área principal de contenido -->
+
+        <!-- Área principal de contenido normal -->
+        <ng-container *ngIf="!isSeekopSelected">
+            <ng-container *ngTemplateOutlet="mainContent"></ng-container>
+        </ng-container>
+
+        <!-- Nuevo contenido para Seekop -->
+        <ng-container *ngIf="isSeekopSelected">
+            <ng-container *ngTemplateOutlet="seekopContent">
+
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <!-- Template para el contenido principal -->
+    <ng-template #mainContent>
         <main role="main">
             <div class="tab-content" id="myTabContent">
-                <div *ngIf="selectedTab === 'vision-general'" class="tab-pane fade show active" id="vision-general" role="tabpanel" aria-labelledby="vision-general-tab">
+                <div *ngIf="selectedTab === 'vision-general'" class="tab-pane fade show active" id="vision-general"
+                    role="tabpanel" aria-labelledby="vision-general-tab">
                     <div class="content mt-3">
                         <h2 style="color: #A3BD36;">Vision General</h2>
                         <h1>Alcance por genero</h1>
@@ -53,25 +79,29 @@
                         <app-doughnut-chart></app-doughnut-chart>
                     </div>
                 </div>
-                <div *ngIf="selectedTab === 'demografia'" class="tab-pane fade show active" id="demografia" role="tabpanel" aria-labelledby="demografia-tab">
+                <div *ngIf="selectedTab === 'demografia'" class="tab-pane fade show active" id="demografia"
+                    role="tabpanel" aria-labelledby="demografia-tab">
                     <div class="content mt-3">
                         <h2 style="color: #A3BD36;">Demografia</h2>
                         <app-doughnut-chart></app-doughnut-chart>
                     </div>
                 </div>
-                <div *ngIf="selectedTab === 'clicks-en-la-pagina'" class="tab-pane fade show active" id="clicks-en-la-pagina" role="tabpanel" aria-labelledby="clicks-en-la-pagina-tab">
+                <div *ngIf="selectedTab === 'clicks-en-la-pagina'" class="tab-pane fade show active"
+                    id="clicks-en-la-pagina" role="tabpanel" aria-labelledby="clicks-en-la-pagina-tab">
                     <div class="content mt-3">
                         <h2 style="color: #A3BD36;">Clicks en la pagina</h2>
                         <app-line-chart></app-line-chart>
                     </div>
                 </div>
-                <div *ngIf="selectedTab === 'publicaciones'" class="tab-pane fade show active" id="publicaciones" role="tabpanel" aria-labelledby="publicaciones-tab">
+                <div *ngIf="selectedTab === 'publicaciones'" class="tab-pane fade show active" id="publicaciones"
+                    role="tabpanel" aria-labelledby="publicaciones-tab">
                     <div class="content mt-3">
                         <h2 style="color: #A3BD36;">Publicaciones</h2>
                         <app-line-chart></app-line-chart>
                     </div>
                 </div>
-                <div *ngIf="selectedTab === 'historias'" class="tab-pane fade show active" id="historias" role="tabpanel" aria-labelledby="historias-tab">
+                <div *ngIf="selectedTab === 'historias'" class="tab-pane fade show active" id="historias"
+                    role="tabpanel" aria-labelledby="historias-tab">
                     <div class="content mt-3">
                         <h2 style="color: #A3BD36;">Historias</h2>
                         <app-line-chart></app-line-chart>
@@ -79,8 +109,15 @@
                 </div>
             </div>
         </main>
-    </div>
-    
+    </ng-template>
 
+    <!-- Template para el contenido de Seekop -->
+    <ng-template #seekopContent>
+        <div>
+            <h2>Contenido de Seekop</h2>
+            <canvas baseChart [data]="polarAreaChartData" [options]="polarAreaChartOptions" [type]="polarAreaChartType">
+            </canvas>
+        </div>
+    </ng-template>
 
 </div>

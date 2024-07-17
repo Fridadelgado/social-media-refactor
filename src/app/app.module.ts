@@ -62,6 +62,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // Función para configurar el cargador de traducciones, que indica cómo cargar los archivos de traducción.
 export function HttpLoaderFactory(http: HttpClient) {
@@ -126,6 +127,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbDialogModule.forRoot(),
     NbAlertModule,
     NgChartsModule,
+    NgxChartsModule,
     
      
     NbAuthModule.forRoot({
