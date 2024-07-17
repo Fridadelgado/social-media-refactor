@@ -1,0 +1,86 @@
+<!-- Principal contenedor con diseño de Bootstrap -->
+<div class="row">
+    <div class="col-md-3">
+        <!-- Barra lateral (Sidebar) -->
+        <nav id="sidebar" class="d-md-block bg-light sidebar position-sticky">
+            <div *ngFor="let social of redesSociales" class="menu-item" (onClick)="selectRedSocial()">
+                <nb-icon [icon]="social.icon" pack="seekop" class="filter-icons icon-hover"
+                    [class.icon-active]="social.selected" [nbTooltip]="social.nombre"
+                    style="font-size: 3rem; cursor: pointer;">
+                </nb-icon>
+                <strong>{{ social.nombre }}</strong>
+            </div>
+            <div *ngIf="!redesSociales || redesSociales.length === 0">
+                Cargando redes sociales...
+            </div>
+        </nav>
+    </div>
+
+    <div class="col-md-9">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" (click)="selectTab('vision-general')" [class.active]="selectedTab === 'vision-general'">
+                        <span class="nav-link" [class.active]="selectedTab === 'vision-general'">VISION GENERAL</span>
+                    </li>
+                    <li class="nav-item" (click)="selectTab('demografia')" [class.active]="selectedTab === 'demografia'">
+                        <span class="nav-link" [class.active]="selectedTab === 'demografia'">DEMOGRAFIA</span>
+                    </li>
+                    <li class="nav-item" (click)="selectTab('clicks-en-la-pagina')" [class.active]="selectedTab === 'clicks-en-la-pagina'">
+                        <span class="nav-link" [class.active]="selectedTab === 'clicks-en-la-pagina'">CLICKS EN LA PAGINA</span>
+                    </li>
+                    <li class="nav-item" (click)="selectTab('publicaciones')" [class.active]="selectedTab === 'publicaciones'">
+                        <span class="nav-link" [class.active]="selectedTab === 'publicaciones'">PUBLICACIONES</span>
+                    </li>
+                    <li class="nav-item" (click)="selectTab('historias')" [class.active]="selectedTab === 'historias'">
+                        <span class="nav-link" [class.active]="selectedTab === 'historias'">HISTORIAS</span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    
+        <!-- Área principal de contenido -->
+        <main role="main">
+            <div class="tab-content" id="myTabContent">
+                <div *ngIf="selectedTab === 'vision-general'" class="tab-pane fade show active" id="vision-general" role="tabpanel" aria-labelledby="vision-general-tab">
+                    <div class="content mt-3">
+                        <h2 style="color: #A3BD36;">Vision General</h2>
+                        <h1>Alcance por genero</h1>
+                        <app-line-chart></app-line-chart>
+                        <h1>Alcance por edad</h1>
+                        <app-line-chart></app-line-chart>
+                        <h1>Seguidores por pais</h1>
+                        <app-doughnut-chart></app-doughnut-chart>
+                    </div>
+                </div>
+                <div *ngIf="selectedTab === 'demografia'" class="tab-pane fade show active" id="demografia" role="tabpanel" aria-labelledby="demografia-tab">
+                    <div class="content mt-3">
+                        <h2 style="color: #A3BD36;">Demografia</h2>
+                        <app-doughnut-chart></app-doughnut-chart>
+                    </div>
+                </div>
+                <div *ngIf="selectedTab === 'clicks-en-la-pagina'" class="tab-pane fade show active" id="clicks-en-la-pagina" role="tabpanel" aria-labelledby="clicks-en-la-pagina-tab">
+                    <div class="content mt-3">
+                        <h2 style="color: #A3BD36;">Clicks en la pagina</h2>
+                        <app-line-chart></app-line-chart>
+                    </div>
+                </div>
+                <div *ngIf="selectedTab === 'publicaciones'" class="tab-pane fade show active" id="publicaciones" role="tabpanel" aria-labelledby="publicaciones-tab">
+                    <div class="content mt-3">
+                        <h2 style="color: #A3BD36;">Publicaciones</h2>
+                        <app-line-chart></app-line-chart>
+                    </div>
+                </div>
+                <div *ngIf="selectedTab === 'historias'" class="tab-pane fade show active" id="historias" role="tabpanel" aria-labelledby="historias-tab">
+                    <div class="content mt-3">
+                        <h2 style="color: #A3BD36;">Historias</h2>
+                        <app-line-chart></app-line-chart>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+
+
+</div>

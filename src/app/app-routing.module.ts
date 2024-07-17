@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Importaciones de componentes específicos que se utilizarán en las rutas.
 // Cada uno de estos componentes representa una vista o página distinta en la aplicación.
-import { RedesSocialesKpisComponent } from './pages/redessociales-kpis/redessociales-kpis.component';
+import { DashboardKpisComponent } from './pages/dashboard-kpis/dashboard-kpis.component';
 import { UsersComponent } from './pages/users/users.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
@@ -47,7 +47,7 @@ const routes: Routes = [
     children: [
       // Rutas hijas para cada página principal de la aplicación.
       // Cada ruta carga un componente diferente como vista.
-      { path: 'redessociales-kpis', component: RedesSocialesKpisComponent },
+      { path: 'redessociales-kpis', component: DashboardKpisComponent },
       { path: 'users', component: UsersComponent },
       { path: 'calendariopublicaciones', component: CalendariopublicacionesComponent },
       { path: 'publicaciones', component: PublicacionesComponent },
