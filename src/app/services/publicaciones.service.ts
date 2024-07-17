@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { Campanias, CampaniasBody, GenericResponse } from '../interfaces/campanias.interface';
 import { GlobalConstants } from '../common/global-constants';
-import { ResponseRedesSociales } from '../interfaces/redes-sociales.interface';
 import { BasePayload, FacebookPayload, InstagramPayload, MediaPayload, PinterestPayload, TikTokPayload, TwitterPayload, YouTubePayload } from '../interfaces/red-social-payload.interface';
 
 export interface Publicacion {
@@ -22,8 +21,7 @@ export interface Publicacion {
 })
 export class PublicacionesService {
   private _publicaciones = new BehaviorSubject<Publicacion[]>([]);
-  private readonly STORAGE_KEY = 'redesSocialesCache';
-
+  
   constructor(private http: HttpClient) { }
 
   get publicaciones(): Observable<Publicacion[]> {
@@ -136,19 +134,7 @@ export class PublicacionesService {
     return this.http.post<GenericResponse<string>>(GlobalConstants.urlApiCampanias, registroNuevaCampania);
   }
 
-  getRedesSociales(): Observable<ResponseRedesSociales> {
-    return this.http.get<ResponseRedesSociales>(GlobalConstants.urlApiRedesSociales).pipe(
-      tap(data => sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(data)))
-    );
-  }
+ 
 
-  //reemplazar sessionStorage por una var de clase
-  getRedesSocialesFromSessionStorage(): Observable<ResponseRedesSociales> {
-    const cachedData = sessionStorage.getItem(this.STORAGE_KEY);
-    if (cachedData) {
-      return of(JSON.parse(cachedData));
-    } else {
-      return this.getRedesSociales();
-    }
-  }
+ 
 }
