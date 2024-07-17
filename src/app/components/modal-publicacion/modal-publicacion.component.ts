@@ -6,6 +6,7 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/campanias.interface';
 import { DynamicComponentService } from '../../services/dynamic-component-service.service';
 import { ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
+import { RedesSocialesService } from 'src/app/services/redes-sociales.service';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -48,6 +49,7 @@ export class ModalPublicacionComponent {
     protected ref: NbDialogRef<ModalPublicacionComponent>,
     private publicacionesService: PublicacionesService,
     private translate: TranslateService,
+    private redesSocialesService:RedesSocialesService,
     private cdr: ChangeDetectorRef,
     private dynamicComponentService: DynamicComponentService // Inyecta el servicio aquí
   ) {
@@ -82,7 +84,7 @@ export class ModalPublicacionComponent {
   }
 
   getRedesSociales(): void {
-    this.publicacionesService.getRedesSociales()
+    this.redesSocialesService.getRedesSociales()
       .subscribe((redesSociales: ResponseRedesSociales) => {
         if (redesSociales && redesSociales.length > 0)
           this.redesSociales = redesSociales.map(redSocial => {
