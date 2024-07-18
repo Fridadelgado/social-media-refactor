@@ -25,26 +25,26 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="!isSeekopSelected">
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" (click)="selectTab('vision-general')"
+                <ul class="nav nav-tabs" id="myTab" role="tablist" style="display: flex;">
+                    <li class="nav-item" (click)="selectTab('vision-general')" style="margin-right: 3rem;"
                         [class.active]="selectedTab === 'vision-general'">
                         <span class="nav-link" [class.active]="selectedTab === 'vision-general'">VISION GENERAL</span>
                     </li>
                     <li class="nav-item" (click)="selectTab('demografia')"
-                        [class.active]="selectedTab === 'demografia'">
+                        [class.active]="selectedTab === 'demografia'"  style="margin-right: 3rem;">
                         <span class="nav-link" [class.active]="selectedTab === 'demografia'">DEMOGRAFIA</span>
                     </li>
                     <li class="nav-item" (click)="selectTab('clicks-en-la-pagina')"
-                        [class.active]="selectedTab === 'clicks-en-la-pagina'">
+                        [class.active]="selectedTab === 'clicks-en-la-pagina'"  style="margin-right: 3rem;">
                         <span class="nav-link" [class.active]="selectedTab === 'clicks-en-la-pagina'">CLICKS EN LA
                             PAGINA</span>
                     </li>
                     <li class="nav-item" (click)="selectTab('publicaciones')"
-                        [class.active]="selectedTab === 'publicaciones'">
+                        [class.active]="selectedTab === 'publicaciones'"  style="margin-right: 3rem;">
                         <span class="nav-link" [class.active]="selectedTab === 'publicaciones'">PUBLICACIONES</span>
                     </li>
                     <li class="nav-item" (click)="selectTab('historias')" [class.active]="selectedTab === 'historias'">
-                        <span class="nav-link" [class.active]="selectedTab === 'historias'">HISTORIAS</span>
+                        <span class="nav-link" [class.active]="selectedTab === 'historias'"  style="margin-right: 3rem;">HISTORIAS</span>
                     </li>
                 </ul>
             </div>
