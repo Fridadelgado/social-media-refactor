@@ -37,33 +37,42 @@ export class DashboardKpisComponent implements OnInit {
       }
     }
   };
-  public polarAreaChartLabels: string[] = ['Nuevas conversaciones', 
+  labels = ['Nuevas conversaciones',
     'Conversaciones atentidas', 'Leads generados', 'Citas', 'Shows'];
-  public polarAreaChartType: ChartType = 'polarArea';
-  public polarAreaChartData: ChartConfiguration['data'] = {
-    labels: this.polarAreaChartLabels,
-    datasets: [
-      {
-        data: this.generateNumbers({ count: 5, min: 0, max: 100 }),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(201, 203, 207, 0.2)',
-          'rgba(54, 162, 235, 0.2)'
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(75, 192, 192)',
-          'rgb(255, 205, 86)',
-          'rgb(201, 203, 207)',
-          'rgb(54, 162, 235)'
-        ],
-        borderWidth: 1,
-      }
-    ]
-  };
 
+  public polarAreaChartType: ChartType = 'polarArea';
+  lineChartData = [
+    {
+      label: 'Dataset 1',
+      data: this.generateNumbers({ count: 7, min: 0, max: 100 }),
+      borderColor: 'rgba(255, 99, 132, 1)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)'
+    },
+    {
+      label: 'Dataset 2',
+      data: this.generateNumbers({ count: 7, min: 0, max: 100 }),
+      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: 'rgba(54, 162, 235, 0.5)'
+    }
+  ];
+  data = [
+    { group: 'Toluca', quantity: 115 },
+    { group: 'Ecatepec de Morelos', quantity: 150 },
+    { group: 'Naucalpan de Juárez', quantity: 200 },
+    { group: 'Chalco', quantity: 180 },
+    { group: 'Tlalnepantla de Baz', quantity: 220 },
+    { group: 'Ecatepec de Morelos', quantity: 160 },
+    { group: 'Naucalpan de Juárez', quantity: 210 },
+    { group: 'Chalco', quantity: 190 },
+    { group: 'Tlalnepantla de Baz', quantity: 230 },
+  ];
+  tableHeaders: string[] = ['Tipo', 'Fecha', 'Reacciones', 'Comentarios', 'Clics', 'Clins en el link', 
+    'Impresiones','Alcance','Reproducciones','Tiempo visto','Engagement','Gasto'];
+  tableRows: any[][] = [
+    ['ADS', 'Jun', '2', '5',10,10,5,20,10,5,20,899],
+    ['POST', 'Ago', '2', '5',10,10,5,20,10,5,20,899],
+    ['POST', 'Sep', '2', '5',10,10,5,20,10,5,20,899],
+  ];
   constructor(private redesSocialesService: RedesSocialesService, private sidebarService: NbSidebarService) { }
 
   ngOnInit(): void {
@@ -77,6 +86,9 @@ export class DashboardKpisComponent implements OnInit {
       }
     );
     console.log(this.redesSociales);
+  }
+  loadNext(card: any) {
+    // Implementa la lógica para cargar más datos aquí
   }
   private generateNumbers(config: { count: number, min: number, max: number }): number[] {
     const { count, min, max } = config;
@@ -98,7 +110,7 @@ export class DashboardKpisComponent implements OnInit {
     this.isSeekopSelected = false;
   }
 
-  selectRedSocial() {
+  selectRedSocial(red: any) {
     this.isSeekopSelected = false;
   }
 

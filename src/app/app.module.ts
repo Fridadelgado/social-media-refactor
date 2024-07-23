@@ -14,7 +14,7 @@ import { CoreModule } from '../app/core-module/core-module.module';
 
 
 // Importaciones de Nebular, un conjunto de bibliotecas de UI para Angular, para usar sus componentes.
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbOverlayContainer } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule} from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth'; // Módulos de autenticación de Nebular.
 import { NbEvaIconsModule } from '@nebular/eva-icons'; // Módulo de íconos de Eva.
 
@@ -60,9 +60,9 @@ import { SocialAuthModalComponent } from './components/social-auth-modal/social-
 // Módulo para implementar un calendario interactivo.
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { LineChartComponent } from './components/line-chart/line-chart.component';
-import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AnyChartComponent } from './components/any-chart/any-chart.component';
+import { TableKpiComponent } from './components/table-kpi/table-kpi.component';
 
 // Función para configurar el cargador de traducciones, que indica cómo cargar los archivos de traducción.
 export function HttpLoaderFactory(http: HttpClient) {
@@ -88,18 +88,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserAvatarComponent,
     RedesSocialesKpisComponent,
     UsersComponent,
-    LineChartComponent,
-    DoughnutChartComponent,
     ConversacionesComponent,
     LoginComponent,
     AuthLayoutComponent,
     PublicacionesComponent,
-    DashboardKpisComponent
+    DashboardKpisComponent,
+    AnyChartComponent,
+    TableKpiComponent
   ],
   imports: [
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
     // Nebular, ngx-translate, y otras librerías de terceros son configuradas aquí.
     CoreModule,
+    NbListModule,
     BrowserAnimationsModule,
     NbTooltipModule,
     FullCalendarModule,
