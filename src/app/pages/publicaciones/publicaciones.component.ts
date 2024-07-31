@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NbDialogService  } from '@nebular/theme';
 import { PublicacionesService, Publicacion } from '../../services/publicaciones.service';
 import { ModalPublicacionComponent } from '../../components/modal-publicacion/modal-publicacion.component';
+import { ModalPublicacionRedComponent } from 'src/app/components/modal-publicacion-red/modal-publicacion-red.component';
 
 // Decorador Component que define metadatos para el componente PublicacionesComponent.
 @Component({
@@ -30,10 +31,10 @@ export class PublicacionesComponent implements OnInit {
 
   // Método para abrir un modal de publicación.
   openModal() {
-    this.dialogService.open(ModalPublicacionComponent, {
-      context: {}, // Contexto y datos adicionales para pasar al modal.
-      dialogClass: 'custom-modal-full', // Clase CSS para personalizar el modal, p.ej., ajustar su tamaño.
-      closeOnBackdropClick: false, // prop para no cerrar el modal, solo si es en btn cerrar
+    this.dialogService.open(ModalPublicacionRedComponent, {
+      context: {}, 
+      dialogClass: 'custom-modal-full', 
+      closeOnBackdropClick: false, 
     });
   }
 

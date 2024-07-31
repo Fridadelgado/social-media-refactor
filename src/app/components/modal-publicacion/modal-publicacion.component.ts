@@ -26,6 +26,9 @@ export class ModalPublicacionComponent {
   videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
   campanias: Campanias[] = [];
   redesSociales: ResponseRedesSociales = [];
+  publicacionRedes = {
+    redSocial: []
+  };
 
   publicacionDefault = {
     titulo: 'Título Predeterminado',
@@ -112,7 +115,6 @@ export class ModalPublicacionComponent {
   }
 
   onRedSocialChange(event: any) {
-    // Lógica para manejar el cambio de la red social seleccionada
     console.log('ngModelChange event:', event);
     this.updateDropZoneMessage(event);
   }
@@ -121,7 +123,7 @@ export class ModalPublicacionComponent {
     const selectedRedSocialName = event[0]; // Asumimos que solo seleccionas una red social a la vez.
     const selectedRedSocial = this.redesSociales.find(rs => rs.nombre === selectedRedSocialName);
     
-    if (selectedRedSocial) {
+    /*if (selectedRedSocial) {
       console.log(selectedRedSocial);
       switch (selectedRedSocial.fileType) {
         case 'imagen':
@@ -138,7 +140,7 @@ export class ModalPublicacionComponent {
     } else {
       this.dropZoneMessage = 'Arrastra y suelta tu archivo aquí';
     }
-  
+  */
   }
   
 

@@ -19,10 +19,8 @@ export class RedesSocialesService {
 
   }
 
-   //reemplazar sessionStorage por una var de clase
    getRedesSocialesFromSessionStorage(): Observable<ResponseRedesSociales> {
     const cachedData = sessionStorage.getItem(this.STORAGE_KEY);
-    console.log(cachedData);
     if (cachedData) {
       return of(JSON.parse(cachedData));
     } else {
