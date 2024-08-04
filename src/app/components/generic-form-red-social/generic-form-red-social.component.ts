@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NbTagComponent, NbTagInputAddEvent } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxFileDropEntry } from 'ngx-file-drop';
+import { FacebookForm } from 'src/app/interfaces/red-social-form.interface';
 import { FacebookPayload, InstagramPayload, PinterestPayload, TikTokPayload, TwitterPayload, YouTubePayload } from 'src/app/interfaces/red-social-payload.interface';
 import { Root, SelectedRedesSociales, SocialMediaPayload } from 'src/app/interfaces/redes-sociales.interface';
 import { StateformService } from 'src/app/services/stateform.service';
@@ -12,7 +13,7 @@ import { StateformService } from 'src/app/services/stateform.service';
   styleUrl: './generic-form-red-social.component.scss'
 })
 export class GenericFormRedSocialComponent {
-  @Input() config: Root = {} as Root;
+  @Input() config: SelectedRedesSociales = {} as SelectedRedesSociales;
   @Output() formUpdate = new EventEmitter<Root>();
   root: Root = {
     selectedRedesSociales: []
@@ -38,36 +39,36 @@ export class GenericFormRedSocialComponent {
     });
 
   }
-  
+
   initializeForm() {
-    this.config.selectedRedesSociales.forEach(red => {
-      const formType = red.nombreRedSocial.toLowerCase();
+   
+      const formType = this.config.nombreRedSocial.toLowerCase();
       this.formType = formType;  
       switch (formType) {
         case 'facebook':
-          red.formularioRedSocial = red.formularioRedSocial as FacebookPayload;
+          this.config.formularioRedSocial = this.config.formularioRedSocial as FacebookPayload;
           break;
         case 'instagram':
-          red.formularioRedSocial = red.formularioRedSocial as InstagramPayload;
+          this.config.formularioRedSocial = this.config.formularioRedSocial as InstagramPayload;
           break;
         case 'twitter':
-          red.formularioRedSocial = red.formularioRedSocial as TwitterPayload;
+          this.config.formularioRedSocial = this.config.formularioRedSocial as TwitterPayload;
           break;
         case 'youtube':
-          red.formularioRedSocial =  red.formularioRedSocial as YouTubePayload;
+          this.config.formularioRedSocial =  this.config.formularioRedSocial as YouTubePayload;
           break;
         case 'pinterest':
-          red.formularioRedSocial =red.formularioRedSocial as FacebookPayload;
+          this.config.formularioRedSocial =this.config.formularioRedSocial as FacebookPayload;
           break;
         case 'tiktok':
-          red.formularioRedSocial = red.formularioRedSocial as TikTokPayload;
+          this.config.formularioRedSocial = this.config.formularioRedSocial as TikTokPayload;
           break;
         default:
           console.error('Unknown form type:', formType);
       }
-    });
+    
   
-    console.log(this.config.selectedRedesSociales);
+    console.log(this.config);
   }
   
   

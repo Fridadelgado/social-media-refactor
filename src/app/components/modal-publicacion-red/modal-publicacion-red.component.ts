@@ -62,7 +62,7 @@ export class ModalPublicacionRedComponent {
       if (!this.root.selectedRedesSociales.some(item => item.nombreRedSocial === red)) {
         const newPayload = this.createPayload(red);
         this.root.selectedRedesSociales.push({
-          nombreRedSocial: red,
+          nombreRedSocial: red.toLowerCase(),
           iconoRedSocial: 'icon', // Asegúrate de tener una función para obtener el icono
           formularioRedSocial: newPayload
         });
