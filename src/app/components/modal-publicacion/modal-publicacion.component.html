@@ -66,7 +66,7 @@
           <!-- Componente de carga de archivos con previsualización de imagen o video. -->
           <div class="col-md-12 mb-4">
             <label [ngClass]="{'text-danger': submitted && !isValidFile}">Imágen o video de la publicación *</label>
-            <ngx-file-drop (onFileDrop)="onFileDrop($event)" (click)="fileInput.click()">
+            <ngx-file-drop  (click)="fileInput.click()">
               <ng-template ngx-file-drop-content-tmp>
                 <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
                   {{ dropZoneMessage }}

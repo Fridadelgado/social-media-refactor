@@ -1,7 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NbTagComponent, NbTagInputAddEvent } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { FacebookPayload, InstagramPayload, PinterestPayload, TikTokPayload, TwitterPayload, YouTubePayload } from 'src/app/interfaces/red-social-payload.interface';
-import { SelectedRedesSociales, SocialMediaPayload } from 'src/app/interfaces/redes-sociales.interface';
+import { Root, SelectedRedesSociales, SocialMediaPayload } from 'src/app/interfaces/redes-sociales.interface';
+import { StateformService } from 'src/app/services/stateform.service';
 
 @Component({
   selector: 'app-generic-form-red-social',
@@ -9,81 +12,154 @@ import { SelectedRedesSociales, SocialMediaPayload } from 'src/app/interfaces/re
   styleUrl: './generic-form-red-social.component.scss'
 })
 export class GenericFormRedSocialComponent {
-  @Input() config: SelectedRedesSociales = {} as SelectedRedesSociales;
-  formConfig: any = {};
+  @Input() config: Root = {} as Root;
+  @Output() formUpdate = new EventEmitter<Root>();
+  root: Root = {
+    selectedRedesSociales: []
+  };
+  formularioRedSocial: any = {};
   formType: string = '';
   submitted = false;
-  isValidFile: boolean = false; 
+  isValidFile: boolean = false;
   fileType: string = "";
+  dropZoneMessage: string = ""; // Mensaje de la zona de arrastre de archivos.
+  tags: string[] = ['seekop', 'autos', 'mazda'];
+  acceptedFileTypes: string[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'video/mp4', 'video/avi', 'video/mkv'];
+  filePreviewUrl: string | ArrayBuffer | null = null;
+  imagenPrevisualizacion: string | ArrayBuffer | null = '';
 
+
+  constructor(private translate: TranslateService, private stateformService: StateformService) { }
 
   ngOnInit() {
     this.initializeForm();
-  }
+    this.stateformService.formData$.subscribe(data => {
+      this.formularioRedSocial = data || {};
+    });
 
- 
+  }
+  
   initializeForm() {
-    this.formConfig = this.config.formularioRedSocial;
-    this.formType = this.config.nombreRedSocial.toLowerCase();
-    switch (this.formType) {
-      case 'facebook':
-        this.formConfig = this.config.formularioRedSocial as FacebookPayload;
-        break;
-      case 'instagram':
-        this.formConfig = this.config.formularioRedSocial as InstagramPayload;
-        break;
-      case 'twitter':
-        this.formConfig = this.config.formularioRedSocial as TwitterPayload;
-        break;
-      case 'youtube':
-        this.formConfig = this.config.formularioRedSocial as YouTubePayload;
-        break;
-      case 'pinterest':
-        this.formConfig = this.config.formularioRedSocial as PinterestPayload;
-        break;
-      case 'tiktok':
-        this.formConfig = this.config.formularioRedSocial as TikTokPayload;
-        break;
-      default:
-        console.error('Unknown form type');
-    }
+    this.config.selectedRedesSociales.forEach(red => {
+      const formType = red.nombreRedSocial.toLowerCase();
+      this.formType = formType;  
+      switch (formType) {
+        case 'facebook':
+          red.formularioRedSocial = red.formularioRedSocial as FacebookPayload;
+          break;
+        case 'instagram':
+          red.formularioRedSocial = red.formularioRedSocial as InstagramPayload;
+          break;
+        case 'twitter':
+          red.formularioRedSocial = red.formularioRedSocial as TwitterPayload;
+          break;
+        case 'youtube':
+          red.formularioRedSocial =  red.formularioRedSocial as YouTubePayload;
+          break;
+        case 'pinterest':
+          red.formularioRedSocial =red.formularioRedSocial as FacebookPayload;
+          break;
+        case 'tiktok':
+          red.formularioRedSocial = red.formularioRedSocial as TikTokPayload;
+          break;
+        default:
+          console.error('Unknown form type:', formType);
+      }
+    });
+  
+    console.log(this.config.selectedRedesSociales);
+  }
+  
+  
+  
+ 
+  isFormValid() {
+    // Valida los campos obligatorios según la red social
+    /* switch (this.formType) {
+       case 'facebook':
+         return this.formularioRedSocial.text && this.formularioRedSocial.description && this.formularioRedSocial.mediaBase64;
+       case 'instagram':
+         return this.formularioRedSocial.text && this.formularioRedSocial.email;
+       // Agrega más validaciones para otras redes sociales
+       default:
+         return false;
+     }*/
+  }
 
+  onFormChange(): void {
+    console.log(this.config)
   }
-  onFormChange() {
-    //this.formUpdate.emit(this.formConfig);
-    console.log('Form Config:', this.formType,this.formConfig);
+
+  removeTag(tag: any) {
+    this.tags = this.tags.filter(t => t !== tag);
   }
+  onTagAdd(event: NbTagInputAddEvent) {
+    const tag = event.value.trim();
+    if (tag && !this.tags.includes(tag)) {
+      this.tags.push(tag);
+    }
+  }
+
+
+
 
   onFileSelect(event: any) {
+    // Lógica para manejar la selección de archivos mediante el input de archivo.
     this.submitted = true;
     const file = event.target.files[0];
-    /*/if (file) {
+    if (file) {
       this.isValidFile = this.validateFile(file.name);
+      // Decide qué mensaje mostrar basado en si el archivo es válido
+      const translationKey = this.isValidFile ? 'components.modal-publicacion.dropZoneSuccess' : 'components.modal-publicacion.dropZoneValidacion';
+      this.translate.get(translationKey).subscribe((res: string) => {
+        this.dropZoneMessage = res;
+      });
 
       if (this.isValidFile) {
+        console.log("validFile");
         this.processFile(file);
       }
-    }*/
-  }
-
-  onFileDrop(files: NgxFileDropEntry[]) {
-    // Lógica para manejar la carga de archivos mediante arrastrar y soltar.
-    this.submitted = true;
-    for (const droppedFile of files) {
-      // Solo procesaremos el primer archivo en caso de múltiples archivos
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-        //  this.processFile(file);
-        });
-        break; // Salimos después de procesar el primer archivo
-      }
     }
-   // this.isValidFile = this.validateFile(files[0].fileEntry.name);
-    // Actualiza el mensaje de zona de arrastre basado en si el archivo es válido o no
-
   }
- 
+
+
+  validateFile(fileName: string): boolean {
+    // Valida la extensión del archivo cargado.
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.mp4|\.avi|\.mov|\.mkv|\.flv|\.wmv)$/i;
+    return allowedExtensions.exec(fileName) ? true : false;
+  }
+
+  detectFileType(dataUri: string | ArrayBuffer): string {
+    //Detecta si es imagen o video
+    const fileTypeRegex = /^data:(image|video)\/([a-zA-Z0-9]+);base64,/;
+    const match = dataUri.toString().match(fileTypeRegex);
+    if (match) {
+      this.fileType = match[1];
+      return this.fileType;
+    } else {
+      return 'unknown';
+    }
+  }
+
+
+  processFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.result) {
+        this.detectFileType(reader.result);
+        this.formularioRedSocial.mediaBase64 = reader.result.toString();
+        this.filePreviewUrl = this.formularioRedSocial.mediaBase64;
+        this.imagenPrevisualizacion = reader.result;
+      } else {
+        console.error('Error al leer el archivo');
+      }
+    };
+    reader.onerror = (error) => {
+      console.error('Error al cargar el archivo: ', error);
+    };
+
+    reader.readAsDataURL(file);
+  }
 
 
 }

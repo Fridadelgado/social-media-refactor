@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FacebookPayload, InstagramPayload, PinterestPayload, TikTokPayload, TwitterPayload, YouTubePayload } from 'src/app/interfaces/red-social-payload.interface';
 import { ResponseRedesSociales, Root, SelectedRedesSociales, SocialMediaPayload } from 'src/app/interfaces/redes-sociales.interface';
 import { RedesSocialesService } from 'src/app/services/redes-sociales.service';
+import { StateformService } from 'src/app/services/stateform.service';
 
 @Component({
   selector: 'app-modal-publicacion-red',
@@ -22,7 +23,7 @@ export class ModalPublicacionRedComponent {
     protected ref: NbDialogRef<ModalPublicacionRedComponent>,
     private translate: TranslateService,
     private redesSocialesService: RedesSocialesService,
-
+    private stateformService: StateformService
   ) { }
 
 
@@ -30,6 +31,7 @@ export class ModalPublicacionRedComponent {
     // Obtiene el mensaje predeterminado para la zona de arrastre.
     //this.fechaProgramada = this.ref;
     // this.getCampanias();
+    console.log(this.selectedRedesSociales)
     this.getRedesSociales();
     this.translate.get('components.modal-publicacion.dropZoneDefault').subscribe((res: string) => {
       this.dropZoneMessage = res;
@@ -40,7 +42,6 @@ export class ModalPublicacionRedComponent {
     this.redesSocialesService.getRedesSociales()
       .subscribe((redesSociales: ResponseRedesSociales) => {
         this.redesSociales = redesSociales;
-        console.log(this.redesSociales);
       },
         (error) => {
           console.error('Error al obtener las redes sociales:', error);
@@ -65,14 +66,20 @@ export class ModalPublicacionRedComponent {
           iconoRedSocial: 'icon', // Asegúrate de tener una función para obtener el icono
           formularioRedSocial: newPayload
         });
-        console.log(newPayload);
-        console.log(this.root.selectedRedesSociales);
+     
       }
     });
-  
     console.log('Current selectedRedesSociales:', this.root.selectedRedesSociales);
   }
   
+  
+  onSubmit() {
+    this.stateformService.formData$.subscribe(data => {
+      if (data) {
+       
+        console.log('Datos del formulario recibidos:', data);
+      }
+    });  }
 
   createPayload(red: string): SocialMediaPayload {
     switch (red.toLowerCase()) {

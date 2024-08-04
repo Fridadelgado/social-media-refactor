@@ -14,7 +14,7 @@ import { CoreModule } from '../app/core-module/core-module.module';
 
 
 // Importaciones de Nebular, un conjunto de bibliotecas de UI para Angular, para usar sus componentes.
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule, NbAccordionModule} from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule, NbAccordionModule, NbTagModule} from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth'; // Módulos de autenticación de Nebular.
 import { NbEvaIconsModule } from '@nebular/eva-icons'; // Módulo de íconos de Eva.
 
@@ -136,6 +136,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbAlertModule,
     NgChartsModule,
     NgxChartsModule,
+    NbTagModule,
     
      
     NbAuthModule.forRoot({

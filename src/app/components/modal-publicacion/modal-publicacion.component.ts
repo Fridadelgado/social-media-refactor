@@ -160,6 +160,7 @@ export class ModalPublicacionComponent {
   }
 
   onFileDrop(files: NgxFileDropEntry[]) {
+    console.log("onfileDrop",files);
     // Lógica para manejar la carga de archivos mediante arrastrar y soltar.
     this.submitted = true;
     for (const droppedFile of files) {
@@ -175,6 +176,7 @@ export class ModalPublicacionComponent {
     this.isValidFile = this.validateFile(files[0].fileEntry.name);
     // Actualiza el mensaje de zona de arrastre basado en si el archivo es válido o no
     if (this.isValidFile) {
+      console.log(this.isValidFile);
       this.translate.get('components.modal-publicacion.dropZoneSuccess').subscribe((res: string) => {
         this.dropZoneMessage = res;
       });
