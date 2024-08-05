@@ -252,7 +252,7 @@ export class ModalPublicacionComponent {
     // Lógica para definir la audiencia de la publicación.
   }
 
-
+/*
   agregarPublicacion() {
     this.submitted = true; // Marca el intento de envío del formulario para activar la validación de la UI.
 
@@ -289,7 +289,7 @@ export class ModalPublicacionComponent {
       }
     );
   }
-
+*/
   calendarizar() {
     // Lógica para calendarizar la publicación.
   }

@@ -77,6 +77,7 @@
     <!-- Pie de la tarjeta con botones para diversas acciones relacionadas con la publicación. -->
     <nb-card-footer class="d-flex justify-content-end" *ngIf="root.selectedRedesSociales.length > 0">
       <button nbButton hero status="primary" class="btn btn-primary mx-2" style="padding: 10px !important;"
+      
       (click)="onSubmit()">
         <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;" icon="mdi-cloud-upload-outline" pack="seekop"></nb-icon>
         {{ 'components.modal-publicacion.botonPublicar' | translate }}

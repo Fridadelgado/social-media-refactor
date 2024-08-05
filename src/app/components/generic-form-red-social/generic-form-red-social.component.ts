@@ -14,11 +14,11 @@ import { StateformService } from 'src/app/services/stateform.service';
 })
 export class GenericFormRedSocialComponent {
   @Input() config: SelectedRedesSociales = {} as SelectedRedesSociales;
+
   @Output() formUpdate = new EventEmitter<Root>();
   root: Root = {
     selectedRedesSociales: []
   };
-  formularioRedSocial: any = {};
   formType: string = '';
   submitted = false;
   isValidFile: boolean = false;
@@ -34,62 +34,57 @@ export class GenericFormRedSocialComponent {
 
   ngOnInit() {
     this.initializeForm();
-    this.stateformService.formData$.subscribe(data => {
-      this.formularioRedSocial = data || {};
-    });
+
 
   }
 
   initializeForm() {
-   
-      const formType = this.config.nombreRedSocial.toLowerCase();
-      this.formType = formType;  
-      switch (formType) {
-        case 'facebook':
-          this.config.formularioRedSocial = this.config.formularioRedSocial as FacebookPayload;
-          break;
-        case 'instagram':
-          this.config.formularioRedSocial = this.config.formularioRedSocial as InstagramPayload;
-          break;
-        case 'twitter':
-          this.config.formularioRedSocial = this.config.formularioRedSocial as TwitterPayload;
-          break;
-        case 'youtube':
-          this.config.formularioRedSocial =  this.config.formularioRedSocial as YouTubePayload;
-          break;
-        case 'pinterest':
-          this.config.formularioRedSocial =this.config.formularioRedSocial as FacebookPayload;
-          break;
-        case 'tiktok':
-          this.config.formularioRedSocial = this.config.formularioRedSocial as TikTokPayload;
-          break;
-        default:
-          console.error('Unknown form type:', formType);
-      }
-    
-  
-    console.log(this.config);
+
+    const formType = this.config.nombreRedSocial.toLowerCase();
+    this.formType = formType;
+    switch (formType) {
+      case 'facebook':
+        this.config.formularioRedSocial = this.config.formularioRedSocial as FacebookPayload;
+        break;
+      case 'instagram':
+        this.config.formularioRedSocial = this.config.formularioRedSocial as InstagramPayload;
+        break;
+      case 'twitter':
+        this.config.formularioRedSocial = this.config.formularioRedSocial as TwitterPayload;
+        break;
+      case 'youtube':
+        this.config.formularioRedSocial = this.config.formularioRedSocial as YouTubePayload;
+        break;
+      case 'pinterest':
+        this.config.formularioRedSocial = this.config.formularioRedSocial as FacebookPayload;
+        break;
+      case 'tiktok':
+        this.config.formularioRedSocial = this.config.formularioRedSocial as TikTokPayload;
+        break;
+      default:
+        console.error('Unknown form type:', formType);
+    }
+
   }
-  
-  
-  
- 
+
+
+
+
   isFormValid() {
-    // Valida los campos obligatorios según la red social
-    /* switch (this.formType) {
-       case 'facebook':
-         return this.formularioRedSocial.text && this.formularioRedSocial.description && this.formularioRedSocial.mediaBase64;
-       case 'instagram':
-         return this.formularioRedSocial.text && this.formularioRedSocial.email;
-       // Agrega más validaciones para otras redes sociales
-       default:
-         return false;
-     }*/
+
   }
 
   onFormChange(): void {
-    console.log(this.config)
+    if(this.config.formularioRedSocial.text && this.isValidFile ){
+      this.validateAndStoreData();
+    }
   }
+    validateAndStoreData() {
+      if (this.config.formularioRedSocial.text && this.isValidFile) {
+        console.log("Valid for", this.config.nombreRedSocial);
+      }
+    }
+
 
   removeTag(tag: any) {
     this.tags = this.tags.filter(t => t !== tag);
@@ -117,6 +112,7 @@ export class GenericFormRedSocialComponent {
       });
 
       if (this.isValidFile) {
+        this.onFormChange();
         console.log("validFile");
         this.processFile(file);
       }
@@ -148,8 +144,8 @@ export class GenericFormRedSocialComponent {
     reader.onload = () => {
       if (reader.result) {
         this.detectFileType(reader.result);
-        this.formularioRedSocial.mediaBase64 = reader.result.toString();
-        this.filePreviewUrl = this.formularioRedSocial.mediaBase64;
+        this.config.formularioRedSocial.mediaBase64 = reader.result.toString();
+        this.filePreviewUrl = this.config.formularioRedSocial.mediaBase64;
         this.imagenPrevisualizacion = reader.result;
       } else {
         console.error('Error al leer el archivo');

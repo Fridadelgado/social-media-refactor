@@ -15,14 +15,14 @@ export interface RedesSociales {
 export interface Root {
   selectedRedesSociales: SelectedRedesSociales[];
 }
-
-export type SocialMediaPayload = FacebookPayload | TikTokPayload | InstagramPayload | TwitterPayload | YouTubePayload | PinterestPayload;
-
 export interface SelectedRedesSociales {
   nombreRedSocial: string
-  iconoRedSocial: string
+  iconoRedSocial?: string
   formularioRedSocial: SocialMediaPayload
 }
+export type SocialMediaPayload = FacebookPayload | TikTokPayload | InstagramPayload | TwitterPayload | YouTubePayload | PinterestPayload;
+
+
 export interface PinterestPublicacion{
     email: string;
     distribuidor: string;

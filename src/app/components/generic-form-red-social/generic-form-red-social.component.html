@@ -2,14 +2,14 @@
   <div *ngSwitchCase="'facebook'">
     <!-- Formulario Facebook -->
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.text}">Título de la publicación
+      <label [ngClass]="{'text-danger': !config.formularioRedSocial.text}">Título de la publicación
         *</label>
       <input fullWidth nbInput maxlength="50" placeholder="Texto de la publicación"
         [(ngModel)]="config.formularioRedSocial.text" required class="form-control mb-4"
         (ngModelChange)="onFormChange()">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted }">Descripción de la publicación *</label>
+      <label >Descripción de la publicación </label>
       <textarea fieldSize="large" fullWidth nbInput
         placeholder="{{'components.modal-publicacion.placehoderDescripcionPublicacion' | translate }}" required
         class="form-control mb-4"></textarea>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="col-md-12 mb-4">
-      <label>Imagen o video de la publicación *</label>
+      <label [ngClass]="{'text-danger': !isValidFile}">Imagen o video de la publicación *</label>
       <ngx-file-drop (click)="fileInput.click()">
         <ng-template ngx-file-drop-content-tmp>
           <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
@@ -47,14 +47,14 @@
   <div *ngSwitchCase="'instagram'">
     <!-- Formulario Instagram -->
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.text}">Título de la publicación
+      <label [ngClass]="{'text-danger':!config.formularioRedSocial.text}">Título de la publicación
         *</label>
       <input fullWidth nbInput maxlength="50" placeholder="Título de la publicación"
         [(ngModel)]="config.formularioRedSocial.text" required class="form-control mb-4"
         (ngModelChange)="onFormChange()">
     </div>
     <div class="col-md-12 mb-4">
-      <label>Imagen o video de la publicación *</label>
+      <label [ngClass]="{'text-danger': !isValidFile}">Imagen o video de la publicación *</label>
       <ngx-file-drop (click)="fileInput.click()">
         <ng-template ngx-file-drop-content-tmp>
           <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
@@ -68,43 +68,43 @@
       <input type="file" #fileInput style="display: none;" (change)="onFileSelect($event)">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted}">Correo electrónico *</label>
+      <label >Correo electrónico *</label>
       <input fullWidth nbInput maxlength="50" placeholder="Correo electrónico" required type="email"
         class="form-control mb-4">
     </div>
-    <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.distribuidor}">Distribuidor *</label>
-      <input fullWidth nbInput maxlength="50" placeholder="Distribuidor" required class="form-control mb-4">
-    </div>
+
   </div>
 
   <div *ngSwitchCase="'twitter'">
     <!-- Formulario Twitter -->
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.text}">Título de la publicación
+      <label [ngClass]="{'text-danger': !config.formularioRedSocial.text}">Título de la publicación
         *</label>
       <input fullWidth nbInput maxlength="50" placeholder="Texto de la publicación"
         [(ngModel)]="config.formularioRedSocial.text" required class="form-control mb-4"
         (ngModelChange)="onFormChange()">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted}">Imagen o video de la publicación *</label>
+      <label [ngClass]="{'text-danger': !isValidFile}">Imagen o video de la publicación *</label>
       <ngx-file-drop (click)="fileInput.click()">
         <ng-template ngx-file-drop-content-tmp>
           <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
-            <!-- {{ dropZoneMessage }} -->
+            {{ dropZoneMessage }}
+            <div *ngIf="filePreviewUrl">
+              <img [src]="filePreviewUrl" alt="Vista previa de la imagen" width="100">
+            </div>
           </div>
         </ng-template>
       </ngx-file-drop>
       <input type="file" #fileInput style="display: none;" (change)="onFileSelect($event)">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted }">Correo electrónico *</label>
+      <label >Correo electrónico </label>
       <input fullWidth nbInput maxlength="50" placeholder="Correo electrónico" required type="email"
         class="form-control mb-4">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.distribuidor}">Hashtags de la
+      <label>Hashtags de la
         publicación</label>
       <nb-tag-list (tagRemove)="removeTag($event)">
         <nb-tag *ngFor="let tag of tags" [text]="'#' + tag"></nb-tag>
@@ -116,18 +116,21 @@
   <div *ngSwitchCase="'youtube'">
     <!-- Formulario YouTube -->
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.text}">Título de la publicación
+      <label [ngClass]="{'text-danger':  !config.formularioRedSocial.text}">Título de la publicación
         *</label>
       <input fullWidth nbInput maxlength="50" placeholder="Texto de la publicación"
         [(ngModel)]="config.formularioRedSocial.text" required class="form-control mb-4"
         (ngModelChange)="onFormChange()">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted }">Video de la publicación *</label>
+      <label [ngClass]="{'text-danger': !isValidFile}">Video de la publicación *</label>
       <ngx-file-drop (click)="fileInput.click()">
         <ng-template ngx-file-drop-content-tmp>
           <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
-            <!-- {{ dropZoneMessage }} -->
+            {{ dropZoneMessage }}
+            <div *ngIf="filePreviewUrl">
+              <img [src]="filePreviewUrl" alt="Vista previa de la imagen" width="100">
+            </div>
           </div>
         </ng-template>
       </ngx-file-drop>
@@ -138,23 +141,26 @@
   <div *ngSwitchCase="'pinterest'">
     <!-- Formulario Pinterest -->
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.text}">Título de la publicación
+      <label [ngClass]="{'text-danger':!config.formularioRedSocial.text}">Título de la publicación
         *</label>
       <input fullWidth nbInput maxlength="50" placeholder="Título de la publicación"
         [(ngModel)]="config.formularioRedSocial.text" required class="form-control mb-4"
         (ngModelChange)="onFormChange()">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted}">Descripción de la publicación *</label>
+      <label>Descripción de la publicación </label>
       <input fullWidth nbInput maxlength="50" placeholder="Texto alternativo" required class="form-control mb-4">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.email}">Imagen o video de la
+      <label [ngClass]="{'text-danger': !isValidFile}">Imagen o video de la
         publicación</label>
       <ngx-file-drop (click)="fileInput.click()">
         <ng-template ngx-file-drop-content-tmp>
           <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
-            <!-- {{ dropZoneMessage }} -->
+            {{ dropZoneMessage }}
+            <div *ngIf="filePreviewUrl">
+              <img [src]="filePreviewUrl" alt="Vista previa de la imagen" width="100">
+            </div>
           </div>
         </ng-template>
       </ngx-file-drop>
@@ -165,18 +171,21 @@
   <div *ngSwitchCase="'tiktok'">
     <!-- Formulario TikTok -->
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted && !config.formularioRedSocial.text}">Título de la publicación
+      <label [ngClass]="{'text-danger': !config.formularioRedSocial.text}">Título de la publicación
         *</label>
       <input fullWidth nbInput maxlength="50" placeholder="Texto de la publicación"
         [(ngModel)]="config.formularioRedSocial.text" required class="form-control mb-4"
         (ngModelChange)="onFormChange()">
     </div>
     <div class="col-md-12">
-      <label [ngClass]="{'text-danger': submitted }">Video de la publicación *</label>
+      <label [ngClass]="{'text-danger': !isValidFile}">Video de la publicación *</label>
       <ngx-file-drop (click)="fileInput.click()">
         <ng-template ngx-file-drop-content-tmp>
           <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
-            <!-- {{ dropZoneMessage }} -->
+            {{ dropZoneMessage }}
+            <div *ngIf="filePreviewUrl">
+              <img [src]="filePreviewUrl" alt="Vista previa de la imagen" width="100">
+            </div>
           </div>
         </ng-template>
       </ngx-file-drop>

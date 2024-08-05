@@ -3,6 +3,8 @@ import { NbDialogRef } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { FacebookPayload, InstagramPayload, PinterestPayload, TikTokPayload, TwitterPayload, YouTubePayload } from 'src/app/interfaces/red-social-payload.interface';
 import { ResponseRedesSociales, Root, SelectedRedesSociales, SocialMediaPayload } from 'src/app/interfaces/redes-sociales.interface';
+import { DynamicComponentService } from 'src/app/services/dynamic-component-service.service';
+import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { RedesSocialesService } from 'src/app/services/redes-sociales.service';
 import { StateformService } from 'src/app/services/stateform.service';
 
@@ -19,11 +21,15 @@ export class ModalPublicacionRedComponent {
   root: Root = {
     selectedRedesSociales: []
   };
+  dataForDisable:any;
   constructor(
     protected ref: NbDialogRef<ModalPublicacionRedComponent>,
     private translate: TranslateService,
     private redesSocialesService: RedesSocialesService,
-    private stateformService: StateformService
+    private stateformService: StateformService,
+    private publicacionesService: PublicacionesService,
+    private dynamicComponentService: DynamicComponentService
+
   ) { }
 
 
@@ -74,12 +80,19 @@ export class ModalPublicacionRedComponent {
   
   
   onSubmit() {
-    this.stateformService.formData$.subscribe(data => {
-      if (data) {
-       
-        console.log('Datos del formulario recibidos:', data);
+    this.root.selectedRedesSociales
+    this.publicacionesService.agregarPublicacion(this.root).subscribe(
+      () => {
+        console.log('Publicación agregada con éxito.');
+        this.dynamicComponentService.destroyBodyLoading(); // Destruye el modal de carga
+        this.ref.close(); // Cierra el modal
+      },
+      (error: any) => {
+        console.error('Error al agregar la publicación:', error);
+        this.dynamicComponentService.destroyBodyLoading(); // Destruye el modal de carga en caso de error
       }
-    });  }
+    );
+     }
 
   createPayload(red: string): SocialMediaPayload {
     switch (red.toLowerCase()) {
