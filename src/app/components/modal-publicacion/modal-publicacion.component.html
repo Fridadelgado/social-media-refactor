@@ -35,8 +35,7 @@
           <!-- Selección de redes sociales con validación. -->
           <div class="col-md-12">
             <label [ngClass]="{'text-danger': submitted && publicacion.redSocial.length === 0}">Publicar en *</label>
-            <nb-select fullWidth class="mb-4"
-            (ngModelChange)="onRedSocialChange($event)"
+            <nb-select fullWidth class="mb-4" (ngModelChange)="onRedSocialChange($event)"
               placeholder="{{'components.modal-publicacion.placeHolderSeleccionaRedSocial' | translate}}"
               [(ngModel)]="publicacion.redSocial" multiple>
               <nb-option *ngFor="let redSocial of redesSociales" [value]="redSocial.nombre">
@@ -44,6 +43,8 @@
               </nb-option>
             </nb-select>
           </div>
+
+
 
           <!-- Entrada para el título de la publicación con validación. -->
           <div class="col-md-12">
@@ -65,7 +66,7 @@
           <!-- Componente de carga de archivos con previsualización de imagen o video. -->
           <div class="col-md-12 mb-4">
             <label [ngClass]="{'text-danger': submitted && !isValidFile}">Imágen o video de la publicación *</label>
-            <ngx-file-drop (onFileDrop)="onFileDrop($event)" (click)="fileInput.click()">
+            <ngx-file-drop  (click)="fileInput.click()">
               <ng-template ngx-file-drop-content-tmp>
                 <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
                   {{ dropZoneMessage }}
@@ -212,7 +213,7 @@
         <div class="col-md-5">
         </div>
         <div class="col-md-1">
-          <button nbButton hero status="primary" (click)="agregarPublicacion()" class="btn btn-primary "
+          <button nbButton hero status="primary"  class="btn btn-primary "
             style="margin-left: -50px; padding: 10px !important;">
             <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;" icon="mdi-cloud-upload-outline"
               pack="seekop"></nb-icon>

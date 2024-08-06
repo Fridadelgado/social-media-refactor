@@ -14,7 +14,7 @@ import { CoreModule } from '../app/core-module/core-module.module';
 
 
 // Importaciones de Nebular, un conjunto de bibliotecas de UI para Angular, para usar sus componentes.
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule} from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule, NbAccordionModule, NbTagModule} from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth'; // Módulos de autenticación de Nebular.
 import { NbEvaIconsModule } from '@nebular/eva-icons'; // Módulo de íconos de Eva.
 
@@ -63,6 +63,9 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AnyChartComponent } from './components/any-chart/any-chart.component';
 import { TableKpiComponent } from './components/table-kpi/table-kpi.component';
+import { GenericFormRedSocialComponent } from './components/generic-form-red-social/generic-form-red-social.component';
+import { ModalPublicacionRedComponent } from './components/modal-publicacion-red/modal-publicacion-red.component';
+import { GenericPrevPublicacionComponent } from './components/generic-prev-publicacion/generic-prev-publicacion.component';
 
 // Función para configurar el cargador de traducciones, que indica cómo cargar los archivos de traducción.
 export function HttpLoaderFactory(http: HttpClient) {
@@ -94,13 +97,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     PublicacionesComponent,
     DashboardKpisComponent,
     AnyChartComponent,
-    TableKpiComponent
+    TableKpiComponent,
+    GenericFormRedSocialComponent,
+    ModalPublicacionRedComponent,
+    GenericPrevPublicacionComponent
   ],
   imports: [
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
     // Nebular, ngx-translate, y otras librerías de terceros son configuradas aquí.
     CoreModule,
     NbListModule,
+    NbAccordionModule,
     BrowserAnimationsModule,
     NbTooltipModule,
     FullCalendarModule,
@@ -129,6 +136,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbAlertModule,
     NgChartsModule,
     NgxChartsModule,
+    NbTagModule,
     
      
     NbAuthModule.forRoot({

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, tap } from 'rxjs';
 import { Campanias, CampaniasBody, GenericResponse } from '../interfaces/campanias.interface';
 import { GlobalConstants } from '../common/global-constants';
 import { BasePayload, FacebookPayload, InstagramPayload, MediaPayload, PinterestPayload, TikTokPayload, TwitterPayload, YouTubePayload } from '../interfaces/red-social-payload.interface';
+import { Root, SelectedRedesSociales, SocialMediaPayload } from '../interfaces/redes-sociales.interface';
 
 export interface Publicacion {
   redSocial: string[];
@@ -28,73 +29,70 @@ export class PublicacionesService {
     return this._publicaciones.asObservable();
   }
 
-  private getPayloadAndUrl(publicacion: Publicacion, red: string): { payload: BasePayload | MediaPayload, url: string } {
+  private getPayloadAndUrl(red:SelectedRedesSociales): { payload: BasePayload | MediaPayload, url: string } {
     console.log(red);
-
+  
     const basePayload: BasePayload = {
       email: 'default.pruebas@seekop.com',
       distribuidor: '104425'
     };
-
-    switch (red.toLowerCase()) {
+  
+    switch (red.nombreRedSocial.toLowerCase()) {
       case 'twitter':
         return {
-          payload: { ...basePayload, text: publicacion.titulo, mediaBase64: publicacion.imagen } as TwitterPayload,
+          payload: { ...basePayload, text: red.formularioRedSocial.text, mediaBase64:  red.formularioRedSocial.mediaBase64 } as TwitterPayload,
           url: `${GlobalConstants.urlApiPublicar}publicarentwitter`
         };
       case 'facebook':
         return {
-          payload: { ...basePayload, text: publicacion.titulo, mediaBase64: publicacion.imagen } as FacebookPayload,
+          payload: { ...basePayload, text:  red.formularioRedSocial.text, mediaBase64:  red.formularioRedSocial.mediaBase64 } as FacebookPayload,
           url: `${GlobalConstants.urlApiPublicar}publicarenfacebook`
         };
       case 'youtube':
         return {
-          payload: { ...basePayload, text: publicacion.titulo, mediaBase64: publicacion.imagen } as YouTubePayload,
+          payload: { ...basePayload, text:  red.formularioRedSocial.text, mediaBase64:  red.formularioRedSocial.mediaBase64 } as YouTubePayload,
           url: `${GlobalConstants.urlApiPublicar}publicarenyoutube`
         };
       case 'instagram':
         return {
-          payload: { ...basePayload, text: publicacion.titulo, mediaBase64: publicacion.imagen } as InstagramPayload,
+          payload: { ...basePayload, text:  red.formularioRedSocial.text, mediaBase64:  red.formularioRedSocial.mediaBase64 } as InstagramPayload,
           url: `${GlobalConstants.urlApiPublicar}publicareninstagram`
         };
       case 'tiktok':
         return {
-          payload: { ...basePayload, text: publicacion.titulo } as TikTokPayload,
+          payload: { ...basePayload, text:  red.formularioRedSocial.text, mediaBase64:  red.formularioRedSocial.mediaBase64 } as TikTokPayload,
           url: `${GlobalConstants.urlApiPublicar}publicarentiktok`
         };
       case 'pinterest':
         return {
-          payload: { ...basePayload, title: publicacion.titulo, alt_text: publicacion.titulo, description: publicacion.descripcion } as PinterestPayload,
+          payload: { ...basePayload, title:  red.formularioRedSocial.text, alt_text:  red.formularioRedSocial.text, mediaBase64:  red.formularioRedSocial.mediaBase64 } as PinterestPayload,
           url: `${GlobalConstants.urlApiPublicar}publicarenpinterest`
         };
       default:
         throw new Error(`Red social no soportada: ${red}`);
     }
   }
-
-  private async publicarEnRedSocial(publicacion: Publicacion, red: string): Promise<any> {
-    const { payload, url } = this.getPayloadAndUrl(publicacion, red);
-    console.log(payload);
-    /*
-      if (payload.hasOwnProperty('mediaBase64') && payload.mediaBase64 && /^data:image\/[a-z]+;base64,/.test(payload.mediaBase64)) {
-        payload.mediaBase64 = payload.mediaBase64.split(',')[1];
-      }*/
-
+  
+  
+  private async publicarEnRedSocial(red: SelectedRedesSociales): Promise<any> {
+    const { payload, url } = this.getPayloadAndUrl(red);
     try {
       const response = await this.http.post(url, payload).toPromise();
       return response;
     } catch (error) {
-      console.error(`Error al publicar en ${red}:`, error);
+      console.error(`Error al publicar en ${red.nombreRedSocial}:`, error);
       throw error;
     }
   }
 
 
   // Función principal para agregar una publicación en varias redes sociales
-  agregarPublicacion(publicacion: Publicacion): Observable<any> {
-    const requests = publicacion.redSocial.map(red => this.publicarEnRedSocial(publicacion, red));
+  agregarPublicacion(root: Root): Observable<any> {
+    const requests = root.selectedRedesSociales.map(red => this.publicarEnRedSocial(red));
+    return from(Promise.all(requests));
+  }
 
-    return new Observable(observer => {
+   /* return new Observable(observer => {
       Promise.all(requests)
         .then(responses => {
           console.log("Este es el response:", responses);
@@ -118,8 +116,7 @@ export class PublicacionesService {
           console.error('Error al publicar en redes sociales:', error);
           observer.error(error);
         });
-    });
-  }
+    });*/  
 
   private actualizarPublicaciones(publicacion: Publicacion) {
     const currentValue = this._publicaciones.value;

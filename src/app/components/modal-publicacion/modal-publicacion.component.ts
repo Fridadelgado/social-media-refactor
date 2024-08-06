@@ -26,6 +26,9 @@ export class ModalPublicacionComponent {
   videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
   campanias: Campanias[] = [];
   redesSociales: ResponseRedesSociales = [];
+  publicacionRedes = {
+    redSocial: []
+  };
 
   publicacionDefault = {
     titulo: 'Título Predeterminado',
@@ -112,7 +115,6 @@ export class ModalPublicacionComponent {
   }
 
   onRedSocialChange(event: any) {
-    // Lógica para manejar el cambio de la red social seleccionada
     console.log('ngModelChange event:', event);
     this.updateDropZoneMessage(event);
   }
@@ -121,7 +123,7 @@ export class ModalPublicacionComponent {
     const selectedRedSocialName = event[0]; // Asumimos que solo seleccionas una red social a la vez.
     const selectedRedSocial = this.redesSociales.find(rs => rs.nombre === selectedRedSocialName);
     
-    if (selectedRedSocial) {
+    /*if (selectedRedSocial) {
       console.log(selectedRedSocial);
       switch (selectedRedSocial.fileType) {
         case 'imagen':
@@ -138,7 +140,7 @@ export class ModalPublicacionComponent {
     } else {
       this.dropZoneMessage = 'Arrastra y suelta tu archivo aquí';
     }
-  
+  */
   }
   
 
@@ -158,6 +160,7 @@ export class ModalPublicacionComponent {
   }
 
   onFileDrop(files: NgxFileDropEntry[]) {
+    console.log("onfileDrop",files);
     // Lógica para manejar la carga de archivos mediante arrastrar y soltar.
     this.submitted = true;
     for (const droppedFile of files) {
@@ -173,6 +176,7 @@ export class ModalPublicacionComponent {
     this.isValidFile = this.validateFile(files[0].fileEntry.name);
     // Actualiza el mensaje de zona de arrastre basado en si el archivo es válido o no
     if (this.isValidFile) {
+      console.log(this.isValidFile);
       this.translate.get('components.modal-publicacion.dropZoneSuccess').subscribe((res: string) => {
         this.dropZoneMessage = res;
       });
@@ -248,7 +252,7 @@ export class ModalPublicacionComponent {
     // Lógica para definir la audiencia de la publicación.
   }
 
-
+/*
   agregarPublicacion() {
     this.submitted = true; // Marca el intento de envío del formulario para activar la validación de la UI.
 
@@ -285,7 +289,7 @@ export class ModalPublicacionComponent {
       }
     );
   }
-
+*/
   calendarizar() {
     // Lógica para calendarizar la publicación.
   }
