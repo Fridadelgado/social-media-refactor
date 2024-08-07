@@ -4,7 +4,7 @@
         <!-- Barra lateral (Sidebar) -->
         <nav id="sidebar" class="d-md-block bg-light sidebar position-sticky">
             <div class="menu-item" (click)="onClickSeekop()">
-                <img src="../assets/images/seekop-imagotipo.png" class="logo-image" /><strong>Seekop</strong>
+                <img src="../assets/images/seekop-imagotipo.png" class="logo-image" style="height: -webkit-fill-available;" /><strong>Seekop</strong>
             </div>
             <div *ngFor="let social of redesSociales" class="menu-item" (click)="selectRedSocial(social)"
                 [class.active]="social.selected">
@@ -22,9 +22,6 @@
     </div>
 
     <div class="col-md-9">
-        <div>
-
-        </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="!isSeekopSelected">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="nav nav-tabs" id="myTab" role="tablist" style="display: flex;">
@@ -49,9 +46,29 @@
                         [class.active]="selectedTab === 'historias'">
                         <span class="nav-link" [class.active]="selectedTab === 'historias'">HISTORIAS</span>
                     </div>
+                    <div class="nav-item" (click)="selectTab('competidores')" style="margin-right: 3rem;"
+                        [class.active]="selectedTab === 'competidores'">
+                        <span class="nav-link" [class.active]="selectedTab === 'competidores'">COMPETIDORES</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>{{ selectedDistribuidor }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label>Seleccionar distribuidor:</label>
+                    <nb-select fullWidth   [(ngModel)]="selectedDistribuidor" (selectedChange)="onSelectDistribuidor($event)"
+                        class="mb-6">
+                        <nb-option *ngFor="let distribuidor of distribuidores" [value]="distribuidor.nombre">
+                            <p>{{ distribuidor.nombre }}</p>
+                        </nb-option>
+                    </nb-select>
                 </div>
             </div>
         </nav>
+      
+
 
 
         <!-- Área principal de contenido normal -->
@@ -71,10 +88,118 @@
     <ng-template #mainContent>
         <main role="main">
             <div class="tab-content" id="myTabContent">
-                <div *ngIf="selectedTab === 'vision-general'" class="tab-pane fade show active" id="vision-general"
-                    role="tabpanel" aria-labelledby="vision-general-tab">
+                <div *ngIf="selectedTab === 'vision-general'" class="tab-pane fade show active" id="demografia"
+                    role="tabpanel" aria-labelledby="demografia-tab">
                     <div class="content mt-3">
                         <h2 style="color: #A3BD36;">Vision General</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1>Crecimiento</h1>
+                                <p>Detalle de publicaciones +</p>
+                            </div>
+                            <div class="col-md-6 " style="display: flex; gap: 16px;">
+                                <div class="indicador">
+                                    <p>115</p>
+                                    <p>Me gusta</p>
+                                </div>
+                                <div class="indicador">
+                                    <p>115</p>
+                                    <p>Seguidores</p>
+                                </div>
+                                <div class="indicador">
+                                    <p>115</p>
+                                    <p>Impresiones</p>
+                                </div>
+                                <div class="indicador">
+                                    <p>115</p>
+                                    <p>Visitas a pagina</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <app-any-chart [chartType]="'line'" [chartLabels]="labels" [chartData]="lineChartData"
+                            [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
+                        </app-any-chart>
+                        <div class="row" style="display: flex; gap: 16px;">
+                            <div class="indicador">
+                                <p>0</p>
+                                <p>Me gusta diarios</p>
+                            </div>
+                            <div class="indicador">
+                                <p>0</p>
+                                <p>Me gusta por publicacion</p>
+                            </div>
+                            <div class="indicador">
+                                <p>1.17</p>
+                                <p>Vistas de pgina al dia</p>
+                            </div>
+                            <div class="indicador">
+                                <p>1.17</p>
+                                <p>Publicaciones por dia</p>
+                            </div>
+                            <div class="indicador">
+                                <p>1.17</p>
+                                <p>Publicaciones por semana</p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1>Balance de Me gusta</h1>
+                                <p>Detalle de publicaciones +</p>
+                            </div>
+                            <div class="col-md-6 " style="display: flex; gap: 16px;">
+                                <div class="indicador">
+                                    <p>115</p>
+                                    <p>Adquiridos</p>
+                                </div>
+                                <div class="indicador">
+                                    <p>115</p>
+                                    <p>Perdidos</p>
+                                </div>
+                                <div class="indicador">
+                                    <p>115</p>
+                                    <p>Contenido Total</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <app-any-chart [chartType]="'line'" [chartLabels]="labels" [chartData]="lineChartData"
+                            [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
+                        </app-any-chart>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1>Publicaciones Vistas en el periodo</h1>
+                                <p>Detalle de publicaciones +</p>
+                            </div>
+                            <div class="col-md-6 " style="display: flex; gap: 16px;">
+                                <div class="indicador">
+                                    <p>35</p>
+                                    <p>Impresiones</p>
+                                </div>
+                                <div class="indicador">
+                                    <p>0</p>
+                                    <p>Reacciones</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <app-any-chart [chartType]="'line'" [chartLabels]="labels" [chartData]="lineChartData"
+                            [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
+                        </app-any-chart>
+
+                    </div>
+                </div>
+                <div *ngIf="selectedTab === 'demografia'" class="tab-pane fade show active" id="vision-general"
+                    role="tabpanel" aria-labelledby="vision-general-tab">
+                    <div class="content mt-3">
+                        <h2 style="color: #A3BD36;">Demografia</h2>
                         <div class="row">
                             <div class="col-md 3">
                                 <h1>Alcance por genero</h1>
@@ -104,6 +229,7 @@
                         <app-any-chart [chartType]="'line'" [chartLabels]="labels" [chartData]="lineChartData"
                             [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
                         </app-any-chart>
+                        <hr>
                         <div class="row">
                             <div class="col-md 3">
                                 <h1>Alcance por edad</h1>
@@ -167,16 +293,7 @@
 
                     </div>
                 </div>
-                <div *ngIf="selectedTab === 'demografia'" class="tab-pane fade show active" id="demografia"
-                    role="tabpanel" aria-labelledby="demografia-tab">
-                    <div class="content mt-3">
-                        <h2 style="color: #A3BD36;">Demografia</h2>
-                        <app-any-chart [chartType]="'doughnut'" [chartLabels]="['Mexico']" [chartData]="[
-                        { data: [45], label: 'Seguidores por pais' }
-                      ]" [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
-                        </app-any-chart>
-                    </div>
-                </div>
+
                 <div *ngIf="selectedTab === 'clicks-en-la-pagina'" class="tab-pane fade show active"
                     id="clicks-en-la-pagina" role="tabpanel" aria-labelledby="clicks-en-la-pagina-tab">
                     <div class="content mt-3">
@@ -266,6 +383,7 @@
 
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div *ngIf="selectedTab === 'publicaciones'" class="tab-pane fade show active" id="publicaciones"
@@ -301,8 +419,8 @@
                             </div>
                         </div>
                         <app-any-chart [chartType]="'line'" [chartLabels]="labels" [chartData]="lineChartData"
-                        [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
-                    </app-any-chart>
+                            [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
+                        </app-any-chart>
                         <hr>
                         <div class="row">
                             <div class="col-md 3">
@@ -336,8 +454,15 @@
 
                             </div>
                         </div>
+
                         <hr>
-                        <h1>Impresiones</h1>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h1>Impresiones</h1>
+                            </div>
+                        </div>
+                        <hr>
+                        <h1>Lista de publicaciones</h1>
                         <app-table-kpi [headers]="tableHeaders" [rows]="tableRows"></app-table-kpi>
                     </div>
                 </div>
@@ -347,24 +472,31 @@
                         <h2 style="color: #A3BD36;">Historias</h2>
                         <div class="row">
                             <div class="col-md 3">
-                                <h1>Historias</h1>
+                                <h1>Historias publicadas en el periodo</h1>
+                                <p>Historias</p>
                             </div>
                             <div class="col-md 9" style="display: flex; gap: 16px;">
                                 <div class="indicador">
                                     <p>102</p>
                                     <p>Historias</p>
                                 </div>
-                            
+
 
                             </div>
                         </div>
                         <app-any-chart [chartType]="'line'" [chartLabels]="labels" [chartData]="lineChartData"
-                        [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
-                    </app-any-chart>
-                    <hr>
+                            [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
+                        </app-any-chart>
+                        <hr>
                         <h1>Lista de historias</h1>
                         <app-table-kpi [headers]="tableHeaders" [rows]="tableRows"></app-table-kpi>
                     </div>
+                </div>
+                <div *ngIf="selectedTab === 'competidores'" class="tab-pane fade show active" id="competidores">
+                    <h1>Lista de competidores</h1>
+                    <nb-search type="rotate-layout"></nb-search>
+                    <app-table-kpi [headers]="tableHeaders" [rows]=[]></app-table-kpi>
+
                 </div>
             </div>
         </main>
@@ -374,9 +506,11 @@
     <ng-template #seekopContent>
         <div>
             <h2>Contenido de Seekop</h2>
-            <app-any-chart [chartType]="'line'" [chartLabels]="labels" [chartData]="lineChartData"
-                [chartOptions]="{ responsive: true }" [chartLegend]="true" [chartPlugins]="[]">
-            </app-any-chart>
+
+            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                [dataLabels]="chartOptions.dataLabels" [plotOptions]="chartOptions.plotOptions"
+                [xaxis]="chartOptions.xaxis" [title]="chartOptions.title" [legend]="chartOptions.legend"></apx-chart>
+
         </div>
     </ng-template>
 
