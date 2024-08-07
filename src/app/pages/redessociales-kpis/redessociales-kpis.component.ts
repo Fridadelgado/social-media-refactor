@@ -28,9 +28,7 @@ export class RedesSocialesKpisComponent implements OnInit {
 
   ngOnInit() {
     this.loadKpis();
-    this.publicacionesService.getRedesSocialesFromSessionStorage().subscribe(data => {
-      this.redesSociales = data;
-    });
+   
 
   }
   loadKpis() {

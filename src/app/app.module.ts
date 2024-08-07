@@ -7,14 +7,14 @@ import { RouterModule } from '@angular/router'; // Sistema de enrutamiento de An
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Módulo para realizar peticiones HTTP.
 import { AppComponent } from './app.component'; // Componente raíz de la aplicación.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NgChartsModule } from 'ng2-charts';
 
 // Importación del módulo CoreModule que contiene servicios e iconos personalizados.
 import { CoreModule } from '../app/core-module/core-module.module';
 
 
 // Importaciones de Nebular, un conjunto de bibliotecas de UI para Angular, para usar sus componentes.
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule, NbAccordionModule, NbTagModule, NbSearchModule} from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth'; // Módulos de autenticación de Nebular.
 import { NbEvaIconsModule } from '@nebular/eva-icons'; // Módulo de íconos de Eva.
 
@@ -42,6 +42,7 @@ import { ActionsComponent } from './components/actions/actions.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
 import { ModalPublicacionComponent } from './components/modal-publicacion/modal-publicacion.component';
 import { KpiCardComponent } from './components/kpi-card/kpi-card.component';
+import { DashboardKpisComponent } from './pages/dashboard-kpis/dashboard-kpis.component';
 
 // Pages
 import { RedesSocialesKpisComponent } from './pages/redessociales-kpis/redessociales-kpis.component';
@@ -59,6 +60,13 @@ import { SocialAuthModalComponent } from './components/social-auth-modal/social-
 // Módulo para implementar un calendario interactivo.
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AnyChartComponent } from './components/any-chart/any-chart.component';
+import { TableKpiComponent } from './components/table-kpi/table-kpi.component';
+import { GenericFormRedSocialComponent } from './components/generic-form-red-social/generic-form-red-social.component';
+import { ModalPublicacionRedComponent } from './components/modal-publicacion-red/modal-publicacion-red.component';
+import { GenericPrevPublicacionComponent } from './components/generic-prev-publicacion/generic-prev-publicacion.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 // Función para configurar el cargador de traducciones, que indica cómo cargar los archivos de traducción.
 export function HttpLoaderFactory(http: HttpClient) {
@@ -88,11 +96,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     AuthLayoutComponent,
     PublicacionesComponent,
+    DashboardKpisComponent,
+    AnyChartComponent,
+    TableKpiComponent,
+    GenericFormRedSocialComponent,
+    ModalPublicacionRedComponent,
+    GenericPrevPublicacionComponent
   ],
   imports: [
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
     // Nebular, ngx-translate, y otras librerías de terceros son configuradas aquí.
     CoreModule,
+    NbListModule,
+    NbAccordionModule,
     BrowserAnimationsModule,
     NbTooltipModule,
     FullCalendarModule,
@@ -119,6 +135,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbInputModule,
     NbDialogModule.forRoot(),
     NbAlertModule,
+    NgChartsModule,
+    NgxChartsModule,
+    NbTagModule,
+    NbSearchModule,
+    NgApexchartsModule,  
+    
+
+    
+     
     NbAuthModule.forRoot({
       strategies: [
         NbDummyAuthStrategy.setup({

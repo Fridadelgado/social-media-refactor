@@ -6,6 +6,7 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/campanias.interface';
 import { DynamicComponentService } from '../../services/dynamic-component-service.service';
 import { ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
+import { RedesSocialesService } from 'src/app/services/redes-sociales.service';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -25,6 +26,9 @@ export class ModalPublicacionComponent {
   videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
   campanias: Campanias[] = [];
   redesSociales: ResponseRedesSociales = [];
+  publicacionRedes = {
+    redSocial: []
+  };
 
   publicacionDefault = {
     titulo: 'Título Predeterminado',
@@ -48,6 +52,7 @@ export class ModalPublicacionComponent {
     protected ref: NbDialogRef<ModalPublicacionComponent>,
     private publicacionesService: PublicacionesService,
     private translate: TranslateService,
+    private redesSocialesService:RedesSocialesService,
     private cdr: ChangeDetectorRef,
     private dynamicComponentService: DynamicComponentService // Inyecta el servicio aquí
   ) {
@@ -82,7 +87,7 @@ export class ModalPublicacionComponent {
   }
 
   getRedesSociales(): void {
-    this.publicacionesService.getRedesSociales()
+    this.redesSocialesService.getRedesSociales()
       .subscribe((redesSociales: ResponseRedesSociales) => {
         if (redesSociales && redesSociales.length > 0)
           this.redesSociales = redesSociales.map(redSocial => {
@@ -110,7 +115,6 @@ export class ModalPublicacionComponent {
   }
 
   onRedSocialChange(event: any) {
-    // Lógica para manejar el cambio de la red social seleccionada
     console.log('ngModelChange event:', event);
     this.updateDropZoneMessage(event);
   }
@@ -119,7 +123,7 @@ export class ModalPublicacionComponent {
     const selectedRedSocialName = event[0]; // Asumimos que solo seleccionas una red social a la vez.
     const selectedRedSocial = this.redesSociales.find(rs => rs.nombre === selectedRedSocialName);
     
-    if (selectedRedSocial) {
+    /*if (selectedRedSocial) {
       console.log(selectedRedSocial);
       switch (selectedRedSocial.fileType) {
         case 'imagen':
@@ -136,7 +140,7 @@ export class ModalPublicacionComponent {
     } else {
       this.dropZoneMessage = 'Arrastra y suelta tu archivo aquí';
     }
-  
+  */
   }
   
 
@@ -156,6 +160,7 @@ export class ModalPublicacionComponent {
   }
 
   onFileDrop(files: NgxFileDropEntry[]) {
+    console.log("onfileDrop",files);
     // Lógica para manejar la carga de archivos mediante arrastrar y soltar.
     this.submitted = true;
     for (const droppedFile of files) {
@@ -171,6 +176,7 @@ export class ModalPublicacionComponent {
     this.isValidFile = this.validateFile(files[0].fileEntry.name);
     // Actualiza el mensaje de zona de arrastre basado en si el archivo es válido o no
     if (this.isValidFile) {
+      console.log(this.isValidFile);
       this.translate.get('components.modal-publicacion.dropZoneSuccess').subscribe((res: string) => {
         this.dropZoneMessage = res;
       });
@@ -246,7 +252,7 @@ export class ModalPublicacionComponent {
     // Lógica para definir la audiencia de la publicación.
   }
 
-
+/*
   agregarPublicacion() {
     this.submitted = true; // Marca el intento de envío del formulario para activar la validación de la UI.
 
@@ -283,7 +289,7 @@ export class ModalPublicacionComponent {
       }
     );
   }
-
+*/
   calendarizar() {
     // Lógica para calendarizar la publicación.
   }
