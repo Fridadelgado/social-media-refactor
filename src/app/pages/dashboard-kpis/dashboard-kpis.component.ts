@@ -1,9 +1,22 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, ViewChild } from '@angular/core';
 import { NbSidebarService } from '@nebular/theme';
-import { Chart, ChartConfiguration, ChartDataset, ChartOptions, ChartType } from 'chart.js';
-import { ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { Chart, ChartConfiguration, ChartDataset, ChartType } from 'chart.js';
+import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexLegend, ApexPlotOptions, ApexTitleSubtitle } from 'ng-apexcharts';
+
+import { RedesSociales, ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
 import { RedesSocialesService } from 'src/app/services/redes-sociales.service';
 
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  xaxis: ApexXAxis;
+  legend: ApexLegend;
+  title: ApexTitleSubtitle;
+};
 @Component({
   selector: 'app-dashboard-kpis',
   templateUrl: './dashboard-kpis.component.html',
@@ -14,29 +27,10 @@ export class DashboardKpisComponent implements OnInit {
   isSeekopSelected = false;
   private readonly STORAGE_KEY = 'redesSociales';
   selectedTab: string = 'vision-general';
+
+   chartOptions: ChartOptions;
   /**chart temporal de seekop */
-  public polarAreaChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            return ` ${tooltipItem.label}: ${tooltipItem.raw}`;
-          }
-        }
-      }
-    },
-    scales: {
-      r: {
-        pointLabels: {
-          centerPointLabels: true
-        }
-      }
-    }
-  };
+
   labels = ['Nuevas conversaciones',
     'Conversaciones atentidas', 'Leads generados', 'Citas', 'Shows'];
 
@@ -66,16 +60,79 @@ export class DashboardKpisComponent implements OnInit {
     { group: 'Chalco', quantity: 190 },
     { group: 'Tlalnepantla de Baz', quantity: 230 },
   ];
-  tableHeaders: string[] = ['Tipo', 'Fecha', 'Reacciones', 'Comentarios', 'Clics', 'Clins en el link', 
-    'Impresiones','Alcance','Reproducciones','Tiempo visto','Engagement','Gasto'];
+  tableHeaders: string[] = ['Tipo', 'Fecha', 'Reacciones', 'Comentarios', 'Clics', 'Clins en el link',
+    'Impresiones', 'Alcance', 'Reproducciones', 'Tiempo visto', 'Engagement', 'Gasto'];
   tableRows: any[][] = [
-    ['ADS', 'Jun', '2', '5',10,10,5,20,10,5,20,899],
-    ['POST', 'Ago', '2', '5',10,10,5,20,10,5,20,899],
-    ['POST', 'Sep', '2', '5',10,10,5,20,10,5,20,899],
+    ['ADS', 'Jun', '2', '5', 10, 10, 5, 20, 10, 5, 20, 899],
+    ['POST', 'Ago', '2', '5', 10, 10, 5, 20, 10, 5, 20, 899],
+    ['POST', 'Sep', '2', '5', 10, 10, 5, 20, 10, 5, 20, 899],
   ];
-  constructor(private redesSocialesService: RedesSocialesService, private sidebarService: NbSidebarService) { }
+
+  distribuidores: any[] = [];
+  selectedDistribuidor: string = '';
+  constructor(private redesSocialesService: RedesSocialesService, private sidebarService: NbSidebarService) {
+    this.chartOptions = {
+      series: [
+        {
+          name: "Funnel Series",
+          data: [50, 30, 10, 4, 2, 1]
+        }
+      ],
+      chart: {
+        type: "bar",
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 0,
+          horizontal: true,
+          barHeight: "80%",
+          isFunnel: true
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val, opt) {
+          return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
+        },
+        dropShadow: {
+          enabled: true
+        }
+      },
+      title: {
+        text: "Seekop Funnel",
+        align: "center"
+      },
+      xaxis: {
+        categories: [
+          "Nuevas conversaciones",
+          "Conversaciones atendidas",
+          "Leads generados",
+          "Citas",
+          "Shows",
+          "Ventas",
+        
+        ]
+      },
+      legend: {
+        show: false
+      }
+    };
+  
+  }
+
+
 
   ngOnInit(): void {
+   
+    this.distribuidores = [
+      { nombre: 'Seminuevos Satelite' },
+      { nombre: 'Distribuidor Norte' },
+      { nombre: 'Distribuidor Sur' },
+      { nombre: 'Distribuidor Este' },
+      { nombre: 'Distribuidor Oeste' }
+    ];
+
 
     this.redesSocialesService.getRedesSocialesFromSessionStorage().subscribe(
       data => {
@@ -87,6 +144,8 @@ export class DashboardKpisComponent implements OnInit {
     );
     console.log(this.redesSociales);
   }
+  
+
   loadNext(card: any) {
     // Implementa la lógica para cargar más datos aquí
   }
@@ -104,14 +163,22 @@ export class DashboardKpisComponent implements OnInit {
     console.log(this.isSeekopSelected);
   }
 
+  onSelectDistribuidor(event: any) {
+    this.selectedDistribuidor = event;
+  }
+
 
   selectTab(tab: string) {
     this.selectedTab = tab;
     this.isSeekopSelected = false;
   }
 
-  selectRedSocial(red: any) {
-    this.isSeekopSelected = false;
+  selectRedSocial(selectedRed: RedesSociales) {
+   if(this.redesSociales)
+    this.redesSociales.forEach(red => {
+      red.selected = false;
+    });
+  
+    selectedRed.selected = true;
   }
-
 }

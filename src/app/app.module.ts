@@ -14,7 +14,7 @@ import { CoreModule } from '../app/core-module/core-module.module';
 
 
 // Importaciones de Nebular, un conjunto de bibliotecas de UI para Angular, para usar sus componentes.
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule, NbAccordionModule, NbTagModule} from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbMenuModule, NbDatepickerModule, NbToggleModule, NbInputModule,NbCheckboxModule, NbTooltipModule, NbDialogModule, NbActionsModule, NbCardModule, NbUserModule, NbIconModule, NbAlertModule, NbSelectModule, NbOptionModule, NbListModule, NbAccordionModule, NbTagModule, NbSearchModule} from '@nebular/theme';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth'; // Módulos de autenticación de Nebular.
 import { NbEvaIconsModule } from '@nebular/eva-icons'; // Módulo de íconos de Eva.
 
@@ -66,6 +66,7 @@ import { TableKpiComponent } from './components/table-kpi/table-kpi.component';
 import { GenericFormRedSocialComponent } from './components/generic-form-red-social/generic-form-red-social.component';
 import { ModalPublicacionRedComponent } from './components/modal-publicacion-red/modal-publicacion-red.component';
 import { GenericPrevPublicacionComponent } from './components/generic-prev-publicacion/generic-prev-publicacion.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 // Función para configurar el cargador de traducciones, que indica cómo cargar los archivos de traducción.
 export function HttpLoaderFactory(http: HttpClient) {
@@ -137,6 +138,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgChartsModule,
     NgxChartsModule,
     NbTagModule,
+    NbSearchModule,
+    NgApexchartsModule,  
+    
+
     
      
     NbAuthModule.forRoot({

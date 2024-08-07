@@ -35,7 +35,9 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "eva-icons"
+              "eva-icons",
+              "apexcharts",
+              "rfdc"
             ]
           },
           "configurations": {
