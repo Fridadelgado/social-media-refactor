@@ -180,5 +180,6 @@ export class DashboardKpisComponent implements OnInit {
     });
   
     selectedRed.selected = true;
+    this.isSeekopSelected = false;
   }
 }
