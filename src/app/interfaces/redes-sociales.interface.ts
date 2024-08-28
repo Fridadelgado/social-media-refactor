@@ -30,3 +30,10 @@ export interface PinterestPublicacion{
     description: string;
     alt_text: string;
 }
+
+export type GenericOptionsSelect = {
+  label: string;
+  value?: string | number;
+}
+
+export type InputTypes = 'text' | 'textarea' | 'select' | 'file' | 'date';

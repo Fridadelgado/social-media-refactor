@@ -1,0 +1,73 @@
+<div [ngClass]="cssClasses">
+    <label [ngClass]="{'text-danger': isInvalid}">{{ label }}</label>
+    <ng-container [ngSwitch]="type">
+      <!-- Caso para inputs tipo text -->
+      <input 
+        *ngSwitchCase="'text'" 
+        fullWidth 
+        nbInput 
+        maxlength="50" 
+        [placeholder]="placeholder | translate"
+        [(ngModel)]="model" 
+        (ngModelChange)="onEventCallback($event)"
+        required="isRequired"
+        class="form-control mb-4"
+      >
+      
+        <!-- Caso para inputs tipo textarea -->
+      <textarea 
+        *ngSwitchCase="'textarea'" 
+        fieldSize="large" 
+        fullWidth 
+        nbInput
+        [placeholder]="placeholder | translate" 
+        [(ngModel)]="model" 
+        (ngModelChange)="onEventCallback($event)"
+        required="isRequired" 
+        class="form-control mb-4">
+      </textarea>
+      
+      <!-- Caso para inputs tipo select -->
+      <nb-select 
+        *ngSwitchCase="'select'" 
+        fullWidth class="mb-4" 
+        [(ngModel)]="model" 
+        multiple
+        placeholder="{{placeholder | translate}}"
+        (ngModelChange)="onEventCallback($event)">
+        <nb-option *ngFor="let option of options" [value]="option.value">
+          {{ option.label }}
+        </nb-option>
+        <nb-option *ngIf="addNewOption">
+          <nb-icon class="subtitulo-modal-publicacion-icono" icon="mdi-plus-circle-outline" pack="seekop"
+            style="margin-right: 10px;"></nb-icon>
+          <input class="input-file" type="text" placeholder="{{ 'components.modal-publicacion.placeHolderNuevaOpcion' | translate }}"
+            (click)="$event.stopPropagation()" (keydown.enter)="onEventCallback($event)"
+            (keydown.space)="$event.stopPropagation()">
+        </nb-option>
+      </nb-select>
+
+      <!-- Caso para inputs tipo file -->
+      <ngx-file-drop (click)="triggerFileInputClick()" *ngSwitchCase="'file'">
+        <ng-template ngx-file-drop-content-tmp>
+          <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
+            {{ model }}
+          </div>
+        </ng-template>
+      </ngx-file-drop>
+      <input *ngSwitchCase="'file'" type="file" #fileInput style="display: none;" (change)="onFileSelect($event)">
+
+      <!-- Caso para inputs de fecha -->
+      <div *ngSwitchCase="'date'" class="row mt-3">
+        <div class="col-md-12">
+          <label [ngClass]="{'text-danger': isInvalid}">{{ label }} *</label>
+        </div>
+        <div class="col-md-12">
+          <input fullWidth nbInput [placeholder]="placeholder" [nbDatepicker]="datepicker" [(ngModel)]="model" 
+                (ngModelChange)="onDateChange()" required class="form-control mb-4">
+          <nb-datepicker #datepicker></nb-datepicker>
+        </div>
+      </div>
+
+    </ng-container>
+</div>

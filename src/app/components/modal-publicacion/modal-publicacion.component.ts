@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core'; // Para la internacional
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; // Para la carga de archivos.
 import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/campanias.interface';
 import { DynamicComponentService } from '../../services/dynamic-component-service.service';
-import { ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
+import { GenericOptionsSelect, RedesSociales, ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
 import { RedesSocialesService } from 'src/app/services/redes-sociales.service';
 
 @Component({
@@ -298,6 +298,8 @@ export class ModalPublicacionComponent {
     this.ref.close(); // Cierra el modal.
   }
 
+  publicar(): void {}
+
   getSocialMediaIcon(red: string): string {
     if (this.publicacion.redSocial && this.publicacion.redSocial.length > 0) {
       const socialMedia = this.redesSociales.find(media => media.nombre.toLowerCase() === red.toLowerCase());
@@ -330,4 +332,25 @@ export class ModalPublicacionComponent {
     this.ref.close();
   }
 
+  get optionsRedesSociales(): GenericOptionsSelect[] {
+    return this.redesSociales.map(option => this.toOptionsRedes(option));
+  }
+
+  toOptionsRedes(item: RedesSociales): GenericOptionsSelect {
+    return {
+      label: item.nombre,
+      value: item.nombre,
+    }
+  }
+
+  get optionsCampanias(): GenericOptionsSelect[] {
+    return this.redesSociales.map(option => this.toOptionsRedes(option));
+  }
+
+  toOptionsCampanias(item: Campanias): GenericOptionsSelect {
+    return {
+      label: item.nombrecampana,
+      value: item.idsubcampanas,
+    }
+  }
 }

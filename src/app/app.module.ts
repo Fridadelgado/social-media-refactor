@@ -43,6 +43,9 @@ import { UserAvatarComponent } from './components/user-avatar/user-avatar.compon
 import { ModalPublicacionComponent } from './components/modal-publicacion/modal-publicacion.component';
 import { KpiCardComponent } from './components/kpi-card/kpi-card.component';
 import { DashboardKpisComponent } from './pages/dashboard-kpis/dashboard-kpis.component';
+import { HeaderModalComponent } from './components/header-modal/header-modal.component';
+import { InputModalComponent } from './components/input-modal/input-modal.component';
+import { FooterModalComponent } from './components/footer-modal/footer-modal.component';
 
 // Pages
 import { RedesSocialesKpisComponent } from './pages/redessociales-kpis/redessociales-kpis.component';
@@ -101,7 +104,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     TableKpiComponent,
     GenericFormRedSocialComponent,
     ModalPublicacionRedComponent,
-    GenericPrevPublicacionComponent
+    GenericPrevPublicacionComponent,
+    HeaderModalComponent,
+    InputModalComponent,
+    FooterModalComponent
   ],
   imports: [
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.

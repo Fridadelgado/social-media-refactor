@@ -1,0 +1,35 @@
+<nb-card-footer>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-md-2" style="margin-right: -10px;">
+            <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;" icon="mdi-alert-outline"
+              pack="seekop"></nb-icon>
+          </div>
+          <div class="col-md-10" style="margin-left: -15px;">
+            <span
+              style="font: italic normal normal 15px/20px Montserrat; color: #272D3B; opacity: 1; letter-spacing: 0px;">Los
+              campos con un * son obligatorios</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <!-- Placeholder for any additional content or space -->
+      </div>
+      <div class="col-md-1">
+        <button nbButton hero status="primary" class="btn btn-primary" (click)="onSubmit()"
+          style="margin-left: -50px; padding: 10px !important;">
+          <nb-icon class="col-md-1 modal-publicacion-icono" style="margin-right: 8px;"
+            icon="mdi-cloud-upload-outline" pack="seekop"></nb-icon>
+          {{ submitLabel }}
+        </button>
+      </div>
+      <div class="col-md-1">
+        <button nbButton status="danger" (click)="onCancel()" class="btn btn-danger"
+          style="margin-left: -30px; padding: 10px !important;">
+          <nb-icon class="col-md-1 modal-publicacion-icono" icon="close-circle-outline" pack="eva"></nb-icon>
+          {{ cancelLabel }}
+        </button>
+      </div>
+    </div>
+</nb-card-footer>
