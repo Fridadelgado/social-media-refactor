@@ -7,6 +7,7 @@ import { Campanias, CampaniasBody, GenericResponse } from 'src/app/interfaces/ca
 import { DynamicComponentService } from '../../services/dynamic-component-service.service';
 import { GenericOptionsSelect, RedesSociales, ResponseRedesSociales } from 'src/app/interfaces/redes-sociales.interface';
 import { RedesSocialesService } from 'src/app/services/redes-sociales.service';
+import { IPublicacion } from 'src/app/interfaces/publicacion.interface';
 
 @Component({
   selector: 'app-modal-publicacion',
@@ -20,7 +21,6 @@ export class ModalPublicacionComponent {
   // Cambia la inicialización de `fechaProgramada` a `null`
   fechaProgramada: Date | null = null; // Define una propiedad para almacenar la fecha
 
-  esFechaValidaFlag: boolean = true;
   tipoArchivo: string = ''; //Define el formato de la imagen o video
   imageExtensions = /\.(jpg|jpeg|png|gif|bmp)$/i;
   videoExtensions = /\.(mp4|avi|mov|mkv|flv|wmv)$/i;
@@ -48,6 +48,8 @@ export class ModalPublicacionComponent {
   minDate: Date;
   fileType: string = "";
 
+  formPublicacion!: IPublicacion;
+
   constructor(
     protected ref: NbDialogRef<ModalPublicacionComponent>,
     private publicacionesService: PublicacionesService,
@@ -68,22 +70,6 @@ export class ModalPublicacionComponent {
     this.translate.get('components.modal-publicacion.dropZoneDefault').subscribe((res: string) => {
       this.dropZoneMessage = res;
     });
-  }
-
-  esFechaValida(): boolean {
-    if (!this.fechaProgramada) {
-      // Si no hay fecha seleccionada, considera la validación como exitosa
-      this.esFechaValidaFlag = true;
-      return true;
-    }
-
-    // Tu lógica existente de validación de fecha
-    const fechaHoy = new Date();
-    fechaHoy.setHours(0, 0, 0, 0); // Ignora la hora actual para solo comparar la fecha
-
-    // Comprueba si la fechaProgramada es válida y no es anterior a hoy
-    this.esFechaValidaFlag = this.fechaProgramada >= fechaHoy;
-    return this.esFechaValidaFlag;
   }
 
   getRedesSociales(): void {
@@ -298,7 +284,10 @@ export class ModalPublicacionComponent {
     this.ref.close(); // Cierra el modal.
   }
 
-  publicar(): void {}
+  // Funcion disparada por el boton submit en el footer
+  publicar(): void {
+    console.log(this.formPublicacion);
+  }
 
   getSocialMediaIcon(red: string): string {
     if (this.publicacion.redSocial && this.publicacion.redSocial.length > 0) {
@@ -332,10 +321,11 @@ export class ModalPublicacionComponent {
     this.ref.close();
   }
 
+  // getter para obtener los valores de Redes Sociales a pasar al input tipo select correspondiente
   get optionsRedesSociales(): GenericOptionsSelect[] {
     return this.redesSociales.map(option => this.toOptionsRedes(option));
   }
-
+  // Funcion para el objeto de valores para el array de Redes Sociales
   toOptionsRedes(item: RedesSociales): GenericOptionsSelect {
     return {
       label: item.nombre,
@@ -343,14 +333,20 @@ export class ModalPublicacionComponent {
     }
   }
 
+  // getter para obtener los valores de Campañas a pasar al input tipo select correspondiente
   get optionsCampanias(): GenericOptionsSelect[] {
-    return this.redesSociales.map(option => this.toOptionsRedes(option));
+    return this.campanias.map(option => this.toOptionsCampanias(option));
   }
-
+  // Funcion para el objeto de valores para el array de Campañas
   toOptionsCampanias(item: Campanias): GenericOptionsSelect {
     return {
       label: item.nombrecampana,
       value: item.idsubcampanas,
     }
+  }
+
+  //Función que obtiene el objeto lleno en el formulario
+  onFormValuesChange(values: IPublicacion) {
+    this.formPublicacion = values;
   }
 }

@@ -3,98 +3,30 @@
   <!-- Tarjeta de Nebular que forma el cuerpo del modal, con fondo blanco. -->
   <nb-card class="modal-publicacion row" style="background-color: #fff; padding: 10px; zoom: 81%;">
 
-    <app-header-modal
-      [icon]="'mdi-contact-info'"
-      [title]="'components.modal-publicacion.labelCrearPublicacion'"
-      (eventClose)="closeModal()">
-    </app-header-modal>
+    <nb-card-header class="mt-2 mb-2">
+      <app-header-modal
+        [icon]="'mdi-contact-info'"
+        [title]="'components.modal-publicacion.labelCrearPublicacion'"
+        (eventClose)="closeModal()">
+      </app-header-modal>
+    </nb-card-header>
+
 
     <!-- Cuerpo de la tarjeta organizado en dos columnas para entrada de datos y previsualización. -->
     <nb-card-body class="row">
 
-
-
       <!-- Columna izquierda para la entrada de datos de la publicación. -->
       <div class="col-md-6">
-        <strong style="font-size: 20px;"><nb-icon class="subtitulo-modal-publicacion-icono"
-            style="margin-right: 20px; margin-bottom: 30px; margin-top: 10px;" icon="mdi-car" pack="seekop"></nb-icon>
-          Datos de la publicación</strong>
-        <div class="row">
-
-          <!-- Selección de redes sociales con validación. -->
-          <app-input-modal
-            [cssClasses]="'col-md-12'"
-            [isInvalid]="submitted && publicacion.redSocial.length === 0"
-            [label]="'Publicar en *'"
-            [placeholder]="'components.modal-publicacion.placeHolderSeleccionaRedSocial'"
-            [type]="'select'"
-            [options]="optionsRedesSociales">
-          </app-input-modal>
-
-          <!-- Entrada para el título de la publicación con validación. -->
-          <app-input-modal
-            [cssClasses]="'col-md-12'"
-            [isInvalid]="submitted && !publicacion.titulo"
-            [label]="'Título de la publicación *'"
-            [placeholder]="'components.modal-publicacion.placeHolderTituloPublicacion'"
-            [isRequired]="true"
-            [type]="'text'"
-            [model]="publicacion.titulo">
-          </app-input-modal>
-
-          <!-- Área de texto para la descripción de la publicación con validación. -->
-          <app-input-modal
-            [cssClasses]="'col-md-12'"
-            [isInvalid]="submitted && !publicacion.descripcion"
-            [label]="'Descripción de la publicación *'"
-            [placeholder]="'components.modal-publicacion.placehoderDescripcionPublicacion'"
-            [isRequired]="true"
-            [type]="'textarea'"
-            [model]="publicacion.descripcion">
-          </app-input-modal>
-
-          <!-- Componente de carga de archivos con previsualización de imagen o video. -->
-          <app-input-modal
-            [cssClasses]="'col-md-12 mb-4'"
-            [isInvalid]="submitted && !isValidFile"
-            [label]="'Imágen o video de la publicación *'"
-            [type]="'file'"
-            [model]="dropZoneMessage"
-            (eventCallback)="onFileSelect($event)">
-          </app-input-modal>
-
-          <!-- Seleccion de subcampañas -->
-          <app-input-modal
-            [cssClasses]="'col-md-12'"
-            [isInvalid]="submitted && publicacion.subcampanas.length === 0"
-            [label]="'Selecciona las subcampañas *'"
-            [type]="'select'"
-            [addNewOption]="true"
-            [model]="publicacion.subcampanas"
-            [options]="optionsCampanias"
-            (eventCallback)="agregarNuevaCampania($event)">
-          </app-input-modal>
-
-        </div>
-
-        <strong style="font-size: 20px;"><nb-icon class="subtitulo-programar-modal-publicacion-icono"
-            style="margin-right: 20px; margin-bottom: 30px; margin-top: 50px;" icon="calendar-text-outline"
-            pack="seekop"></nb-icon>
-          <div style="margin-top: -43px; margin-left: 48px;">Programar Publicación</div>
-        </strong>
-
-
-        <!-- Fecha de publicación -->
-        <app-input-modal
-          [cssClasses]="'row mt-3'"
-          [isInvalid]="submitted && !esFechaValidaFlag"
-          [label]="'Selecciona fecha de publicación *'"
-          [placeholder]="'Selecciona la fecha de publicación (opcional)'"
-          [type]="'date'"
-          [model]="fechaProgramada"
-          (eventDate)="esFechaValida()">
-        </app-input-modal>
-
+        <app-form-modal-publicacion
+          [submitted]="submitted"
+          [publicacion]="publicacion"
+          [fechaProgramada]="fechaProgramada"
+          [redesSociales]="optionsRedesSociales"
+          [campanias]="optionsCampanias"
+          (formValuesChange)="onFormValuesChange($event)"
+          (eventAgregarSubCampania)="agregarNuevaCampania($event)"
+          (eventFileSelect)="onFileSelect($event)">
+        </app-form-modal-publicacion>
       </div>
 
       <!-- Columna derecha para previsualizar la publicación con título, descripción e imagen cargada. -->
@@ -109,11 +41,8 @@
                 <nb-icon class="col-md-2 filter-icons icon-hover" style="margin-right: -10px;"
                   *ngFor="let red of publicacion.redSocial.length ? publicacion.redSocial : publicacionDefault.redSocial"
                   [icon]="getSocialMediaIcon(red)" pack="seekop"></nb-icon>
-
               </div>
-
             </div>
-
           </div>
 
           <div class="row">
@@ -146,8 +75,6 @@
           </div>
 
 
-
-
           <div class="row">
             <div class="col-md-12">
               <div class="previsualizacion-info" style="margin-top: -16px">
@@ -156,7 +83,6 @@
 
               </div>
             </div>
-
           </div>
 
 
@@ -164,12 +90,15 @@
       </div>
     </nb-card-body>
 
+
     <!-- Pie de la tarjeta con botones para diversas acciones relacionadas con la publicación. -->
-    <app-footer-modal 
-      [submitLabel]="'components.modal-publicacion.botonPublicar'" 
-      [cancelLabel]="'components.modal-publicacion.botonCancelar'"
-      (submit)="publicar()"
-      (cancel)="cancelar()">
-    </app-footer-modal>
+    <nb-card-footer>
+      <app-footer-modal 
+        [submitLabel]="'components.modal-publicacion.botonPublicar'" 
+        [cancelLabel]="'components.modal-publicacion.botonCancelar'"
+        (eventSubmit)="publicar()"
+        (eventCancel)="cancelar()">
+      </app-footer-modal>
+    </nb-card-footer>
   </nb-card>
 </div>

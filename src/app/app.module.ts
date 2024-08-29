@@ -1,7 +1,7 @@
 // Importaciones esenciales de Angular para el módulo raíz.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module'; // Gestión de rutas de la aplicación.
 import { RouterModule } from '@angular/router'; // Sistema de enrutamiento de Angular.
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Módulo para realizar peticiones HTTP.
@@ -46,6 +46,7 @@ import { DashboardKpisComponent } from './pages/dashboard-kpis/dashboard-kpis.co
 import { HeaderModalComponent } from './components/header-modal/header-modal.component';
 import { InputModalComponent } from './components/input-modal/input-modal.component';
 import { FooterModalComponent } from './components/footer-modal/footer-modal.component';
+import { FormModalPublicacionComponent } from './components/form-modal-publicacion/form-modal-publicacion.component';
 
 // Pages
 import { RedesSocialesKpisComponent } from './pages/redessociales-kpis/redessociales-kpis.component';
@@ -107,7 +108,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GenericPrevPublicacionComponent,
     HeaderModalComponent,
     InputModalComponent,
-    FooterModalComponent
+    FooterModalComponent,
+    FormModalPublicacionComponent
   ],
   imports: [
     // Otros módulos cuyas clases exportadas son necesarias para las plantillas de componentes declarados en este módulo.
@@ -146,6 +148,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbTagModule,
     NbSearchModule,
     NgApexchartsModule,  
+    ReactiveFormsModule,
     
 
     

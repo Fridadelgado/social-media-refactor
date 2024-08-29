@@ -1,0 +1,86 @@
+<form [formGroup]="publicacionForm" (ngSubmit)="onSubmit()">
+    <strong style="font-size: 20px;"><nb-icon class="subtitulo-modal-publicacion-icono"
+        style="margin-right: 20px; margin-bottom: 30px; margin-top: 10px;" icon="mdi-car" pack="seekop"></nb-icon>
+    Datos de la publicación</strong>
+    <div class="row">
+
+    <!-- Selección de redes sociales con validación. -->
+    <app-input-modal
+        [cssClasses]="'col-md-12'"
+        [isInvalid]="submitted && f['redSocial'].errors !== null"
+        [label]="'Publicar en *'"
+        [placeholder]="'components.modal-publicacion.placeHolderSeleccionaRedSocial'"
+        [type]="'select'"
+        [options]="redesSociales"
+        (eventCallback)="onControlChange('redSocial', $event)"
+        formControlName="redSocial">
+    </app-input-modal>
+
+    <!-- Entrada para el título de la publicación con validación. -->
+    <app-input-modal
+        [cssClasses]="'col-md-12'"
+        [isInvalid]="submitted && f['titulo'].errors !== null"
+        [label]="'Título de la publicación *'"
+        [placeholder]="'components.modal-publicacion.placeHolderTituloPublicacion'"
+        [isRequired]="true"
+        [type]="'text'"
+        (eventCallback)="onControlChange('titulo', $event)"
+        formControlName="titulo">
+    </app-input-modal>
+
+    <!-- Área de texto para la descripción de la publicación con validación. -->
+    <app-input-modal
+        [cssClasses]="'col-md-12'"
+        [isInvalid]="submitted && f['descripcion'].errors !== null"
+        [label]="'Descripción de la publicación *'"
+        [placeholder]="'components.modal-publicacion.placehoderDescripcionPublicacion'"
+        [isRequired]="true"
+        [type]="'textarea'"
+        (eventCallback)="onControlChange('descripcion', $event)"
+        formControlName="descripcion">
+    </app-input-modal>
+
+    <!-- Componente de carga de archivos con previsualización de imagen o video. -->
+    <app-input-modal
+        [cssClasses]="'col-md-12 mb-4'"
+        [isInvalid]="submitted && f['archivo'].errors !== null"
+        [label]="'Imágen o video de la publicación *'"
+        [type]="'file'"
+        [model]="dropZoneMessage"
+        (eventCallback)="callbackFileSelect($event)"
+        formControlName="archivo">
+    </app-input-modal>
+
+    <!-- Selección de subcampañas -->
+    <app-input-modal
+        [cssClasses]="'col-md-12'"
+        [isInvalid]="submitted && f['subcampanas'].errors !== null"
+        [label]="'Selecciona las subcampañas *'"
+        [type]="'select'"
+        [addNewOption]="true"
+        [options]="campanias"
+        formArrayName="subcampanas"
+        (eventCallback)="callbackSubcampania($event)">
+    </app-input-modal>
+
+    </div>
+
+    <strong style="font-size: 20px;"><nb-icon class="subtitulo-programar-modal-publicacion-icono"
+        style="margin-right: 20px; margin-bottom: 30px; margin-top: 50px;" icon="calendar-text-outline"
+        pack="seekop"></nb-icon>
+    <div style="margin-top: -43px; margin-left: 48px;">Programar Publicación</div>
+    </strong>
+
+    <!-- Fecha de publicación -->
+    <app-input-modal
+        [cssClasses]="'row mt-3'"
+        [isInvalid]="submitted && !esFechaValidaFlag && f['fechaProgramada'].errors !== null"
+        [label]="'Selecciona fecha de publicación *'"
+        [placeholder]="'Selecciona la fecha de publicación (opcional)'"
+        [type]="'date'"
+        formControlName="fechaProgramada"
+        (eventDate)="esFechaValida($event)">
+    </app-input-modal>
+
+</form>
+  

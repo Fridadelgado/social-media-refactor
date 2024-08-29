@@ -12,16 +12,15 @@ export class FooterModalComponent {
   @Input() cancelLabel: string = 'Cancelar';
 
   // Emitir eventos de acción
-  @Output() submit = new EventEmitter<void>();
-  @Output() cancel = new EventEmitter<void>();
+  @Output() eventSubmit = new EventEmitter<void>();
+  @Output() eventCancel = new EventEmitter<void>();
 
   // Métodos que emiten los eventos correspondientes
   onSubmit(): void {
-    this.submit.emit();
+    this.eventSubmit.emit();
   }
-
   onCancel(): void {
-    this.cancel.emit();
+    this.eventCancel.emit();
   }
 
 }

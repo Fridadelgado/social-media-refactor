@@ -48,7 +48,9 @@
       </nb-select>
 
       <!-- Caso para inputs tipo file -->
-      <ngx-file-drop (click)="triggerFileInputClick()" *ngSwitchCase="'file'">
+      <ngx-file-drop 
+        *ngSwitchCase="'file'"
+        (click)="triggerFileInputClick()">
         <ng-template ngx-file-drop-content-tmp>
           <div class="custom-content" [class.success]="isValidFile" [class.error]="!isValidFile && submitted">
             {{ model }}
@@ -60,11 +62,8 @@
       <!-- Caso para inputs de fecha -->
       <div *ngSwitchCase="'date'" class="row mt-3">
         <div class="col-md-12">
-          <label [ngClass]="{'text-danger': isInvalid}">{{ label }} *</label>
-        </div>
-        <div class="col-md-12">
           <input fullWidth nbInput [placeholder]="placeholder" [nbDatepicker]="datepicker" [(ngModel)]="model" 
-                (ngModelChange)="onDateChange()" required class="form-control mb-4">
+                (ngModelChange)="onDateChange($event)" required class="form-control mb-4">
           <nb-datepicker #datepicker></nb-datepicker>
         </div>
       </div>
